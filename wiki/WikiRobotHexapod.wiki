@@ -1,10 +1,9 @@
-#summary One-sentence summary of this page.
+#summary This project is used to controlled a hexapod bot
+#labels AVRatmega1284p,hexapod
 
 = Introduction =
 
-Add your content here.
-
-
+This robot is controlled by an AVR atmega 1284p. There are 14 servos.
 = Details =
 
 Add your content here.  Format your content with:
