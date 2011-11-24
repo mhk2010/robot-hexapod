@@ -1,0 +1,54 @@
+/*
+ * ctrl_tete.h
+ *
+ * Created: 14/11/2011 15:35:57
+ *  Author: berryer
+ */ 
+
+
+#ifndef CTRL_TETE_H_
+#define CTRL_TETE_H_
+
+#include "Tools/tools_typedefs.h"
+
+#include "Mic/mic_io_ports.h"
+
+#include "Drv/drv_servo.h"
+#include "Drv/drv_event.h"
+#include "Drv/drv_adc.h"
+
+
+/////////////////////////////////////////PUBLIC DEFINES/////////////////////////////////////////
+#define NEUTRE_TETE_HORIZONTAL				80
+#define NEUTRE_TETE_VERTICAL				140
+
+//strucutre qui defini la position de la tete du robot
+typedef struct {
+	Int8U angle_h;
+	Int8U angle_v;
+} tete_position_t;
+
+//strucutre qui defini la tete du robot
+typedef struct {
+	tete_position_t position;
+	Boolean scanning;
+	Int16U mesure_ultrason;
+	Int16U mesure_ldr_gauche;
+	Int16U mesure_ldr_droite;
+} tete_t;
+
+/////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
+//init
+void CtrlTete( void ) ;
+//dispatcher
+void CtrlTeteDispatcher( Event_t event ) ;
+//on place la tete ou l'on veut
+void CtrlTeteMove( Int8U angle_horizontal, Int8U angle_vertical);
+//on fait un scan horizontal
+void CtrlTeteStartScanHorizontal( void );
+//on recupere la structure
+tete_t *CtrlTeteGetStruct( void );
+
+
+
+#endif /* CTRL_TETE_H_ */
