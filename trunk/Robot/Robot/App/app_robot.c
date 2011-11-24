@@ -55,9 +55,15 @@ void RobotLife ( Event_t event )
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
 	{
 		//on attend une seconde avant la fin de l'init
-		if( robot.life.init == FALSE )
+		if( robot.life.init == TRUE )
 		{
-			robot.life.init = TRUE;
+			//on a fini l'init du robot
+			robot.life.init = FALSE;
+			//on est dans la periode de fin dinit du robot
+			if( robot.tete->scanning == FALSE )
+			{
+				CtrlTeteStartScanHorizontal();
+			}
 		}
 	}		
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_100MS ))
@@ -65,11 +71,11 @@ void RobotLife ( Event_t event )
 		//on attend la fin de l init du robot
 		if( RobotLifeCheckInit() )
 		{
-			CtrlTeteStartScanHorizontal();
+			
 		}
 		else
 		{
-			//on est dans la periode d'init du robot
+			
 		}
 	}
 }
