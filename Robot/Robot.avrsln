@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "Robot", "Robot\Robot.avrgccproj", "{9418DDEC-C401-4261-8E14-E170C6C88483}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9418DDEC-C401-4261-8E14-E170C6C88483}.Debug|AVR.ActiveCfg = Debug|AVR
+		{9418DDEC-C401-4261-8E14-E170C6C88483}.Debug|AVR.Build.0 = Debug|AVR
+		{9418DDEC-C401-4261-8E14-E170C6C88483}.Release|AVR.ActiveCfg = Release|AVR
+		{9418DDEC-C401-4261-8E14-E170C6C88483}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

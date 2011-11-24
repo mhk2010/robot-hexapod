@@ -1,0 +1,29 @@
+/*
+ * drv_led.h
+ *
+ * Created: 28/06/2011 15:53:09
+ *  Author: berryer
+ */ 
+
+
+#ifndef DRV_TIMER_H_
+#define DRV_TIMER_H_
+
+#include "Tools/tools_typedefs.h"
+
+#include "Mic/mic_io_ports.h"
+
+#include "Conf/conf_hard.h"
+
+
+////////////////////////////////////////////PUBLIC ENUMS///////////////////////////////////////////
+
+
+/////////////////////////////////////////PUBLIC STRUCTURES/////////////////////////////////////////
+
+
+/////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
+// Init du Drv Timer 
+void DrvTimer( void );
+
+#endif /* DRV_TIMER_H_ */
