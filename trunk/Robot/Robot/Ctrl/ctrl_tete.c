@@ -10,11 +10,6 @@
 
 
 
-#define TIMEOUT_SPEED			5 //(500ms)
-
-#define START_ANGLE_DETECT		NEUTRE_TETE_HORIZONTAL - 60 
-#define END_ANGLE_DETECT		NEUTRE_TETE_HORIZONTAL + 60  
-#define OFFSET_ANGLE_DETECT		4 
 
 static Int8U inter_timeout_scan_angle = 0;
 static Boolean mesurelumiere_g_d = FALSE;
@@ -22,6 +17,7 @@ static Boolean mesurelumiere_g_d = FALSE;
 static tete_t tete;
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
+//callback de fin de convertion
 static void CtrlTeteEndAdcConvertion( Int8U index_adc ,Int16U adc_data );
 
 //on bouge la tete
@@ -31,18 +27,21 @@ static void CtrlTeteMoveForScanning( void );
 //init
 void CtrlTete( void ) 
 { 
-	
+	//init des variables privées
 	mesurelumiere_g_d = FALSE;
-	inter_timeout_scan_angle = 0;
 	
+	//on init la structure tete
 	tete.scanning = FALSE;
-	tete.mesure_ultrason = 0U;
 	tete.position.angle_h = NEUTRE_TETE_HORIZONTAL;
 	tete.position.angle_v = NEUTRE_TETE_VERTICAL;
 	tete.mesure_ldr_gauche = 0U;
 	tete.mesure_ldr_droite = 0U;
+	for(Int8U loop_angle = 0U ; loop_angle < NB_ANGLE_DETECT ; loop_angle++)
+	{
+		tete.mesure_ultrason[ loop_angle ] = 0;
+	}	
 	
-	DrvAdcEnableAdc( CONF_ADC_IR );
+	//on ajoute les ADCs
 	DrvAdcEnableAdc( CONF_ADC_LDR_GAUCHE );
 	DrvAdcEnableAdc( CONF_ADC_LDR_DROITE );
 	DrvAddServo( CONF_SERVO_TETE_H , NEUTRE_TETE_HORIZONTAL );
@@ -58,11 +57,12 @@ void CtrlTeteDispatcher( Event_t event )
 		//si on ne scan pas alors on mesure regulierement la distance d'un objet
 		if( tete.scanning == FALSE )
 		{
-			//on lance la mesure ultrason
+			//on lance la mesure ultrason 
 			CtrlUltraSonLaunchMesure();
 		}
 		else
 		{
+			//on bouge la tete pour le prochain scan
 			CtrlTeteMoveForScanning();
 		}			
 	}
@@ -84,7 +84,7 @@ void CtrlTeteDispatcher( Event_t event )
 	}
 	if ( DrvEventTestEvent(event ,CONF_EVENT_US_SENSOR ))
 	{
-		tete.mesure_ultrason = CtrlUltraSonReadMesure();
+		tete.mesure_ultrason[ inter_timeout_scan_angle ] = CtrlUltraSonReadMesure();
 		if( tete.scanning == TRUE )
 		{
 			//on est en scan on incremente la valeur de l'angle horizontal
@@ -140,16 +140,21 @@ static void CtrlTeteEndAdcConvertion( EIoPin pin_name ,Int16U adc_data )
 //on bouge la tete pour faire un scan IR de ce qu'il y a devant
 static void CtrlTeteMoveForScanning( void )
 {
-	//si on a atteind la limite de temps
-	if( inter_timeout_scan_angle >= TIMEOUT_SPEED )
+	//si on a atteind la limite de temps inter scan
+	if( inter_timeout_scan_angle >= TIMEOUT_HEAD_SCAN_SPEED )
 	{
+		//si on a pas fini de scanner
 		if( tete.position.angle_h <= END_ANGLE_DETECT )
 		{
+			//on bouge le servo de la tete horizontal
 			DrvServoMoveToPosition( CONF_SERVO_TETE_H, tete.position.angle_h );
+			//on lance la mesure sur le capteur
 			CtrlUltraSonLaunchMesure();
 		}
 		else
 		{
+			//on a fini le scan
+			//on met la tete au milieu
 			DrvServoMoveToPosition( CONF_SERVO_TETE_H, NEUTRE_TETE_HORIZONTAL );
 			tete.position.angle_h = START_ANGLE_DETECT ;
 			tete.scanning = FALSE;

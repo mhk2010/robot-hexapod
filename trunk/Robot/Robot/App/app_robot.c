@@ -42,15 +42,19 @@ Boolean RobotLifeInit(void)
 	robot.tete = CtrlTeteGetStruct();
 	
 	//on met le robot dans sa position initial
-	CtrlMarcheMove(robot.mouvement->move, robot.mouvement->speed);
-	CtrlTeteMove( robot.tete->position.angle_h, robot.tete->position.angle_v);
+	CtrlMarcheMove( robot.mouvement->move, robot.mouvement->speed );
+	CtrlTeteMove( robot.tete->position.angle_h, robot.tete->position.angle_v );
+	
 	return o_success;
 }	
 
+//onreagit aux evenements
 void RobotLife ( Event_t event ) 
 {
+	//event 1 sec
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
 	{
+		//on attend une seconde avant la fin de l'init
 		if( robot.life.init == FALSE )
 		{
 			robot.life.init = TRUE;
@@ -67,7 +71,7 @@ void RobotLife ( Event_t event )
 		{
 			//on est dans la periode d'init du robot
 		}
-	}			
+	}
 }
 
 /////////////////////////////////////////PRIVATE FUNCTIONS////////////////////////////////////////
