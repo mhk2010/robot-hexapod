@@ -12,6 +12,7 @@
 
 
 static Int8U inter_timeout_scan_angle = 0;
+static Int8U scan_angle = 0;
 static Boolean mesurelumiere_g_d = FALSE;
 
 static tete_t tete;
@@ -29,6 +30,7 @@ void CtrlTete( void )
 { 
 	//init des variables privées
 	mesurelumiere_g_d = FALSE;
+	scan_angle = 0;
 	
 	//on init la structure tete
 	tete.scanning = FALSE;
@@ -58,10 +60,12 @@ void CtrlTeteDispatcher( Event_t event )
 		if( tete.scanning == FALSE )
 		{
 			//on lance la mesure ultrason 
-			CtrlUltraSonLaunchMesure();
+			//CtrlUltraSonLaunchMesure();
 		}
 		else
 		{
+			//on lit la mesure
+			tete.mesure_ultrason[ scan_angle ] = CtrlUltraSonReadMesure();
 			//on bouge la tete pour le prochain scan
 			CtrlTeteMoveForScanning();
 		}			
@@ -84,12 +88,7 @@ void CtrlTeteDispatcher( Event_t event )
 	}
 	if ( DrvEventTestEvent(event ,CONF_EVENT_US_SENSOR ))
 	{
-		tete.mesure_ultrason[ inter_timeout_scan_angle ] = CtrlUltraSonReadMesure();
-		if( tete.scanning == TRUE )
-		{
-			//on est en scan on incremente la valeur de l'angle horizontal
-			tete.position.angle_h += OFFSET_ANGLE_DETECT;
-		}		
+				
 	}		
 }
 
@@ -118,6 +117,7 @@ void CtrlTeteStartScanHorizontal( void )
 	DrvServoMoveToPosition( CONF_SERVO_TETE_H , START_ANGLE_DETECT );
 	tete.position.angle_h = START_ANGLE_DETECT ;
 	tete.scanning = TRUE;
+	scan_angle = 0;
 }
 
 ////////////////////////////////////////PRIVATE FUNCTIONS//////////////////////////////////////////
@@ -147,6 +147,8 @@ static void CtrlTeteMoveForScanning( void )
 		if( tete.position.angle_h <= END_ANGLE_DETECT )
 		{
 			//on bouge le servo de la tete horizontal
+			tete.position.angle_h += OFFSET_ANGLE_DETECT;
+			scan_angle++;
 			DrvServoMoveToPosition( CONF_SERVO_TETE_H, tete.position.angle_h );
 			//on lance la mesure sur le capteur
 			CtrlUltraSonLaunchMesure();
