@@ -22,6 +22,13 @@
 #define NEUTRE_TETE_HORIZONTAL				80
 #define NEUTRE_TETE_VERTICAL				140
 
+#define TIMEOUT_HEAD_SCAN_SPEED		5 //(500ms)
+#define START_ANGLE_DETECT			NEUTRE_TETE_HORIZONTAL - 60 
+#define END_ANGLE_DETECT			NEUTRE_TETE_HORIZONTAL + 60  
+#define OFFSET_ANGLE_DETECT			4 
+#define NB_ANGLE_DETECT				( ( NEUTRE_TETE_HORIZONTAL + 60 ) + ( NEUTRE_TETE_HORIZONTAL - 60 ) ) / 4
+
+
 //strucutre qui defini la position de la tete du robot
 typedef struct {
 	Int8U angle_h;
@@ -32,7 +39,7 @@ typedef struct {
 typedef struct {
 	tete_position_t position;
 	Boolean scanning;
-	Int16U mesure_ultrason;
+	Int16U mesure_ultrason[ NB_ANGLE_DETECT ];
 	Int16U mesure_ldr_gauche;
 	Int16U mesure_ldr_droite;
 } tete_t;

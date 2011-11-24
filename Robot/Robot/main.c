@@ -51,12 +51,13 @@ int main(void)
 	//on active la vie du robot
 	RobotLifeInit();
 	
+	//on boucle
     while( TRUE )
     {
 		//on prend les events 
 		main_event_flags = DrvEventGetEvent();
 		
-		//excecution du dispatcher d'evenement
+		//excecution du dispatcher d'evenements
 		MainInitSystemControlDispatcher( main_event_flags );
 		RobotLife( main_event_flags );
 		//on kill les events
