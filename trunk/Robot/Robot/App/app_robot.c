@@ -42,7 +42,7 @@ Boolean RobotLifeInit(void)
 	robot.tete = CtrlTeteGetStruct();
 	
 	//on met le robot dans sa position initial
-	CtrlMarcheMove( robot.mouvement->move, robot.mouvement->speed );
+	CtrlMarcheMove( E_MOVE_STOP, E_SPEED_0 );
 	CtrlTeteMove( robot.tete->position.angle_h, robot.tete->position.angle_v );
 	
 	return o_success;
@@ -62,7 +62,9 @@ void RobotLife ( Event_t event )
 			//on est dans la periode de fin dinit du robot
 			if( robot.tete->scanning == FALSE )
 			{
-				CtrlTeteStartScanHorizontal();
+				//CtrlTeteStartScanHorizontal();
+				//robot.mouvement->move = E_MOVE_FORWORD;
+				CtrlMarcheMove( E_MOVE_RIGHT, E_SPEED_0 );
 			}
 		}
 	}		
