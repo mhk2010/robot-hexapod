@@ -60,7 +60,7 @@ void CtrlTeteDispatcher( Event_t event )
 		if( tete.scanning == FALSE )
 		{
 			//on lance la mesure ultrason 
-			//CtrlUltraSonLaunchMesure();
+			CtrlUltraSonLaunchMesure();
 		}
 		else
 		{
