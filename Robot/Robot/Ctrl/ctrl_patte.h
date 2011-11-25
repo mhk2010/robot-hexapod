@@ -53,7 +53,6 @@ typedef struct {
 	Int8U angle;
 	Int8U angle_consigne;
 	Boolean move;
-	Int8U timeout_speed;
 } patte_servo_t;
 
 typedef struct {
@@ -64,6 +63,7 @@ typedef struct {
 typedef struct {
 	patte_servo_t epaule;
 	patte_servo_t coude;
+	Int8U speed;
 } patte_t;
 
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////

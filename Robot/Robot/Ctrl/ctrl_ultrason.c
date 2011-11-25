@@ -8,7 +8,6 @@
 #include "ctrl_ultrason.h"
 
 #define SRF08_SLAVE_ADDRESS		0xE0	//addresse du module SRF08
-#define TIMEOUT_PULSE			5		//pulse tout les 100ms
 
 /////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 //permet de lire la valeur mesuré en cm par le dernier pulse envoyé
@@ -20,7 +19,6 @@ static void CtrlUltraSonSendPulse( void ) ;
 static Boolean want_mesure = FALSE;
 static Boolean send_pulse = FALSE;
 static Int16U us_mesure = 0;
-static Int8U inter_timeout_pulse = 0;
 
 
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
@@ -31,7 +29,6 @@ void CtrlUltraSon( void )
 	want_mesure = FALSE;
 	send_pulse = FALSE;
 	us_mesure = 0;
-	inter_timeout_pulse = 0;
 }
 
 //dispatcher
@@ -42,26 +39,19 @@ void CtrlUltraSonDispatcher( Event_t event )
 		//si on souhaite une mesure
 		if ( want_mesure == TRUE )
 		{
-			//si on a atteind la limite de temps inter pulse
-			//if( inter_timeout_pulse >= TIMEOUT_PULSE )
+			if ( send_pulse == FALSE )
 			{
-				if ( send_pulse == FALSE )
-				{
-					CtrlUltraSonSendPulse();
-					send_pulse = TRUE;
-				}
-				else
-				{
-					CtrlUltraSonReadSensorMesure();	
-					want_mesure = FALSE;
-					send_pulse = FALSE;	
-					//inter_timeout_pulse = 0;	
-				}
+				CtrlUltraSonSendPulse();
+				send_pulse = TRUE;
 			}
-			/*else
+			else
 			{
-				inter_timeout_pulse++;
-			}*/								
+				//sei();
+				CtrlUltraSonReadSensorMesure();	
+				//cli();
+				want_mesure = FALSE;
+				send_pulse = FALSE;	
+			}					
 		}
 	}
 }

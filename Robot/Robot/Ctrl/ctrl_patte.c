@@ -7,8 +7,7 @@
 
 #include "ctrl_patte.h"
 
-#define TIMEOUT_SPEED_EPAULE		1 //(300ms)
-#define TIMEOUT_SPEED_COUDE			1 //(100ms)
+#define SPEED_PATTES			1 //(100ms)
 
 ////////////////////////////////////////PRIVATE VARIABLES/////////////////////////////////////////
 conf_patte_t ConfPatte [ NB_PATTES ] = 
@@ -60,13 +59,13 @@ void CtrlPatte( void )
 		MesPattes[ loop ].epaule.angle = ConfPatte [ loop ].epaule.angle;
 		MesPattes[ loop ].epaule.angle_consigne = ConfPatte[ loop ].epaule.angle_consigne;
 		MesPattes[ loop ].epaule.move = FALSE;
-		MesPattes[ loop ].epaule.timeout_speed = 0;
 		
 		MesPattes[ loop ].coude.pin_servo = ConfPatte[ loop ].coude.pin_servo;
 		MesPattes[ loop ].coude.angle = ConfPatte [ loop ].coude.angle;
 		MesPattes[ loop ].coude.angle_consigne = ConfPatte[ loop ].coude.angle_consigne;
 		MesPattes[ loop ].coude.move = FALSE;
-		MesPattes[ loop ].coude.timeout_speed = 0;
+		
+		MesPattes[ loop ].speed = 0;
 		
 		DrvAddServo( MesPattes[ loop ].coude.pin_servo , MesPattes[ loop ].coude.angle );
 		DrvAddServo( MesPattes[ loop ].epaule.pin_servo , MesPattes[ loop ].epaule.angle );
@@ -101,35 +100,29 @@ static void CtrlPatteDispatcherMove( void )
 	for( Int8U loop = 0; loop < NB_PATTES ; loop++)
 	{
 		//si la patte est en mouvement bouge
-		if ( MesPattes[ loop ].coude.move == TRUE )
+		if ( ( MesPattes[ loop ].coude.move == TRUE ) || ( MesPattes[ loop ].epaule.move == TRUE ) )
 		{
-			//si on a atteind la limite de temps pour le servo lie au genou
-			if( MesPattes[ loop ].coude.timeout_speed >= TIMEOUT_SPEED_COUDE )
+			//si on a atteind la limite de temps pour le servo
+			if( MesPattes[ loop ].speed  >= SPEED_PATTES )
 			{
-				DrvServoMoveToPosition( MesPattes[ loop ].coude.pin_servo, MesPattes[ loop ].coude.angle_consigne );
-				MesPattes[ loop ].coude.move = FALSE ;
-				MesPattes[ loop ].coude.timeout_speed = 0;
+				if ( MesPattes[ loop ].coude.move == TRUE )
+				{
+					DrvServoMoveToPosition( MesPattes[ loop ].coude.pin_servo, MesPattes[ loop ].coude.angle_consigne );
+					MesPattes[ loop ].coude.move = FALSE ;
+					MesPattes[ loop ].speed = 0;
+				}
+				if ( MesPattes[ loop ].epaule.move == TRUE )
+				{
+					DrvServoMoveToPosition( MesPattes[ loop ].epaule.pin_servo, MesPattes[ loop ].epaule.angle_consigne );
+					MesPattes[ loop ].epaule.move = FALSE ;
+					MesPattes[ loop ].speed = 0;
+				}
 			}
 			else
 			{
-				MesPattes[ loop ].coude.timeout_speed++;
+				MesPattes[ loop ].speed++;
 			}
 		}	
-					
-		if ( MesPattes[ loop ].epaule.move == TRUE )
-		{				
-			//si on a atteind la limite de temps pour le servo lie a l'epaule
-			if( MesPattes[ loop ].epaule.timeout_speed >= TIMEOUT_SPEED_EPAULE )
-			{	
-				DrvServoMoveToPosition( MesPattes[ loop ].epaule.pin_servo, MesPattes[ loop ].epaule.angle_consigne );
-				MesPattes[ loop ].epaule.move = FALSE;
-				MesPattes[ loop ].epaule.timeout_speed = 0;
-			}
-			else
-			{
-				MesPattes[ loop ].epaule.timeout_speed++;
-			}
-		}
 	}
 }	
 

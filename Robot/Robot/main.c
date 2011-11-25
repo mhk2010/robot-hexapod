@@ -106,12 +106,12 @@ void MainInitSystemControlDispatcher(const Event_t my_event)
 	{
 		//on dispatch l'event 
 		CtrlUartProtocoleDispatcher( my_event );
-		CtrlTeteDispatcher( my_event );
+		CtrlAccelDispatcher( my_event );
+		//CtrlBoussoleDispatcher( my_event );
+		CtrlUltraSonDispatcher( my_event );
 		CtrlPatteDispatcher( my_event );
 		CtrlMarcheDispatcher( my_event );
-		CtrlAccelDispatcher( my_event );
-		CtrlUltraSonDispatcher( my_event );
-		//CtrlBoussoleDispatcher( my_event );
+		CtrlTeteDispatcher( my_event );
 			
 	}	
 }	
