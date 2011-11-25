@@ -38,7 +38,6 @@ void DrvI2CUltraSonTransmit(Int8U address, Int8U reg, Int8U data)
 }
 
 //on recois un octet
-	static Int8U compteur_i2c=0;
 Int8U DrvI2CUltraSonRead(Int8U address, Int8U reg)
 {
 	Int8U read_data = 0;
@@ -57,7 +56,7 @@ Int8U DrvI2CUltraSonRead(Int8U address, Int8U reg)
 	TWCR = 0xC4;                                                  // clear transmit interupt flag
 	while(!(TWCR & 0x80));                                        // wait for confirmation of transmit
 	TWCR = 0x84;                                                  // transmit, nack (last byte request)
-	while(!(TWCR & 0x80));												// wait for confirmation of transmit 		
+	while(!(TWCR & 0x80));										  // wait for confirmation of transmit 		
 	read_data = TWDR;                                             // and grab the target data
 	TWCR = 0x94;                                                  // send a stop bit on i2c bus
 	return read_data;
