@@ -51,8 +51,6 @@
 typedef struct {
 	Int8U pin_servo;
 	Int8U angle;
-	Int8U angle_consigne;
-	Boolean move;
 } patte_servo_t;
 
 typedef struct {
