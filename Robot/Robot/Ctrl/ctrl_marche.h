@@ -25,8 +25,6 @@ typedef enum EEMove
   E_MOVE_BACKWORD,
   E_MOVE_LEFT,
   E_MOVE_RIGHT,
-  E_MOVE_LEFT_SIDE,
-  E_MOVE_RIGHT_SIDE,
 }EMove;
 
 typedef enum EESpeed

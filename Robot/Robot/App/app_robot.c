@@ -19,7 +19,7 @@ typedef struct {
 //strucutre qui defini le robot
 typedef struct {
 	robot_life_t life;
-	move_t *mouvement;
+	move_t *body;
 	tete_t *tete;
 } robot_t;
 
@@ -38,7 +38,7 @@ Boolean RobotLifeInit(void)
 	//on init la structure du robot
 	robot.life.init = TRUE;
 	robot.life.end = FALSE;
-	robot.mouvement = CtrlMarcheGetStruct();
+	robot.body = CtrlMarcheGetStruct();
 	robot.tete = CtrlTeteGetStruct();
 	
 	//on met le robot dans sa position initial
@@ -64,7 +64,7 @@ void RobotLife ( Event_t event )
 			{
 				//CtrlTeteStartScanHorizontal();
 				//robot.mouvement->move = E_MOVE_FORWORD;
-				CtrlMarcheMove( E_MOVE_RIGHT, E_SPEED_0 );
+				CtrlMarcheMove( E_MOVE_RIGHT, E_SPEED_5 );
 			}
 		}
 	}		
