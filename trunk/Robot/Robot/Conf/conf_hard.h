@@ -23,10 +23,10 @@
 #define		CONF_EVENT_TIMER_1S			1U
 #define		CONF_EVENT_UART_MSG_RCV		2U
 #define		CONF_EVENT_IR_SENSOR		3U
-#define		CONF_EVENT_US_SENSOR		4U
-#define		CONF_EVENT_SERVOS			5U
+#define		CONF_EVENT_FIND_NEAR_OBJECT	4U
+#define		CONF_EVENT_MOVE_END			5U
 #define		CONF_EVENT_ACCEL			6U
-#define		CONF_EVENT_LDR				7U
+#define		CONF_EVENT_FIND_MAX_LIGHT	7U
 #define		CONF_EVENT_BOUSSOLE_SENSOR	8U
 //-----------------------------------------------------------------------------------------------//
 

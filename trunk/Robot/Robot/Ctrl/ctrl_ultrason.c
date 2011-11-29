@@ -57,7 +57,7 @@ void CtrlUltraSonDispatcher( Event_t event )
 //on lance la mesure 
 void CtrlUltraSonLaunchMesure( void ) 
 {
-	//want_mesure = TRUE;
+	want_mesure = TRUE;
 }
 
 //retourne la mesure 

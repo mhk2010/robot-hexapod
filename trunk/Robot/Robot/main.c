@@ -55,7 +55,9 @@ int main(void)
     while( TRUE )
     {
 		//on prend les events 
+		cli();
 		main_event_flags = DrvEventGetEvent();
+		sei();
 		
 		//excecution du dispatcher d'evenements
 		MainInitSystemControlDispatcher( main_event_flags );
@@ -77,7 +79,6 @@ Boolean MainInitSystemDrivers(void)
 	DrvAdc();
 	DrvI2C();
 	DrvTimer();
-	DrvServo();
 	
 	return o_success;
 }	

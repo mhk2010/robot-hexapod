@@ -15,6 +15,7 @@
 
 static Int8U timeout = 0;
 static Int8U step = 0;
+static Int8U move_step = FALSE;
 
 #define AMPLITUDE_MAX_EPAULE					25
 #define AMPLITUDE_MAX_COUDE						20
@@ -68,12 +69,23 @@ move_t* CtrlMarcheGetStruct( void )
 }
 
 
+//deplace le robot 
 void CtrlMarcheMove( EMove move, ESpeed speed ) 
 {
+	step = 0;
 	body.move = move;
 	body.speed = speed;
+	move_step = FALSE;
 }
 
+//deplace le robot d'un pas
+void CtrlMarcheMoveStep( EMove move, ESpeed speed ) 
+{
+	step = 0;
+	body.move = move;
+	body.speed = speed;
+	move_step = TRUE;
+}
 
 
 /////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
@@ -87,7 +99,6 @@ static void CtrlMarcheSequence( void )
 	if( body.move == E_MOVE_STOP )
 	{
 		CtrlMarcheSequenceStop();
-		step = 0;
 	}	
 	else if( body.move == E_MOVE_FORWORD )
 	{
@@ -169,7 +180,16 @@ static void CtrlMarcheSequenceLeft( void )
 		CtrlPatteMove(AVANT_GAUCHE,		NEUTRE_EPAULE_AVANT_GAUCHE + AMPLITUDE_MAX_EPAULE	,	NEUTRE_COUDE_AVANT_GAUCHE  );	
 		CtrlPatteMove(MILIEU_GAUCHE,	NEUTRE_EPAULE_MILIEU_GAUCHE	+ AMPLITUDE_MAX_EPAULE	,	NEUTRE_COUDE_MILIEU_GAUCHE );	
 		CtrlPatteMove(ARRIERE_GAUCHE,	NEUTRE_EPAULE_ARRIERE_GAUCHE + AMPLITUDE_MAX_EPAULE ,	NEUTRE_COUDE_ARRIERE_GAUCHE  );
-		step = 1 ;
+		if(move_step == FALSE)
+		{
+			step = 1 ;
+		}
+		else
+		{
+			step = 0xffU;
+			CtrlMarcheSequenceStop();
+		}
+		
 	}	
 }
 
@@ -233,7 +253,15 @@ static void CtrlMarcheSequenceRight( void )
 		CtrlPatteMove(AVANT_GAUCHE,		NEUTRE_EPAULE_AVANT_GAUCHE - AMPLITUDE_MAX_EPAULE	,	NEUTRE_COUDE_AVANT_GAUCHE  );	
 		CtrlPatteMove(MILIEU_GAUCHE,	NEUTRE_EPAULE_MILIEU_GAUCHE	- AMPLITUDE_MAX_EPAULE	,	NEUTRE_COUDE_MILIEU_GAUCHE );	
 		CtrlPatteMove(ARRIERE_GAUCHE,	NEUTRE_EPAULE_ARRIERE_GAUCHE - AMPLITUDE_MAX_EPAULE ,	NEUTRE_COUDE_ARRIERE_GAUCHE  );
-		step = 1 ;
+		if(move_step == FALSE)
+		{
+			step = 1 ;
+		}
+		else
+		{
+			step = 0xffU;
+			CtrlMarcheSequenceStop();
+		}
 	}
 }
 
@@ -245,6 +273,10 @@ static void CtrlMarcheSequenceStop( void )
 	CtrlPatteMove(MILIEU_DROITE,	NEUTRE_EPAULE_MILIEU_DROITE  ,	NEUTRE_COUDE_MILIEU_DROITE  );  
 	CtrlPatteMove(ARRIERE_GAUCHE,	NEUTRE_EPAULE_ARRIERE_GAUCHE ,	NEUTRE_COUDE_ARRIERE_GAUCHE );
 	CtrlPatteMove(ARRIERE_DROITE,	NEUTRE_EPAULE_ARRIERE_DROITE ,	NEUTRE_COUDE_ARRIERE_DROITE );
+	//on envoie l'event 
+	DrvEventAddEvent( CONF_EVENT_MOVE_END );	
+	
+	
 }	
 
 static void CtrlMarcheSequenceBackward( void ) 
@@ -287,7 +319,15 @@ static void CtrlMarcheSequenceBackward( void )
 		CtrlPatteMove(AVANT_GAUCHE,		NEUTRE_EPAULE_AVANT_GAUCHE - AMPLITUDE_MAX_EPAULE,	NEUTRE_COUDE_AVANT_GAUCHE );		
 		CtrlPatteMove(MILIEU_GAUCHE,	NEUTRE_EPAULE_MILIEU_GAUCHE + AMPLITUDE_MAX_EPAULE  ,	NEUTRE_COUDE_MILIEU_GAUCHE + AMPLITUDE_MAX_COUDE);	 
 		CtrlPatteMove(ARRIERE_GAUCHE,	NEUTRE_EPAULE_ARRIERE_GAUCHE - AMPLITUDE_MAX_EPAULE ,	NEUTRE_COUDE_ARRIERE_GAUCHE);
-		step = 0;
+		if(move_step == FALSE)
+		{
+			step = 0 ;
+		}
+		else
+		{
+			step = 0xffU;
+			CtrlMarcheSequenceStop();
+		}
 	}
 }
 
@@ -331,6 +371,14 @@ static void CtrlMarcheSequenceForward( void )
 		CtrlPatteMove(AVANT_GAUCHE,		NEUTRE_EPAULE_AVANT_GAUCHE - AMPLITUDE_MAX_EPAULE,	NEUTRE_COUDE_AVANT_GAUCHE + AMPLITUDE_MAX_COUDE  );		
 		CtrlPatteMove(MILIEU_GAUCHE,	NEUTRE_EPAULE_MILIEU_GAUCHE + AMPLITUDE_MAX_EPAULE  ,	NEUTRE_COUDE_MILIEU_GAUCHE );	 
 		CtrlPatteMove(ARRIERE_GAUCHE,	NEUTRE_EPAULE_ARRIERE_GAUCHE - AMPLITUDE_MAX_EPAULE ,	NEUTRE_COUDE_ARRIERE_GAUCHE + AMPLITUDE_MAX_COUDE);
-		step = 0;
+		if(move_step == FALSE)
+		{
+			step = 0 ;
+		}
+		else
+		{
+			step = 0xffU;
+			CtrlMarcheSequenceStop();
+		}
 	}
 }	
