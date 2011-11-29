@@ -53,6 +53,8 @@ static void CtrlPatteDispatcherMove( void ) ;
 void CtrlPatte( void ) 
 {
 	Int8U loop ;
+	//on init les servo
+	DrvServo();
 	for( loop =0; loop < NB_PATTES ; loop++ )
 	{
 		MesPattes[ loop ].epaule.pin_servo = ConfPatte[ loop ].epaule.pin_servo;

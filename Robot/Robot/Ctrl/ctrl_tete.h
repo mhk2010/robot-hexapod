@@ -19,7 +19,9 @@
 
 
 /////////////////////////////////////////PUBLIC DEFINES/////////////////////////////////////////
+#define MIN_TETE_HORIZONTAL					0
 #define NEUTRE_TETE_HORIZONTAL				80
+#define MAX_TETE_HORIZONTAL					160
 #define NEUTRE_TETE_VERTICAL				140
 
 #define TIMEOUT_HEAD_SCAN_SPEED		5 //(500ms)
@@ -38,8 +40,11 @@ typedef struct {
 //strucutre qui defini la tete du robot
 typedef struct {
 	tete_position_t position;
-	Boolean scanning;
-	Int16U mesure_ultrason[ NB_ANGLE_DETECT ];
+	Boolean scanning_proximity;
+	Boolean scanning_light;
+	Boolean find_light_angle;
+	Int8U light_angle;
+	Int16U mesure_ultrason;
 	Int16U mesure_ldr_gauche;
 	Int16U mesure_ldr_droite;
 } tete_t;
@@ -52,7 +57,9 @@ void CtrlTeteDispatcher( Event_t event ) ;
 //on place la tete ou l'on veut
 void CtrlTeteMove( Int8U angle_horizontal, Int8U angle_vertical);
 //on fait un scan horizontal
-void CtrlTeteStartScanHorizontal( void );
+void CtrlTeteStartScanProximity( void );
+//on fait un scan de la lumiere
+void CtrlTeteStartScanLight( void );
 //on recupere la structure
 tete_t *CtrlTeteGetStruct( void );
 

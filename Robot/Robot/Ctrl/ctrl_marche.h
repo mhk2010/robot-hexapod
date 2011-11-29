@@ -53,6 +53,8 @@ void CtrlMarche( void ) ;
 void CtrlMarcheDispatcher( Event_t event )  ;
 //deplace le robot
 void CtrlMarcheMove( EMove move, ESpeed speed ) ;
+//deplace le robot d'un pas
+void CtrlMarcheMoveStep( EMove move, ESpeed speed ) ;
 //on recupere la structure
 move_t* CtrlMarcheGetStruct( void ) ;
 

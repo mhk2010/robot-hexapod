@@ -23,8 +23,21 @@ typedef struct {
 	tete_t *tete;
 } robot_t;
 
+typedef enum EESequencement
+{
+  E_SEQUENCE_FACE_LUMIERE,
+  E_SEQUENCE_FACE_LUMIERE_IN_USE,
+  E_SEQUENCE_ULTRASON,
+  E_SEQUENCE_ULTRASON_IN_USE,
+  E_SEQUENCE_BUSY,
+  E_SEQUENCE_NONE,
+}ESequencement;
 /////////////////////////////////////////PRIVATE FUNCTIONS////////////////////////////////////////
+//test si on est en phase d'init
 static Boolean RobotLifeCheckInit(void) ;
+
+static void RobotLifeFollowLight(void) ;
+static ESequencement step_sequencement = E_SEQUENCE_NONE;
 
 ///////////////////////////////////////PRIVATE VARIABLES//////////////////////////////////////////
 static robot_t robot;
@@ -34,16 +47,12 @@ static robot_t robot;
 Boolean RobotLifeInit(void) 
 {
 	Boolean o_success = TRUE;
-	
+	step_sequencement = E_SEQUENCE_FACE_LUMIERE;
 	//on init la structure du robot
 	robot.life.init = TRUE;
 	robot.life.end = FALSE;
 	robot.body = CtrlMarcheGetStruct();
 	robot.tete = CtrlTeteGetStruct();
-	
-	//on met le robot dans sa position initial
-	CtrlMarcheMove( E_MOVE_STOP, E_SPEED_0 );
-	CtrlTeteMove( robot.tete->position.angle_h, robot.tete->position.angle_v );
 	
 	return o_success;
 }	
@@ -54,36 +63,78 @@ void RobotLife ( Event_t event )
 	//event 1 sec
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
 	{
-		//on attend une seconde avant la fin de l'init
-		if( robot.life.init == TRUE )
+		if(step_sequencement == E_SEQUENCE_FACE_LUMIERE)
 		{
-			//on a fini l'init du robot
-			robot.life.init = FALSE;
-			//on est dans la periode de fin dinit du robot
-			if( robot.tete->scanning == FALSE )
-			{
-				//CtrlTeteStartScanHorizontal();
-				//robot.mouvement->move = E_MOVE_FORWORD;
-				CtrlMarcheMove( E_MOVE_RIGHT, E_SPEED_5 );
-			}
+			//on lance le scan de lumiere
+			CtrlTeteStartScanLight();
+			step_sequencement = E_SEQUENCE_FACE_LUMIERE_IN_USE;
 		}
+		else if(step_sequencement == E_SEQUENCE_ULTRASON)
+		{
+			CtrlTeteStartScanProximity();
+			step_sequencement = E_SEQUENCE_ULTRASON_IN_USE;
+		}
+	}
+	if ( DrvEventTestEvent(event, CONF_EVENT_FIND_MAX_LIGHT ))
+	{
+		//on passe directement a l'etape de scan de proximité
+		if( robot.tete->light_angle < NEUTRE_TETE_HORIZONTAL )
+		{
+			//on test si on fait un mouvement de plus
+			if(( NEUTRE_TETE_HORIZONTAL - robot.tete->light_angle ) > 10 )
+			{				
+				CtrlMarcheMoveStep( E_MOVE_RIGHT, E_SPEED_5 ) ;
+			}
+			else
+			{
+				step_sequencement = E_SEQUENCE_FACE_LUMIERE;
+			}	
+		}
+		else
+		{	
+			//on test si on fait un mouvement de plus
+			if(( robot.tete->light_angle - NEUTRE_TETE_HORIZONTAL ) > 10 )
+			{				
+				CtrlMarcheMoveStep( E_MOVE_LEFT, E_SPEED_5 ) ;
+			}
+			else
+			{
+				step_sequencement = E_SEQUENCE_FACE_LUMIERE;
+			}	
+		}
+	}
+	if ( DrvEventTestEvent(event ,CONF_EVENT_MOVE_END ))
+	{
+		if(step_sequencement == E_SEQUENCE_FACE_LUMIERE_IN_USE)
+		{
+			step_sequencement = E_SEQUENCE_FACE_LUMIERE;
+		}
+		else if(step_sequencement == E_SEQUENCE_ULTRASON_IN_USE )
+		{
+			step_sequencement = E_SEQUENCE_ULTRASON;
+		}
+	}		
+	
+	if ( DrvEventTestEvent(event ,CONF_EVENT_FIND_NEAR_OBJECT ))
+	{
+		//on a vu quelque chose on recul
+		CtrlMarcheMoveStep( E_MOVE_BACKWORD, E_SPEED_5 ) ;
 	}		
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_100MS ))
 	{
-		//on attend la fin de l init du robot
-		if( RobotLifeCheckInit() )
-		{
-			
-		}
-		else
-		{
-			
-		}
+
 	}
 }
 
 /////////////////////////////////////////PRIVATE FUNCTIONS////////////////////////////////////////
+//test si on est en phase d'init
 static Boolean RobotLifeCheckInit(void) 
 {
 	return robot.life.init;	
+}
+
+
+static void RobotLifeFollowLight(void) 
+{
+	step_sequencement = E_SEQUENCE_FACE_LUMIERE;
 }
