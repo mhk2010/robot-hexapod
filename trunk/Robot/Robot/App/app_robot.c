@@ -45,6 +45,7 @@ typedef struct {
 static Boolean RobotLifeCheckInit(void) ;
 
 ///////////////////////////////////////PRIVATE VARIABLES//////////////////////////////////////////
+//structure robot
 static robot_t robot;
 static Int8U timeout_sequence_using = 0;
 
