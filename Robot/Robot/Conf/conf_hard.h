@@ -27,9 +27,10 @@
 #define		CONF_EVENT_FIND_MAX_LIGHT	5U
 #define		CONF_EVENT_FRONT_OF_LIGHT	6U
 #define		CONF_EVENT_FIND_NEAR_OBJECT	7U
-#define		CONF_EVENT_FRONT_OF_OBJECT	8U
-#define		CONF_EVENT_ACCEL			9U
-#define		CONF_EVENT_BOUSSOLE_SENSOR	10U
+#define		CONF_EVENT_FIND_NO_OBJECT	8U
+#define		CONF_EVENT_FRONT_OF_OBJECT	9U
+#define		CONF_EVENT_ACCEL			10U
+#define		CONF_EVENT_BOUSSOLE_SENSOR	11U
 
 
 //-----------------------------------------------------------------------------------------------//

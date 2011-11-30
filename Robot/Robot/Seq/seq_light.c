@@ -41,7 +41,7 @@ void SeqLightDispatcher ( Event_t event )
 			//on test si on fait un mouvement de plus
 			if(( NEUTRE_TETE_HORIZONTAL - tete_light->light_angle ) > OFFSET_DEPLACEMENT )
 			{				
-				CtrlMarcheMoveStep( E_MOVE_RIGHT, E_SPEED_5 ) ;
+				CtrlMarcheMoveStep( E_MOVE_RIGHT, E_SPEED_3 ) ;
 			}
 			else
 			{
@@ -54,7 +54,7 @@ void SeqLightDispatcher ( Event_t event )
 			//on test si on fait un mouvement de plus
 			if(( tete_light->light_angle - NEUTRE_TETE_HORIZONTAL ) > OFFSET_DEPLACEMENT )
 			{				
-				CtrlMarcheMoveStep( E_MOVE_LEFT, E_SPEED_5 ) ;
+				CtrlMarcheMoveStep( E_MOVE_LEFT, E_SPEED_3 ) ;
 			}
 			else
 			{

@@ -11,9 +11,10 @@
 
 typedef enum EESeqRobot
 {
+  E_SEQUENCE_ROBOT_USING_PROXIMITY,
   E_SEQUENCE_ROBOT_PROXIMITY,
+  E_SEQUENCE_ROBOT_USING_LUMIERE,
   E_SEQUENCE_ROBOT_LUMIERE,
-  E_SEQUENCE_ROBOT_USING,
   E_SEQUENCE_ROBOT_NONE,
 }ESeqRobot;
 
@@ -57,6 +58,7 @@ Boolean RobotLifeInit(void)
 	timeout_sequence_using = 0;
 	//on init la structure du robot
 	robot.life.init = TRUE;
+	
 	robot.life.seq = E_SEQUENCE_ROBOT_LUMIERE;
 	robot.life.humeur = E_HUMEUR_ROBOT_NONE;
 	robot.body = CtrlMarcheGetStruct();
@@ -68,42 +70,63 @@ Boolean RobotLifeInit(void)
 //on reagit aux evenements
 void RobotLife ( Event_t event ) 
 {
+
+	if( robot.life.seq == E_SEQUENCE_ROBOT_USING_LUMIERE )
+	{
+		SeqLightDispatcher(event);
+		if ( DrvEventTestEvent(event, CONF_EVENT_FIND_NEAR_OBJECT ))
+		{
+			CtrlMarcheMoveStep( E_MOVE_BACKWORD, E_SPEED_3 ) ;
+		}
+	}
+	else if( robot.life.seq == E_SEQUENCE_ROBOT_USING_PROXIMITY )
+	{
+		SeqProximityDispatcher(event);
+	}						
 	//event 1 sec
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
 	{
-		if( robot.life.seq != E_SEQUENCE_ROBOT_USING )
+		if( RobotLifeCheckInit() )
 		{
-			if( robot.life.seq == E_SEQUENCE_ROBOT_LUMIERE  )
-			{
-				SeqLightStartScan();
-				timeout_sequence_using = 0;
-				robot.life.seq = E_SEQUENCE_ROBOT_USING;
-			}
-			else if( robot.life.seq == E_SEQUENCE_ROBOT_PROXIMITY )
-			{
-				SeqProximityStartScan();
-				timeout_sequence_using = 0;
-				robot.life.seq = E_SEQUENCE_ROBOT_USING;
-			}
+			//robot.life.seq /= (ESeqRobot)RAND();
+			robot.life.init = FALSE;
 		}
-		else if( timeout_sequence_using > 10)
+		if( robot.life.seq == E_SEQUENCE_ROBOT_LUMIERE )
 		{
+			SeqLightStartScan();
+			timeout_sequence_using = 0;
+			robot.life.seq = E_SEQUENCE_ROBOT_USING_LUMIERE;
+		}
+		else if( robot.life.seq == E_SEQUENCE_ROBOT_PROXIMITY )
+		{
+			SeqProximityStartScan();
+			timeout_sequence_using = 0;
+			robot.life.seq = E_SEQUENCE_ROBOT_USING_PROXIMITY;
+		}
+		//si la sequence fait plus de 100 sec on la stop
+		else if( timeout_sequence_using > 100)
+		{
+			//on la reinit
 			timeout_sequence_using = 0;
 			robot.life.seq = E_SEQUENCE_ROBOT_NONE;
+			CtrlMarcheMove( E_MOVE_STOP, E_SPEED_0 );
+			CtrlTeteScanProximityAngle(NEUTRE_TETE_HORIZONTAL);
 		}	
 		timeout_sequence_using++;		
 				
 	}
-	
+	if ( DrvEventTestEvent(event, CONF_EVENT_FRONT_OF_LIGHT ))
+	{
+		CtrlTeteScanProximityAngle(NEUTRE_TETE_HORIZONTAL);
+		robot.life.seq = E_SEQUENCE_ROBOT_NONE;
+	}
 	if ( DrvEventTestEvent(event, CONF_EVENT_FRONT_OF_OBJECT ))
 	{
+		CtrlTeteScanProximityAngle(NEUTRE_TETE_HORIZONTAL);
 		robot.life.seq = E_SEQUENCE_ROBOT_NONE;
 	}	
 	
-	if ( DrvEventTestEvent(event, CONF_EVENT_FRONT_OF_LIGHT ))
-	{
-		robot.life.seq = E_SEQUENCE_ROBOT_NONE;
-	}
+
 	
 }
 

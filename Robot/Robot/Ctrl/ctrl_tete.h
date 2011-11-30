@@ -23,6 +23,8 @@
 #define NEUTRE_TETE_HORIZONTAL				80
 #define MAX_TETE_HORIZONTAL					160
 #define NEUTRE_TETE_VERTICAL				140
+#define LEFT_TETE_HORIZONTAL				115
+#define RIGHT_TETE_HORIZONTAL					45
 
 #define TIMEOUT_HEAD_SCAN_SPEED		5 //(500ms)
 #define START_ANGLE_DETECT			NEUTRE_TETE_HORIZONTAL - 60 
@@ -57,6 +59,8 @@ void CtrlTete( void ) ;
 void CtrlTeteDispatcher( Event_t event ) ;
 //on place la tete ou l'on veut
 void CtrlTeteMove( Int8U angle_horizontal, Int8U angle_vertical);
+//on fait un scan a un angle precis
+void CtrlTeteScanProximityAngle( Int8U angle );
 //on fait un scan horizontal
 void CtrlTeteStartScanProximity( void );
 //on fait un scan de la lumiere

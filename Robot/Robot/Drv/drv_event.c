@@ -38,7 +38,14 @@ Event_t DrvEventGetEvent(void)
 //
 Boolean DrvEventTestEvent(Event_t in_event,Int8U conf_event ) 
 {
-	return in_event & ( 1 << conf_event);
+	if (( in_event & ( 1 << conf_event)) > 0 )
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 }
 
 //
