@@ -56,7 +56,7 @@ Boolean RobotLifeInit(void)
 	timeout_sequence_using = 0;
 	//on init la structure du robot
 	robot.life.init = TRUE;
-	robot.life.seq = E_SEQUENCE_ROBOT_NONE;
+	robot.life.seq = E_SEQUENCE_ROBOT_LUMIERE;
 	robot.life.humeur = E_HUMEUR_ROBOT_NONE;
 	robot.body = CtrlMarcheGetStruct();
 	robot.tete = CtrlTeteGetStruct();
@@ -72,13 +72,13 @@ void RobotLife ( Event_t event )
 	{
 		if( robot.life.seq != E_SEQUENCE_ROBOT_USING )
 		{
-			if( robot.life.seq == E_SEQUENCE_ROBOT_PROXIMITY )
+			if( robot.life.seq == E_SEQUENCE_ROBOT_LUMIERE  )
 			{
 				SeqLightStartScan();
 				timeout_sequence_using = 0;
 				robot.life.seq = E_SEQUENCE_ROBOT_USING;
 			}
-			else if( robot.life.seq == E_SEQUENCE_ROBOT_LUMIERE )
+			else if( robot.life.seq == E_SEQUENCE_ROBOT_PROXIMITY )
 			{
 				SeqProximityStartScan();
 				timeout_sequence_using = 0;
