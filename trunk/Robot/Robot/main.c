@@ -23,6 +23,9 @@
 #include "Ctrl/ctrl_boussole.h"
 #include "Ctrl/ctrl_accel.h"
 
+#include "Seq/seq_light.h"
+#include "Seq/seq_proximity.h"
+
 #include "App/app_robot.h"
 
 
@@ -31,8 +34,10 @@
 Boolean MainInitSystemDrivers( void ) ;
 //lancement des control du robot
 Boolean MainInitSystemControl(void) ;
-//excecution du dispatcher d'evenement
+//excecution du dispatcher d'evenement des controls
 void MainInitSystemControlDispatcher(const Event_t my_event) ;
+//excecution du dispatcher d'evenement des Sequences
+void MainInitSystemSequenceDispatcher(const Event_t my_event) ;
 
 static Event_t main_event_flags = 0;
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
@@ -55,12 +60,13 @@ int main(void)
     while( TRUE )
     {
 		//on prend les events 
-		cli();
 		main_event_flags = DrvEventGetEvent();
-		sei();
 		
 		//excecution du dispatcher d'evenements
 		MainInitSystemControlDispatcher( main_event_flags );
+		//excecution du dispatcher d'evenement des Sequences
+		MainInitSystemSequenceDispatcher( main_event_flags ) ;
+		//on fait vivre le robot
 		RobotLife( main_event_flags );
 		//on kill les events
 		DrvEventKillEvent( main_event_flags );	
@@ -88,6 +94,7 @@ Boolean MainInitSystemControl(void)
 {
 	Boolean o_success = TRUE;
 	
+	//init des controls
 	CtrlUartProtocole();
 	CtrlUltraSon();
 	CtrlBoussole();
@@ -95,9 +102,24 @@ Boolean MainInitSystemControl(void)
 	CtrlTete();
 	CtrlMarche();
 	
+	//init des sequences
+	SeqLight();
+	SeqProximity();
 	return o_success;
 }
 
+
+//excecution du dispatcher d'evenement des Sequences
+void MainInitSystemSequenceDispatcher(const Event_t my_event) 
+{
+	//get next event
+	if(my_event > 0)
+	{
+		//on dispatch l'event 
+		SeqLightDispatcher( my_event );
+		SeqProximityDispatcher( my_event );
+	}	
+}
 
 //excecution du dispatcher d'evenement
 void MainInitSystemControlDispatcher(const Event_t my_event)
@@ -112,7 +134,6 @@ void MainInitSystemControlDispatcher(const Event_t my_event)
 		CtrlUltraSonDispatcher( my_event );
 		CtrlMarcheDispatcher( my_event );
 		CtrlTeteDispatcher( my_event );
-			
 	}	
 }	
 	

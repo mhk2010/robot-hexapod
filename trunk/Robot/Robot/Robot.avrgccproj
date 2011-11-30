@@ -15,7 +15,7 @@
     </ToolchainDirPath>
     <MakeDirPath>
     </MakeDirPath>
-    <GlobalToolchainPath>C:\Program Files\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
+    <GlobalToolchainPath>C:\Program Files (x86)\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
     <AvrGccProjectExtensions>
     </AvrGccProjectExtensions>
     <AssemblyName>Robot</AssemblyName>
@@ -143,6 +143,7 @@
     <Folder Include="Drv" />
     <Folder Include="Mic" />
     <Folder Include="App" />
+    <Folder Include="Seq" />
     <Folder Include="Tools" />
   </ItemGroup>
   <ItemGroup>
@@ -308,6 +309,15 @@
     <Compile Include="Mic\mic_usart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Seq\seq_light.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Seq\seq_proximity.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Seq\seq_proximity.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Tools\tools_string.c">
       <SubType>compile</SubType>
     </Compile>
@@ -317,6 +327,11 @@
     <Compile Include="Tools\tools_typedefs.h">
       <SubType>compile</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Seq\seq_light.h">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

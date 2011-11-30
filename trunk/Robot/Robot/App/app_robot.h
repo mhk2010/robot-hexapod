@@ -21,6 +21,9 @@
 #include "Ctrl/ctrl_boussole.h"
 #include "Ctrl/ctrl_accel.h"
 
+#include "Seq/seq_light.h"
+#include "Seq/seq_proximity.h"
+
 
 ////////////////////////////////////////////PUBLIC ENUMS/////////////////////////////////////////
 

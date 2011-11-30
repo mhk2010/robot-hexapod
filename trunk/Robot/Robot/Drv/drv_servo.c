@@ -33,7 +33,8 @@ void DrvAddServo( EIoPin pin , Int8U angle )
 {
 	MesServos[ nb_servo_active ].active			= TRUE;
 	MesServos[ nb_servo_active ].pin			= pin;
-	MesServos[ nb_servo_active ].moving			= TRUE;
+	MesServos[ nb_servo_active ].ticks = map( angle, MIN_ANGLE, MAX_ANGLE, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+	MesServos[ nb_servo_active ].moving			= FALSE;
 	MesServos[ nb_servo_active ].ticks_consigne = map( angle, MIN_ANGLE, MAX_ANGLE, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
 	micIoPortsConfigureOutput( pin );
 	nb_servo_active++;
