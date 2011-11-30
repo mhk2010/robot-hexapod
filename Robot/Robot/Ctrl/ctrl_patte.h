@@ -56,12 +56,6 @@ typedef struct {
 typedef struct {
 	patte_servo_t epaule;
 	patte_servo_t coude;
-} conf_patte_t;
-
-typedef struct {
-	patte_servo_t epaule;
-	patte_servo_t coude;
-	Int8U speed;
 } patte_t;
 
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////

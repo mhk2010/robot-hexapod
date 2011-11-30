@@ -10,7 +10,7 @@
 #define SPEED_PATTES			1 //(100ms)
 
 ////////////////////////////////////////PRIVATE VARIABLES/////////////////////////////////////////
-conf_patte_t ConfPatte [ NB_PATTES ] = 
+patte_t ConfPatte [ NB_PATTES ] = 
 {
 	{
 		{ CONF_SERVO_PATTE_AVANT_GAUCHE_EPAULE,		NEUTRE_EPAULE_AVANT_GAUCHE },
@@ -41,11 +41,8 @@ conf_patte_t ConfPatte [ NB_PATTES ] =
 };
 
 static patte_t MesPattes[ NB_PATTES ];
-
-
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
-//on bouge les pattes
-static void CtrlPatteDispatcherMove( void ) ;
+
  
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 
@@ -62,9 +59,7 @@ void CtrlPatte( void )
 		
 		MesPattes[ loop ].coude.pin_servo = ConfPatte[ loop ].coude.pin_servo;
 		MesPattes[ loop ].coude.angle = ConfPatte [ loop ].coude.angle;
-		
-		MesPattes[ loop ].speed = 0;
-		
+				
 		DrvAddServo( MesPattes[ loop ].coude.pin_servo , MesPattes[ loop ].coude.angle );
 		DrvAddServo( MesPattes[ loop ].epaule.pin_servo , MesPattes[ loop ].epaule.angle );
 	}	

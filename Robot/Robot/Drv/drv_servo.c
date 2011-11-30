@@ -152,18 +152,6 @@ SIGNAL (TIMER1_COMPA_vect)
 			{
 				MesServos[pin_servo].ticks = MesServos[pin_servo].ticks_consigne;
 				MesServos[pin_servo].moving = FALSE;
-				/*if( MesServos[pin_servo].ticks == MesServos[pin_servo].ticks_consigne )
-				{
-					MesServos[pin_servo].moving = FALSE;		
-				}
-				else if( MesServos[pin_servo].ticks > MesServos[pin_servo].ticks_consigne )
-				{
-					MesServos[pin_servo].ticks--;
-				}
-				else if( MesServos[pin_servo].ticks < MesServos[pin_servo].ticks_consigne )
-				{
-					MesServos[pin_servo].ticks++;
-				}*/	
 			}
 		}
 	}

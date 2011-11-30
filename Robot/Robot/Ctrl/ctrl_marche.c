@@ -9,16 +9,16 @@
 #include "ctrl_patte.h"
 
 
-#define TIMEOUT_MIN_SPEED	30 //(300ms)
+#define AMPLITUDE_MAX_EPAULE	25
+#define AMPLITUDE_MAX_COUDE		20
+#define TIMEOUT_MIN_SPEED		30 //(300ms)
 
 
 
-static Int8U timeout = 0;
-static Int8U step = 0;
-static Int8U move_step = FALSE;
+static Int8U timeout			= 0;
+static Int8U step				= 0;
+static Int8U move_step			= FALSE;
 
-#define AMPLITUDE_MAX_EPAULE					25
-#define AMPLITUDE_MAX_COUDE						20
 
 
 /////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
