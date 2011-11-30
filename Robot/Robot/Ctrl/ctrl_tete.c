@@ -13,12 +13,16 @@
 
 static Int8U inter_timeout_scan_angle = 0;
 static Boolean switch_mesure_ldr_g_d = FALSE;
+static Boolean switch_mesure_us = FALSE;
 
 static tete_t tete;
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 //callback de fin de convertion
 static void CtrlTeteEndAdcConvertion( Int8U index_adc ,Int16U adc_data );
+
+//on bouge la tete sur un angle et on scan
+static void CtrlTeteScanningProximityAngle( void ) ;
 
 //on cherche la position ou la lumiere est la plus forte
 static void CtrlTeteSearchingLight( void );
@@ -34,6 +38,7 @@ void CtrlTete( void )
 	switch_mesure_ldr_g_d = FALSE;
 	
 	//on init la structure tete
+	tete.scanning_proximity_angle = FALSE;
 	tete.scanning_proximity = FALSE;
 	tete.scanning_light = FALSE;
 	tete.find_light_angle = FALSE;
@@ -62,9 +67,13 @@ void CtrlTeteDispatcher( Event_t event )
 		{
 			CtrlTeteSearchingLight();
 		}
-		if( tete.scanning_proximity == TRUE )
+		else if( tete.scanning_proximity == TRUE )
 		{
 			CtrlTeteScanningProximity();
+		}
+		else if( tete.scanning_proximity_angle == TRUE )
+		{
+			CtrlTeteScanningProximityAngle();
 		}	
 	}
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
@@ -87,6 +96,19 @@ void CtrlTeteMove( Int8U angle_horizontal, Int8U angle_vertical)
 	//on positionne la tete a l'endroit voulu
 	DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 	DrvServoMoveToPosition( CONF_SERVO_TETE_V , tete.position.angle_v );
+}
+
+//on fait un scan horizontal
+void CtrlTeteScanProximityAngle( Int8U angle )
+{
+	if(tete.scanning_proximity_angle != TRUE)
+	{
+		//on positionne la tete a l'endroit voulu
+		tete.position.angle_h = angle ;
+		tete.scanning_proximity_angle = TRUE;
+		DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
+		switch_mesure_us = FALSE;
+	}		
 }
 
 //on fait un scan horizontal
@@ -127,6 +149,22 @@ static void CtrlTeteEndAdcConvertion( EIoPin pin_name ,Int16U adc_data )
 	}
 }
 
+//on bouge la tete sur un angle et on scan
+static void CtrlTeteScanningProximityAngle( void )
+{
+	if ( switch_mesure_us == FALSE )
+	{
+		//on envoie le scan 
+		CtrlUltraSonLaunchMesure();
+		switch_mesure_us = TRUE;
+	}
+	else
+	{
+		//on ne lit pas la premiere mesure car elle a pas été effectué
+		tete.mesure_ultrason = CtrlUltraSonReadMesure();
+		tete.scanning_proximity_angle = FALSE;
+	}
+}
 
 //on bouge la tete pour faire un scan IR de ce qu'il y a devant
 static void CtrlTeteScanningProximity( void )

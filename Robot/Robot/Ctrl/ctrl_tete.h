@@ -41,6 +41,7 @@ typedef struct {
 typedef struct {
 	tete_position_t position;
 	Boolean scanning_proximity;
+	Boolean scanning_proximity_angle;
 	Boolean scanning_light;
 	Boolean find_light_angle;
 	Int8U light_angle;

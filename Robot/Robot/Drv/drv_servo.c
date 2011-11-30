@@ -33,7 +33,7 @@ void DrvAddServo( EIoPin pin , Int8U angle )
 {
 	MesServos[ nb_servo_active ].active			= TRUE;
 	MesServos[ nb_servo_active ].pin			= pin;
-	MesServos[ nb_servo_active ].ticks = map( angle, MIN_ANGLE, MAX_ANGLE, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+	MesServos[ nb_servo_active ].ticks			= map( angle, MIN_ANGLE, MAX_ANGLE, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
 	MesServos[ nb_servo_active ].moving			= FALSE;
 	MesServos[ nb_servo_active ].ticks_consigne = map( angle, MIN_ANGLE, MAX_ANGLE, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
 	micIoPortsConfigureOutput( pin );
@@ -150,8 +150,18 @@ SIGNAL (TIMER1_COMPA_vect)
 			micIoPortsConfigureToHighLevel(MesServos[pin_servo].pin);
 			if( MesServos[pin_servo].moving == TRUE )
 			{
-				MesServos[pin_servo].ticks = MesServos[pin_servo].ticks_consigne;
-				MesServos[pin_servo].moving = FALSE;		
+				if( MesServos[pin_servo].ticks == MesServos[pin_servo].ticks_consigne )
+				{
+					MesServos[pin_servo].moving = FALSE;		
+				}
+				else if( MesServos[pin_servo].ticks > MesServos[pin_servo].ticks_consigne )
+				{
+					MesServos[pin_servo].ticks--;
+				}
+				else if( MesServos[pin_servo].ticks < MesServos[pin_servo].ticks_consigne )
+				{
+					MesServos[pin_servo].ticks++;
+				}		
 			}
 		}
 	}
