@@ -11,6 +11,7 @@
 
 #define OFFSET_LIGHT 10
 
+static Int8U event_timeout_200ms = 0;
 static Int8U inter_timeout_scan_angle = 0;
 static Boolean switch_mesure_ldr_g_d = FALSE;
 static Boolean switch_mesure_us = FALSE;
@@ -36,7 +37,7 @@ void CtrlTete( void )
 { 
 	//init des variables privées
 	switch_mesure_ldr_g_d = FALSE;
-	
+	event_timeout_200ms = 0;
 	//on init la structure tete
 	tete.scanning_proximity_angle = FALSE;
 	tete.scanning_proximity = FALSE;
@@ -73,7 +74,13 @@ void CtrlTeteDispatcher( Event_t event )
 		}
 		else if( tete.scanning_proximity_angle == TRUE )
 		{
-			CtrlTeteScanningProximityAngle();
+			event_timeout_200ms++;
+			if(event_timeout_200ms == 2)
+			{
+				CtrlTeteScanningProximityAngle();
+				event_timeout_200ms = 0;
+			}
+			
 		}	
 	}
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
@@ -98,7 +105,7 @@ void CtrlTeteMove( Int8U angle_horizontal, Int8U angle_vertical)
 	DrvServoMoveToPosition( CONF_SERVO_TETE_V , tete.position.angle_v );
 }
 
-//on fait un scan horizontal
+//on fait un scan a un angle precis
 void CtrlTeteScanProximityAngle( Int8U angle )
 {
 	if(tete.scanning_proximity_angle != TRUE)
@@ -129,7 +136,7 @@ void CtrlTeteStartScanLight( void )
 	if(tete.scanning_light != TRUE)
 	{
 		//on positionne la tete a l'endroit voulu
-		tete.position.angle_h = START_ANGLE_DETECT ;
+		tete.position.angle_h = NEUTRE_TETE_HORIZONTAL ;
 		DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 		tete.scanning_light = TRUE;
 		tete.find_light_angle = FALSE;
@@ -165,6 +172,14 @@ static void CtrlTeteScanningProximityAngle( void )
 		//on ne lit pas la premiere mesure car elle a pas été effectué
 		tete.mesure_ultrason = CtrlUltraSonReadMesure();
 		tete.scanning_proximity_angle = FALSE;
+		if( tete.mesure_ultrason > SECURITY_PERIMETER )
+		{
+			DrvEventAddEvent( CONF_EVENT_FIND_NO_OBJECT );
+		}
+		else
+		{
+			DrvEventAddEvent( CONF_EVENT_FIND_NEAR_OBJECT );
+		}				
 	}
 }
 
@@ -232,7 +247,7 @@ static void CtrlTeteSearchingLight( void )
 				if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > ( 4 * OFFSET_LIGHT ) )
 				{
 					//on positionne la tete a l'endroit voulu
-					if( tete.position.angle_h > MIN_TETE_HORIZONTAL )
+					if( (tete.position.angle_h - 6) > MIN_TETE_HORIZONTAL )
 					{
 						tete.position.angle_h -= 6U ;
 					}
@@ -247,7 +262,7 @@ static void CtrlTeteSearchingLight( void )
 				else if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > ( 2 * OFFSET_LIGHT ) )
 				{
 					//on positionne la tete a l'endroit voulu
-					if( tete.position.angle_h > MIN_TETE_HORIZONTAL )
+					if( (tete.position.angle_h - 3) > MIN_TETE_HORIZONTAL )
 					{
 						tete.position.angle_h -= 3U ;
 					}
@@ -261,7 +276,7 @@ static void CtrlTeteSearchingLight( void )
 				else if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > OFFSET_LIGHT )
 				{
 					//on positionne la tete a l'endroit voulu
-					if( tete.position.angle_h > MIN_TETE_HORIZONTAL )
+					if( (tete.position.angle_h - 1) > MIN_TETE_HORIZONTAL )
 					{
 						tete.position.angle_h -= 1U ;
 					}
@@ -282,7 +297,7 @@ static void CtrlTeteSearchingLight( void )
 				if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > ( 4 * OFFSET_LIGHT ) )
 				{
 					//on positionne la tete a l'endroit voulu
-					if( tete.position.angle_h < MAX_TETE_HORIZONTAL )
+					if( (tete.position.angle_h + 6) < MAX_TETE_HORIZONTAL )
 					{
 						tete.position.angle_h += 6U ;
 					}
@@ -296,7 +311,7 @@ static void CtrlTeteSearchingLight( void )
 				else if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > ( 2 * OFFSET_LIGHT ) )
 				{
 					//on positionne la tete a l'endroit voulu
-					if( tete.position.angle_h < MAX_TETE_HORIZONTAL )
+					if( (tete.position.angle_h + 3) < MAX_TETE_HORIZONTAL )
 					{
 						tete.position.angle_h += 3U ;
 					}
@@ -310,7 +325,7 @@ static void CtrlTeteSearchingLight( void )
 				else if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > OFFSET_LIGHT )
 				{
 					//on positionne la tete a l'endroit voulu
-					if( tete.position.angle_h < MAX_TETE_HORIZONTAL )
+					if( (tete.position.angle_h + 1) < MAX_TETE_HORIZONTAL )
 					{
 						tete.position.angle_h += 1U ;
 					}
@@ -329,7 +344,8 @@ static void CtrlTeteSearchingLight( void )
 			if( tete.find_light_angle == TRUE )
 			{
 				tete.light_angle = tete.position.angle_h;
-				tete.scanning_light = FALSE;	
+				tete.scanning_light = FALSE;
+				tete.find_light_angle = FALSE;	
 				//on envoie l'event 
 				DrvEventAddEvent( CONF_EVENT_FIND_MAX_LIGHT );	
 					

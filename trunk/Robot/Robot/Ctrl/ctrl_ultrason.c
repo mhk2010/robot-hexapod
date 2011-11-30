@@ -45,10 +45,10 @@ void CtrlUltraSonDispatcher( Event_t event )
 				send_pulse = TRUE;
 			}
 			else
-			{
+			{	
 				CtrlUltraSonReadSensorMesure();	
 				want_mesure = FALSE;
-				send_pulse = FALSE;	
+				send_pulse = FALSE;
 			}					
 		}
 	}

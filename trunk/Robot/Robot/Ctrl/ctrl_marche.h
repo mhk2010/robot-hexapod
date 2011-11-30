@@ -29,11 +29,11 @@ typedef enum EEMove
 
 typedef enum EESpeed
 {
-  E_SPEED_0 = 5,
-  E_SPEED_1 = 4,
-  E_SPEED_2 = 3,
-  E_SPEED_3 = 2,
-  E_SPEED_4 = 1,
+  E_SPEED_0 = 25,
+  E_SPEED_1 = 20,
+  E_SPEED_2 = 15,
+  E_SPEED_3 = 10,
+  E_SPEED_4 = 5,
   E_SPEED_5 = 0,
 }ESpeed;
 
