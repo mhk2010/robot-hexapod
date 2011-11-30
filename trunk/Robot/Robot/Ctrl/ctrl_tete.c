@@ -129,6 +129,8 @@ void CtrlTeteStartScanLight( void )
 	if(tete.scanning_light != TRUE)
 	{
 		//on positionne la tete a l'endroit voulu
+		tete.position.angle_h = START_ANGLE_DETECT ;
+		DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 		tete.scanning_light = TRUE;
 		tete.find_light_angle = FALSE;
 	}
