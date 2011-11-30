@@ -150,7 +150,9 @@ SIGNAL (TIMER1_COMPA_vect)
 			micIoPortsConfigureToHighLevel(MesServos[pin_servo].pin);
 			if( MesServos[pin_servo].moving == TRUE )
 			{
-				if( MesServos[pin_servo].ticks == MesServos[pin_servo].ticks_consigne )
+				MesServos[pin_servo].ticks = MesServos[pin_servo].ticks_consigne;
+				MesServos[pin_servo].moving = FALSE;
+				/*if( MesServos[pin_servo].ticks == MesServos[pin_servo].ticks_consigne )
 				{
 					MesServos[pin_servo].moving = FALSE;		
 				}
@@ -161,7 +163,7 @@ SIGNAL (TIMER1_COMPA_vect)
 				else if( MesServos[pin_servo].ticks < MesServos[pin_servo].ticks_consigne )
 				{
 					MesServos[pin_servo].ticks++;
-				}		
+				}*/	
 			}
 		}
 	}
