@@ -19,15 +19,19 @@
 
 
 ////////////////////////////////////////////PUBLIC EVENT///////////////////////////////////////////
-#define		CONF_EVENT_TIMER_100MS		0U
-#define		CONF_EVENT_TIMER_1S			1U
-#define		CONF_EVENT_UART_MSG_RCV		2U
-#define		CONF_EVENT_IR_SENSOR		3U
-#define		CONF_EVENT_FIND_NEAR_OBJECT	4U
-#define		CONF_EVENT_MOVE_END			5U
-#define		CONF_EVENT_ACCEL			6U
-#define		CONF_EVENT_FIND_MAX_LIGHT	7U
-#define		CONF_EVENT_BOUSSOLE_SENSOR	8U
+#define		CONF_EVENT_TIMER_10MS		0U
+#define		CONF_EVENT_TIMER_100MS		1U
+#define		CONF_EVENT_TIMER_1S			2U
+#define		CONF_EVENT_UART_MSG_RCV		3U
+#define		CONF_EVENT_MOVE_END			4U
+#define		CONF_EVENT_FIND_MAX_LIGHT	5U
+#define		CONF_EVENT_FRONT_OF_LIGHT	6U
+#define		CONF_EVENT_FIND_NEAR_OBJECT	7U
+#define		CONF_EVENT_FRONT_OF_OBJECT	8U
+#define		CONF_EVENT_ACCEL			9U
+#define		CONF_EVENT_BOUSSOLE_SENSOR	10U
+
+
 //-----------------------------------------------------------------------------------------------//
 
 /////////////////////////////////////////////PUBLIC SERVO////////////////////////////////////////////

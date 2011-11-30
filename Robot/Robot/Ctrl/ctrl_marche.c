@@ -9,7 +9,7 @@
 #include "ctrl_patte.h"
 
 
-#define TIMEOUT_MIN_SPEED	3 //(300ms)
+#define TIMEOUT_MIN_SPEED	30 //(300ms)
 
 
 
@@ -45,7 +45,7 @@ void CtrlMarche( void )
 //dispatcher
 void CtrlMarcheDispatcher( Event_t event )  
 {
-	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_100MS ))
+	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_10MS ))
 	{
 		if( body.move != E_MOVE_STOP)
 		{

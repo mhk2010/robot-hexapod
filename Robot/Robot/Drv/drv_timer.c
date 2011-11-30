@@ -154,24 +154,29 @@ Int16U DrvTimerComputeOCR(Int32U us_time , ETimer0Clock *clock_div)
 
 /////////////////////////////////////ISR PRIVATE FUNCTIONS////////////////////////////////////////
 //ISR timer system 1 ms
-volatile Int8U timeout_100ms =0;
-volatile Int8U timeout_1s =0;
+volatile Int8U timeout_ms =0;
+volatile Int8U timeout_s =0;
 ISR(TIMER0_COMPA_vect)
 {
 	//on gere l'evenement 100 ms
-	timeout_100ms++;
-	if(timeout_100ms == 20)
+	timeout_ms++;
+	if(timeout_ms == 20)
 	{
-		timeout_100ms =0;
+		timeout_ms =0;
 		DrvEventAddEvent( CONF_EVENT_TIMER_100MS );	
 		//on gere l'evenement 1 s
-		timeout_1s++;
-		if(timeout_1s == 10)
+		timeout_s++;
+		if(timeout_s == 10)
 		{
-			timeout_1s =0;
+			timeout_s =0;
 			DrvEventAddEvent( CONF_EVENT_TIMER_1S );	
 		}
 	}
+	else if( ( timeout_ms % 2 ) == 1)
+	{
+		DrvEventAddEvent( CONF_EVENT_TIMER_10MS );	
+	}
+	
 	for(Int8U loop_index = 0U; loop_index < CONF_TIMER_NB ; loop_index++ )
 	{
 		//si le timer est activé

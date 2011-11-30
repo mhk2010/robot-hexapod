@@ -79,8 +79,6 @@ tete_t* CtrlTeteGetStruct( void )
 	return &tete;	
 }
 
-
-
 //on fait un scan horizontal
 void CtrlTeteMove( Int8U angle_horizontal, Int8U angle_vertical)
 {
@@ -114,9 +112,7 @@ void CtrlTeteStartScanLight( void )
 	}
 }
 
-
 ////////////////////////////////////////PRIVATE FUNCTIONS//////////////////////////////////////////
-
 static void CtrlTeteEndAdcConvertion( EIoPin pin_name ,Int16U adc_data )
 {
 	//on toggle sur le choix de la lecture de la LDR
@@ -185,6 +181,7 @@ static void CtrlTeteSearchingLight( void )
 	//on prend les mesures de lumieres
 	if( switch_mesure_ldr_g_d == FALSE)
 	{
+		//on lance la convertion 
 		DrvAdcStartConvertion( CONF_ADC_LDR_GAUCHE , CtrlTeteEndAdcConvertion );
 		//si les 2 mesures des LDRs sont valables
 		if( ( tete.mesure_ldr_gauche != 0U ) && ( tete.mesure_ldr_droite != 0U ) )
@@ -301,6 +298,7 @@ static void CtrlTeteSearchingLight( void )
 	}
 	else
 	{
+		//on lance la convertion 
 		DrvAdcStartConvertion( CONF_ADC_LDR_DROITE , CtrlTeteEndAdcConvertion );
 	}
 }	
