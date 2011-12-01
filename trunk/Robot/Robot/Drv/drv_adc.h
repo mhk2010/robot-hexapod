@@ -21,7 +21,6 @@
 ////////////////////////////////////////////PUBLIC ENUMS///////////////////////////////////////////
 
 //////////////////////////////////////////PUBLIC PTR FCTS//////////////////////////////////////////
-typedef void (*ptrfct_Isr_Callback_Adc)( EIoPin pin_name ,Int16U adc_data );
 
 /////////////////////////////////////////PUBLIC STRUCTURES/////////////////////////////////////////
 
@@ -36,7 +35,7 @@ void DrvAdc( void ) ;
 // Access:    public 
 // Returns:   void
 // Qualifier: active l'adc
-// Parameter: Int8U index_adc					//index adc sur lequel on converti
+// Parameter: EIoPin pin_name					//pin adc sur lequel on converti
 //************************************
 void DrvAdcEnableAdc( EIoPin pin_name ) ;
 
@@ -47,23 +46,20 @@ void DrvAdcEnableAdc( EIoPin pin_name ) ;
 // Access:    public 
 // Returns:   void
 // Qualifier: desactive l'adc
-// Parameter: Int8U index_adc					//index adc sur lequel on converti
+// Parameter: EIoPin pin_name					//pin adc sur lequel on converti
 //************************************
 void DrvAdcDisableAdc( EIoPin pin_name ) ;
 
 
 //************************************
-// Method:    DrvAdcStartConvertion
-// FullName:  DrvAdcStartConvertion
+// Method:    DrvAdcReadChannel
+// FullName:  DrvAdcReadChannel
 // Access:    public 
-// Returns:   void
-// Qualifier: Commence la convertion sur l'adc
-// Parameter: Int8U index_adc					//index adc sur lequel on converti
+// Returns:   value of ADC
+// Qualifier: fait une convertion immediate sur un canal de l'adc
+// Parameter: EIoPin pin_name					//pin adc sur lequel on converti
 //************************************
-Boolean DrvAdcStartConvertion( EIoPin pin_name , ptrfct_Isr_Callback_Adc ptrfct) ;
-
-
-
+Int16U DrvAdcReadChannel( EIoPin pin_name ) ;
 
 
 #endif /* DRV_ADC_H_ */

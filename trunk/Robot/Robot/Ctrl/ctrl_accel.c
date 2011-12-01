@@ -17,19 +17,16 @@ static void CtrlAccelEndAdcConvertion( EIoPin pin_name ,Int16U adc_data );
 Int8U step_adc_convertion = 0;
 Boolean is_qualibre = FALSE;
 
-Int8U nb_convertion_x = 0;
+Int8U nb_convertion = 0;
 Int16U moy_x = 0;
 Int16U accel_X[ 10 ];
 
-Int8U nb_convertion_y = 0;
 Int16U moy_y = 0;
 Int16U accel_Y[ 10 ];
 
-Int8U nb_convertion_z = 0;
 Int16U moy_z = 0;
 Int16U accel_Z[ 10 ];
 
-Int8U timeout_adc = 0;
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void CtrlAccel( void ) 
@@ -44,27 +41,22 @@ void CtrlAccelDispatcher( Event_t event )
 {
 	if ( DrvEventTestEvent(event ,CONF_EVENT_TIMER_100MS ))
 	{
-		if(timeout_adc >= 100)
+		if( step_adc_convertion == 0 )
 		{
-			if( step_adc_convertion == 0 )
-			{
-				DrvAdcStartConvertion( CONF_ADC_ACCEL_X , CtrlAccelEndAdcConvertion );
-			}
-			else if( step_adc_convertion == 1)
-			{
-				DrvAdcStartConvertion( CONF_ADC_ACCEL_Y , CtrlAccelEndAdcConvertion );
-			}
-			else if( step_adc_convertion == 2 )
-			{
-				DrvAdcStartConvertion( CONF_ADC_ACCEL_Z , CtrlAccelEndAdcConvertion );
-			}
-			timeout_adc =0;
+			accel_X[ nb_convertion ] = DrvAdcReadChannel( CONF_ADC_ACCEL_X ) ;
 		}
-		else
+		else if( step_adc_convertion == 1)
 		{
-			timeout_adc++;
+			accel_Y[ nb_convertion ] = DrvAdcReadChannel( CONF_ADC_ACCEL_Y );
 		}
-		
+		else if( step_adc_convertion == 2 )
+		{
+			accel_Z[ nb_convertion ] = DrvAdcReadChannel( CONF_ADC_ACCEL_Z );
+			if(++nb_convertion == 9)
+			{
+				nb_convertion = 0;
+			}
+		}
 	}
 }
 
@@ -79,70 +71,3 @@ void CtrlAccelQualibration( void )
 
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
-static void CtrlAccelEndAdcConvertion( EIoPin pin_name ,Int16U adc_data )
-{
-	if( pin_name == CONF_ADC_ACCEL_X )
-	{
-		accel_X[ nb_convertion_x ] = adc_data;
-		if(nb_convertion_x < 9)
-		{
-			nb_convertion_x++;
-		}
-		else
-		{
-			nb_convertion_x = 0;
-		}
-		if( is_qualibre == TRUE)
-		{
-			
-		}
-	}
-	else if( pin_name == CONF_ADC_ACCEL_Y )
-	{
-		accel_Y[ nb_convertion_y ] = adc_data;
-		if(nb_convertion_y < 9)
-		{
-			nb_convertion_y++;
-		}
-		else
-		{
-			nb_convertion_y = 0;
-		}
-		if( is_qualibre == TRUE)
-		{
-			
-		}
-	}
-	else if( pin_name == CONF_ADC_ACCEL_Z )
-	{
-		accel_Z[ nb_convertion_z ] = adc_data;
-		if(nb_convertion_z < 9)
-		{
-			nb_convertion_z++;
-		}
-		else
-		{
-			nb_convertion_z = 0;
-		}
-		if( is_qualibre == TRUE)
-		{
-			
-		}
-	}
-	
-	if( step_adc_convertion < 2 )
-	{
-		step_adc_convertion++;
-	}
-	else
-	{
-		step_adc_convertion = 0;
-		CtrlAccelQualibration();
-	}
-	
-	
-	if( adc_data < SECURITY_PERIMETER )
-	{
-		DrvEventAddEvent( CONF_EVENT_ACCEL );	
-	}
-}
