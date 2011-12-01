@@ -15,7 +15,7 @@
     </ToolchainDirPath>
     <MakeDirPath>
     </MakeDirPath>
-    <GlobalToolchainPath>C:\Program Files (x86)\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
+    <GlobalToolchainPath>C:\Program Files\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
     <AvrGccProjectExtensions>
     </AvrGccProjectExtensions>
     <AssemblyName>Robot</AssemblyName>
@@ -143,6 +143,7 @@
     <Folder Include="Drv" />
     <Folder Include="Mic" />
     <Folder Include="App" />
+    <Folder Include="Hum" />
     <Folder Include="Seq" />
     <Folder Include="Tools" />
   </ItemGroup>
@@ -256,6 +257,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Drv\drv_uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Hum\hum_curious.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Hum\hum_curious.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">

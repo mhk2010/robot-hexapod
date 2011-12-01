@@ -25,7 +25,8 @@
 /*
  * Basic Macros
  */
-#define RAND()						(Int8U)(TCNT0 * TCNT1)
+#define RAND()						(Int8U)( DrvAdcReadChannel( CONF_ADC_LDR_GAUCHE ) + DrvAdcReadChannel( CONF_ADC_LDR_DROITE ))
+
 
 #define BIT_HIGH( reg , bit )		reg |=  ( 1U << bit );
 #define BIT_LOW( reg , bit )		reg &= ~( 1U << bit );

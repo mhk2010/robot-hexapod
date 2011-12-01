@@ -11,8 +11,9 @@
 
 #define OFFSET_LIGHT 10
 
-static Int8U event_timeout_200ms = 0;
-static Int8U inter_timeout_scan_angle = 0;
+static Int8U timeout_event_200ms = 0;
+static Int8U timeout_inter_scan_angle = 0;
+static Int8U timeout_head_follow_light = 0;
 static Boolean switch_mesure_ldr_g_d = FALSE;
 static Boolean switch_mesure_us = FALSE;
 
@@ -34,11 +35,12 @@ void CtrlTete( void )
 { 
 	//init des variables privées
 	switch_mesure_ldr_g_d = FALSE;
-	event_timeout_200ms = 0;
+	timeout_event_200ms = 0;
 	//on init la structure tete
 	tete.scanning_proximity_angle = FALSE;
 	tete.scanning_proximity = FALSE;
 	tete.scanning_light = FALSE;
+	tete.follow_light_enable = FALSE;
 	tete.find_light_angle = FALSE;
 	tete.light_angle = NEUTRE_TETE_HORIZONTAL;
 	tete.position.angle_h = NEUTRE_TETE_HORIZONTAL;
@@ -58,6 +60,19 @@ void CtrlTete( void )
 //dispatcher
 void CtrlTeteDispatcher( Event_t event )  
 {
+	if( tete.follow_light_enable == TRUE )
+	{
+		if ( DrvEventTestEvent(event ,CONF_EVENT_TIMER_10MS ))
+		{
+			timeout_head_follow_light++;
+			if( timeout_head_follow_light == 5)
+			{
+				timeout_head_follow_light = 0;
+				CtrlTeteSearchingLight();
+			}
+		}			
+	}
+	
 	if ( DrvEventTestEvent(event ,CONF_EVENT_TIMER_100MS ))
 	{
 		//si on ne scan pas alors on mesure regulierement les capteurs
@@ -71,11 +86,11 @@ void CtrlTeteDispatcher( Event_t event )
 		}
 		else if( tete.scanning_proximity_angle == TRUE )
 		{
-			event_timeout_200ms++;
-			if(event_timeout_200ms == 2)
+			timeout_event_200ms++;
+			if(timeout_event_200ms == 2)
 			{
 				CtrlTeteScanningProximityAngle();
-				event_timeout_200ms = 0;
+				timeout_event_200ms = 0;
 			}
 			
 		}	
@@ -102,6 +117,13 @@ void CtrlTeteMove( Int8U angle_horizontal, Int8U angle_vertical)
 	DrvServoMoveToPosition( CONF_SERVO_TETE_V , tete.position.angle_v );
 }
 
+//on suit la lumiere
+void CtrlTeteStartFollowLight( void )
+{
+	tete.follow_light_enable = TRUE;
+	timeout_head_follow_light = 0;
+}
+
 //on fait un scan a un angle precis
 void CtrlTeteScanProximityAngle( Int8U angle )
 {
@@ -109,6 +131,7 @@ void CtrlTeteScanProximityAngle( Int8U angle )
 	{
 		//on positionne la tete a l'endroit voulu
 		tete.position.angle_h = angle ;
+		tete.follow_light_enable = FALSE;
 		tete.scanning_proximity_angle = TRUE;
 		DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 		switch_mesure_us = FALSE;
@@ -122,6 +145,7 @@ void CtrlTeteStartScanProximity( void )
 	{
 		//on positionne la tete a l'endroit voulu
 		tete.position.angle_h = START_ANGLE_DETECT ;
+		tete.follow_light_enable = FALSE;
 		DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 		tete.scanning_proximity = TRUE;
 	}		
@@ -134,6 +158,7 @@ void CtrlTeteStartScanLight( void )
 	{
 		//on positionne la tete a l'endroit voulu
 		tete.position.angle_h = NEUTRE_TETE_HORIZONTAL ;
+		tete.follow_light_enable = FALSE;
 		DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 		tete.scanning_light = TRUE;
 		tete.find_light_angle = FALSE;
@@ -170,7 +195,7 @@ static void CtrlTeteScanningProximityAngle( void )
 static void CtrlTeteScanningProximity( void )
 {
 	//si on a atteind la limite de temps inter scan
-	if( inter_timeout_scan_angle >= TIMEOUT_HEAD_SCAN_SPEED )
+	if( timeout_inter_scan_angle >= TIMEOUT_HEAD_SCAN_SPEED )
 	{
 		//si on a pas fini de scanner
 		if( tete.position.angle_h <= END_ANGLE_DETECT )
@@ -205,69 +230,95 @@ static void CtrlTeteScanningProximity( void )
 			tete.position.angle_h = START_ANGLE_DETECT ;
 			tete.scanning_proximity = FALSE;
 		}
-		inter_timeout_scan_angle = 0;
+		timeout_inter_scan_angle = 0;
 	}
 	else
 	{
-		inter_timeout_scan_angle++;
+		timeout_inter_scan_angle++;
 	}
 }
 
 //on cherche la position ou la lumiere est la plus forte
 static void CtrlTeteSearchingLight( void )
 {
+	Int8U offset_min = 1;
+	Int8U offset_mid = 3;
+	Int8U offset_max = 6;
 	//on lance la convertion 
 	tete.mesure_ldr_gauche = DrvAdcReadChannel( CONF_ADC_LDR_GAUCHE );
 	//on lance la convertion 
 	tete.mesure_ldr_droite = DrvAdcReadChannel( CONF_ADC_LDR_DROITE  );
+	
+	//on calcul un offset dynamique en fct du taux de luminosité
+	if( tete.mesure_ldr_gauche + tete.mesure_ldr_gauche < 1000 )
+	{
+		offset_min = 1;
+		offset_mid = 2;
+		offset_max = 3;
+	}
+	else if( tete.mesure_ldr_gauche + tete.mesure_ldr_gauche < 1500 )
+	{
+		
+		offset_min = 1;
+		offset_mid = 3;
+		offset_max = 6;
+	}
+	else if( tete.mesure_ldr_gauche + tete.mesure_ldr_gauche < 2000 )
+	{
+		offset_min = 1;
+		offset_mid = 4;
+		offset_max = 8;
+	}
+	else
+	{
+		offset_min = 1;
+		offset_mid = 5;
+		offset_max = 10;
+	}
 	//si les 2 mesures des LDRs sont valables
 	if( ( tete.mesure_ldr_gauche != 0U ) && ( tete.mesure_ldr_droite != 0U ) )
 	{
 		//on affine la recherche par dicotomie
-		if( tete.mesure_ldr_gauche > tete.mesure_ldr_droite )
+		if( tete.mesure_ldr_gauche < tete.mesure_ldr_droite )
 		{
-			if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > ( 4 * OFFSET_LIGHT ) )
+			if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > ( 4 * OFFSET_LIGHT ) )
 			{
 				//on positionne la tete a l'endroit voulu
-				if( (tete.position.angle_h - 6) > MIN_TETE_HORIZONTAL )
+				if( (tete.position.angle_h - offset_max) > MIN_TETE_HORIZONTAL )
 				{
-					tete.position.angle_h -= 6U ;
+					tete.position.angle_h -= offset_max ;
 				}
 				else
 				{
 					tete.position.angle_h = MIN_TETE_HORIZONTAL ;
 					tete.find_light_angle = TRUE;
 				}
-				DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
-					
 			}
-			else if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > ( 2 * OFFSET_LIGHT ) )
+			else if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > ( 2 * OFFSET_LIGHT ) )
 			{
 				//on positionne la tete a l'endroit voulu
-				if( (tete.position.angle_h - 3) > MIN_TETE_HORIZONTAL )
+				if( (tete.position.angle_h - offset_mid) > MIN_TETE_HORIZONTAL )
 				{
-					tete.position.angle_h -= 3U ;
+					tete.position.angle_h -= offset_mid ;
 				}
 				else
 				{
 					tete.position.angle_h = MIN_TETE_HORIZONTAL ;
 					tete.find_light_angle = TRUE;
 				}
-				DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 			}
-			else if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > OFFSET_LIGHT )
+			else if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > OFFSET_LIGHT )
 			{
 				//on positionne la tete a l'endroit voulu
-				if( (tete.position.angle_h - 1) > MIN_TETE_HORIZONTAL )
+				if( (tete.position.angle_h - offset_min) > MIN_TETE_HORIZONTAL )
 				{
-					tete.position.angle_h -= 1U ;
+					tete.position.angle_h -= offset_min ;
 				}
 				else
 				{
 					tete.position.angle_h = MIN_TETE_HORIZONTAL ;
 					tete.find_light_angle = TRUE;
 				}
-				DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 			}
 			else
 			{
@@ -276,47 +327,44 @@ static void CtrlTeteSearchingLight( void )
 		}	
 		else
 		{
-			if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > ( 4 * OFFSET_LIGHT ) )
+			if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > ( 4 * OFFSET_LIGHT ) )
 			{
 				//on positionne la tete a l'endroit voulu
-				if( (tete.position.angle_h + 6) < MAX_TETE_HORIZONTAL )
+				if( (tete.position.angle_h + offset_max) < MAX_TETE_HORIZONTAL )
 				{
-					tete.position.angle_h += 6U ;
+					tete.position.angle_h += offset_max ;
 				}
 				else
 				{
 					tete.position.angle_h = MAX_TETE_HORIZONTAL ;
 					tete.find_light_angle = TRUE;
-				}
-				DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
+				}	
 			}
-			else if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > ( 2 * OFFSET_LIGHT ) )
+			else if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > ( 2 * OFFSET_LIGHT ) )
 			{
 				//on positionne la tete a l'endroit voulu
-				if( (tete.position.angle_h + 3) < MAX_TETE_HORIZONTAL )
+				if( (tete.position.angle_h + offset_mid) < MAX_TETE_HORIZONTAL )
 				{
-					tete.position.angle_h += 3U ;
+					tete.position.angle_h += offset_mid ;
 				}
 				else
 				{
 					tete.position.angle_h = MAX_TETE_HORIZONTAL ;
 					tete.find_light_angle = TRUE;
 				}
-				DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 			}
-			else if(( tete.mesure_ldr_droite - tete.mesure_ldr_gauche ) > OFFSET_LIGHT )
+			else if(( tete.mesure_ldr_gauche - tete.mesure_ldr_droite ) > OFFSET_LIGHT )
 			{
 				//on positionne la tete a l'endroit voulu
-				if( (tete.position.angle_h + 1) < MAX_TETE_HORIZONTAL )
+				if( (tete.position.angle_h + offset_min) < MAX_TETE_HORIZONTAL )
 				{
-					tete.position.angle_h += 1U ;
+					tete.position.angle_h += offset_min ;
 				}
 				else
 				{
 					tete.position.angle_h = MAX_TETE_HORIZONTAL ;
 					tete.find_light_angle = TRUE;
 				}
-				DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );
 			}
 			else
 			{
@@ -331,6 +379,7 @@ static void CtrlTeteSearchingLight( void )
 			//on envoie l'event 
 			DrvEventAddEvent( CONF_EVENT_FIND_MAX_LIGHT );	
 					
-		}		
+		}
+		DrvServoMoveToPosition( CONF_SERVO_TETE_H , tete.position.angle_h );		
 	}
 }	

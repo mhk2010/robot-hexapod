@@ -63,12 +63,25 @@ void CtrlMarcheDispatcher( Event_t event )
 			}	
 		}
 	}
-	//on n'a pas vu d'objet avant de faire le mouvement
-	if ( DrvEventTestEvent(event, CONF_EVENT_FIND_NO_OBJECT ))
+	//on a attendu de faire le scan avant de faire le mouvement
+	if (( DrvEventTestEvent(event, CONF_EVENT_FIND_NO_OBJECT )) || ( DrvEventTestEvent(event, CONF_EVENT_FIND_NEAR_OBJECT )) )
 	{
-		if( ( old_move != E_MOVE_FORWORD ) && (old_move == E_MOVE_STOP)) 
+		//sa sert a rien de scanner l'avant quand on recul et quand on veut un stop
+		if( ( old_move != E_MOVE_BACKWORD ) && (old_move == E_MOVE_STOP)) 
 		{
-			
+			//on valide le mouvemnt
+			if( body.move == E_MOVE_FORWORD )	
+			{
+				old_move = E_MOVE_FORWORD;
+			}	
+			else if( body.move == E_MOVE_LEFT )	
+			{
+				old_move = E_MOVE_LEFT;
+			}	
+			else if( body.move == E_MOVE_RIGHT )	
+			{
+				old_move = E_MOVE_RIGHT;
+			}			
 		}
 	}
 }
@@ -87,6 +100,7 @@ void CtrlMarcheMove( EMove move, ESpeed speed )
 	body.move = move;
 	body.speed = speed;
 	move_step = FALSE;
+	old_move = E_MOVE_STOP;
 }
 
 //deplace le robot d'un pas
@@ -96,6 +110,7 @@ void CtrlMarcheMoveStep( EMove move, ESpeed speed )
 	body.move = move;
 	body.speed = speed;
 	move_step = TRUE;
+	old_move = E_MOVE_STOP;
 }
 
 
@@ -121,23 +136,29 @@ static void CtrlMarcheSequence( void )
 			//on fait un scan de ce qu'il y a devant
 			CtrlTeteScanProximityAngle(NEUTRE_TETE_HORIZONTAL);
 		}
-		CtrlMarcheSequenceForward();
-		old_move = E_MOVE_FORWORD;
+		else if( old_move == E_MOVE_FORWORD)
+		{
+			CtrlMarcheSequenceForward();
+		}
 	}
 	else if( body.move == E_MOVE_BACKWORD )
 	{
+		//on ne test pas la proximite d'un objet
 		CtrlMarcheSequenceBackward();
 		old_move = E_MOVE_BACKWORD;
 	}
 	else if( body.move == E_MOVE_LEFT )
 	{
+		//si on ne sort pas d'un stop
 		if( old_move == E_MOVE_STOP )
 		{
 			//on fait un scan de ce qu'il y a sur le coté gauche
 			CtrlTeteScanProximityAngle(LEFT_TETE_HORIZONTAL);
 		}
-		CtrlMarcheSequenceLeft();
-		old_move = E_MOVE_LEFT;
+		else if( old_move == E_MOVE_LEFT)
+		{
+			CtrlMarcheSequenceLeft();
+		}
 	}	
 	else if( body.move == E_MOVE_RIGHT )
 	{
@@ -146,10 +167,11 @@ static void CtrlMarcheSequence( void )
 			//on fait un scan de ce qu'il y a sur le coté droit
 			CtrlTeteScanProximityAngle(RIGHT_TETE_HORIZONTAL);
 		}
-		CtrlMarcheSequenceRight();
-		old_move = E_MOVE_RIGHT;
+		else if( old_move == E_MOVE_RIGHT)
+		{
+			CtrlMarcheSequenceRight();
+		}
 	}	
-	
 }
 
 static void CtrlMarcheSequenceForward( void )
