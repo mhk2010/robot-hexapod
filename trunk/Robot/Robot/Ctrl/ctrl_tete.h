@@ -46,6 +46,7 @@ typedef struct {
 	Boolean scanning_proximity_angle;
 	Boolean scanning_light;
 	Boolean find_light_angle;
+	Boolean follow_light_enable;
 	Int8U light_angle;
 	Int16U mesure_ultrason;
 	Int16U mesure_ldr_gauche;
@@ -65,6 +66,8 @@ void CtrlTeteScanProximityAngle( Int8U angle );
 void CtrlTeteStartScanProximity( void );
 //on fait un scan de la lumiere
 void CtrlTeteStartScanLight( void );
+//on suit la lumiere
+void CtrlTeteStartFollowLight( void );
 //on recupere la structure
 tete_t *CtrlTeteGetStruct( void );
 

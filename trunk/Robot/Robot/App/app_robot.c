@@ -9,14 +9,6 @@
 /////////////////////////////////////////PRIVATE DEFINE//////////////////////////////////////////
 #define TIMEOUT_INIT	10//1sec
 
-typedef enum EESeqRobot
-{
-  E_SEQUENCE_ROBOT_USING_PROXIMITY,
-  E_SEQUENCE_ROBOT_PROXIMITY,
-  E_SEQUENCE_ROBOT_USING_LUMIERE,
-  E_SEQUENCE_ROBOT_LUMIERE,
-  E_SEQUENCE_ROBOT_NONE,
-}ESeqRobot;
 
 typedef enum EEHumeurRobot
 {
@@ -30,7 +22,6 @@ typedef enum EEHumeurRobot
 //strucutre qui defini le vie du robot
 typedef struct {
 	Boolean init;
-	ESeqRobot seq;
 	EHumeurRobot humeur;
 } robot_life_t;
 
@@ -59,7 +50,6 @@ Boolean RobotLifeInit(void)
 	//on init la structure du robot
 	robot.life.init = TRUE;
 	
-	robot.life.seq = E_SEQUENCE_ROBOT_LUMIERE;
 	robot.life.humeur = E_HUMEUR_ROBOT_NONE;
 	robot.body = CtrlMarcheGetStruct();
 	robot.tete = CtrlTeteGetStruct();
@@ -70,64 +60,29 @@ Boolean RobotLifeInit(void)
 //on reagit aux evenements
 void RobotLife ( Event_t event ) 
 {
-
-	if( robot.life.seq == E_SEQUENCE_ROBOT_USING_LUMIERE )
+	if( robot.life.humeur == E_HUMEUR_ROBOT_CURIEUX )
 	{
-		SeqLightDispatcher(event);
-		if ( DrvEventTestEvent(event, CONF_EVENT_FIND_NEAR_OBJECT ))
-		{
-			CtrlMarcheMoveStep( E_MOVE_BACKWORD, E_SPEED_3 ) ;
-		}
+		HumCuriousDispatcher(event)	;
 	}
-	else if( robot.life.seq == E_SEQUENCE_ROBOT_USING_PROXIMITY )
-	{
-		SeqProximityDispatcher(event);
-	}						
+				
 	//event 1 sec
 	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
 	{
 		if( RobotLifeCheckInit() )
 		{
-			//robot.life.seq /= (ESeqRobot)RAND();
+			//on est plus en init
 			robot.life.init = FALSE;
+			//on lance son humeur
+			HumCuriousInit(TRUE);
+			robot.life.humeur = E_HUMEUR_ROBOT_CURIEUX;
 		}
-		if( robot.life.seq == E_SEQUENCE_ROBOT_LUMIERE )
-		{
-			SeqLightStartScan();
-			timeout_sequence_using = 0;
-			robot.life.seq = E_SEQUENCE_ROBOT_USING_LUMIERE;
-		}
-		else if( robot.life.seq == E_SEQUENCE_ROBOT_PROXIMITY )
-		{
-			SeqProximityStartScan();
-			timeout_sequence_using = 0;
-			robot.life.seq = E_SEQUENCE_ROBOT_USING_PROXIMITY;
-		}
-		//si la sequence fait plus de 100 sec on la stop
-		else if( timeout_sequence_using > 100)
-		{
-			//on la reinit
-			timeout_sequence_using = 0;
-			robot.life.seq = E_SEQUENCE_ROBOT_NONE;
-			CtrlMarcheMove( E_MOVE_STOP, E_SPEED_0 );
-			CtrlTeteScanProximityAngle(NEUTRE_TETE_HORIZONTAL);
-		}	
-		timeout_sequence_using++;		
-				
-	}
-	if ( DrvEventTestEvent(event, CONF_EVENT_FRONT_OF_LIGHT ))
-	{
-		CtrlTeteScanProximityAngle(NEUTRE_TETE_HORIZONTAL);
-		robot.life.seq = E_SEQUENCE_ROBOT_NONE;
-	}
-	if ( DrvEventTestEvent(event, CONF_EVENT_FRONT_OF_OBJECT ))
-	{
-		CtrlTeteScanProximityAngle(NEUTRE_TETE_HORIZONTAL);
-		robot.life.seq = E_SEQUENCE_ROBOT_NONE;
 	}	
 	
-
-	
+	//dans tout les cas si il y a un obstacle on recul
+	if ( DrvEventTestEvent(event, CONF_EVENT_FIND_NEAR_OBJECT ))
+	{
+		CtrlMarcheMoveStep( E_MOVE_BACKWORD, E_SPEED_3 ) ;
+	}	
 }
 
 /////////////////////////////////////////PRIVATE FUNCTIONS////////////////////////////////////////

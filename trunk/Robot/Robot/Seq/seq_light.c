@@ -12,29 +12,55 @@
 /////////////////////////////////////////PRIVATE TYPEDEF//////////////////////////////////////////
 typedef enum EESequencementLight
 {
-  E_SEQUENCE_FACE_LUMIERE,
-  E_SEQUENCE_FACE_LUMIERE_IN_PROGRESS,
-  E_SEQUENCE_FACE_LUMIERE_NONE,
+  E_SEQUENCE_LIGHT_FACE_LUMIERE,
+  E_SEQUENCE_LIGHT_FOLLOW_LIGHT,
+  E_SEQUENCE_LIGHT_NONE,
 }ESequencementLight;
 
 ///////////////////////////////////////PRIVATE VARIABLES//////////////////////////////////////////
-static ESequencementLight step_sequencement_lumiere = E_SEQUENCE_FACE_LUMIERE_NONE;
+static ESequencementLight step_sequencement_lumiere = E_SEQUENCE_LIGHT_NONE;
 static tete_t *tete_light;
+static Boolean finish = FALSE;
+static Boolean timeout_seq_light = 0;
 
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void SeqLight( void ) 
 {
-	step_sequencement_lumiere = E_SEQUENCE_FACE_LUMIERE_NONE;
+	step_sequencement_lumiere = E_SEQUENCE_LIGHT_NONE;
 	tete_light = CtrlTeteGetStruct();
 }
 
 //on reagit aux evenements
 void SeqLightDispatcher ( Event_t event )
 {
-	//event 1 sec
+	//event lumiere maximum trouvé
+	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
+	{
+		if( step_sequencement_lumiere == E_SEQUENCE_LIGHT_FACE_LUMIERE )
+		{
+			if(finish != FALSE)
+			{
+				timeout_seq_light++;
+				if(timeout_seq_light == 2)
+				{
+					//on envoie l'event 
+					DrvEventAddEvent( CONF_EVENT_SEQ_LIGHT_END );	
+					finish = FALSE;
+					timeout_seq_light = 0;
+				}
+			}
+		}
+		else if( step_sequencement_lumiere == E_SEQUENCE_LIGHT_FOLLOW_LIGHT )
+		{
+			
+		}
+	}
+	
+	//event lumiere maximum trouvé
 	if ( DrvEventTestEvent(event, CONF_EVENT_FIND_MAX_LIGHT ))
 	{
+		Boolean success = FALSE;
 		//on passe directement a l'etape de scan de proximité
 		if( tete_light->light_angle < NEUTRE_TETE_HORIZONTAL )
 		{
@@ -45,8 +71,7 @@ void SeqLightDispatcher ( Event_t event )
 			}
 			else
 			{
-				step_sequencement_lumiere = E_SEQUENCE_FACE_LUMIERE_NONE;
-				DrvEventAddEvent( CONF_EVENT_FRONT_OF_LIGHT );
+				success = TRUE;
 			}	
 		}
 		else
@@ -58,16 +83,21 @@ void SeqLightDispatcher ( Event_t event )
 			}
 			else
 			{
-				//sinon on a fini
-				step_sequencement_lumiere = E_SEQUENCE_FACE_LUMIERE_NONE;
-				DrvEventAddEvent( CONF_EVENT_FRONT_OF_LIGHT );
+				success = TRUE;
 			}	
+		}
+		//on est face a la lumiere
+		if( success == TRUE )
+		{
+			//on avance
+			CtrlMarcheMoveStep( E_MOVE_FORWORD, E_SPEED_3 ) ;
+			finish = TRUE;
 		}
 	}
 	//quand le mouvement est fini
 	if ( DrvEventTestEvent(event ,CONF_EVENT_MOVE_END ))
 	{
-		if(step_sequencement_lumiere == E_SEQUENCE_FACE_LUMIERE_IN_PROGRESS)
+		if(step_sequencement_lumiere == E_SEQUENCE_LIGHT_FACE_LUMIERE)
 		{
 			CtrlTeteStartScanLight();
 		}
@@ -76,15 +106,23 @@ void SeqLightDispatcher ( Event_t event )
 
 
 //on lance la sequence de mouvement de la lumiere
+void SeqLightStartFollowLight( void ) 
+{
+	//on lance le scan de la lumiere
+	CtrlTeteStartFollowLight();
+	step_sequencement_lumiere = E_SEQUENCE_LIGHT_FOLLOW_LIGHT;
+}
+
+//on lance la sequence de mouvement de la lumiere
 void SeqLightStartScan( void ) 
 {
 	//on lance le scan de la lumiere
 	CtrlTeteStartScanLight();
-	step_sequencement_lumiere = E_SEQUENCE_FACE_LUMIERE_IN_PROGRESS;
+	step_sequencement_lumiere = E_SEQUENCE_LIGHT_FACE_LUMIERE;
 }
 
 //on stop la sequence de mouvement de la lumiere
-void SeqLightStopScan( void ) 
+void SeqLightStop( void ) 
 {
-	step_sequencement_lumiere = E_SEQUENCE_FACE_LUMIERE_NONE;
+	step_sequencement_lumiere = E_SEQUENCE_LIGHT_NONE;
 }

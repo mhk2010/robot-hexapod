@@ -32,7 +32,10 @@ void SeqLightDispatcher ( Event_t event ) ;
 //on lance la sequence de mouvement de la lumiere
 void SeqLightStartScan( void ) ;
 
+//on lance la sequence de mouvement de la lumiere
+void SeqLightStartFollowLight( void ) ;
+
 //on stop la sequence de mouvement de la lumiere
-void SeqLightStopScan( void ) ;
+void SeqLightStop( void ) ;
 
 #endif /* SEQ_LIGHT_H_ */

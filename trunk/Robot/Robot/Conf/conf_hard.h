@@ -31,6 +31,7 @@
 #define		CONF_EVENT_FRONT_OF_OBJECT	9U
 #define		CONF_EVENT_ACCEL			10U
 #define		CONF_EVENT_BOUSSOLE_SENSOR	11U
+#define		CONF_EVENT_SEQ_LIGHT_END	12U
 
 
 //-----------------------------------------------------------------------------------------------//
