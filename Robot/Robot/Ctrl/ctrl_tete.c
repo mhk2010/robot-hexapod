@@ -48,6 +48,7 @@ void CtrlTete( void )
 	tete.mesure_ldr_gauche = 0U;
 	tete.mesure_ldr_droite = 0U;
 	tete.mesure_ultrason = 0U;	
+	tete.mesure_infrarouge = 0U;
 	
 	//on ajoute les ADCs
 	DrvAdcEnableAdc( CONF_ADC_LDR_GAUCHE );
@@ -87,6 +88,7 @@ void CtrlTeteDispatcher( Event_t event )
 		else if( tete.scanning_proximity_angle == TRUE )
 		{
 			timeout_event_200ms++;
+			//le temps que le servo atteigne sa position
 			if(timeout_event_200ms == 2)
 			{
 				CtrlTeteScanningProximityAngle();
@@ -164,7 +166,6 @@ void CtrlTeteStartScanLight( void )
 		tete.find_light_angle = FALSE;
 	}
 }
-
 ////////////////////////////////////////PRIVATE FUNCTIONS//////////////////////////////////////////
 //on bouge la tete sur un angle et on scan
 static void CtrlTeteScanningProximityAngle( void )
@@ -177,8 +178,9 @@ static void CtrlTeteScanningProximityAngle( void )
 	}
 	else
 	{
-		//on ne lit pas la premiere mesure car elle a pas été effectué
+		//on lance les lecture de capteurs
 		tete.mesure_ultrason = CtrlUltraSonReadMesure();
+		//tete.mesure_infrarouge = DrvAdcReadChannel( CONF_ADC_IR );
 		tete.scanning_proximity_angle = FALSE;
 		if( tete.mesure_ultrason > SECURITY_PERIMETER )
 		{
@@ -186,7 +188,15 @@ static void CtrlTeteScanningProximityAngle( void )
 		}
 		else
 		{
-			DrvEventAddEvent( CONF_EVENT_FIND_NEAR_OBJECT );
+			//on confirme par le capteur IR
+			//if( tete.mesure_infrarouge > 350)
+			{
+				DrvEventAddEvent( CONF_EVENT_FIND_NEAR_OBJECT );
+			}
+			/*else
+			{
+				DrvEventAddEvent( CONF_EVENT_FIND_NO_OBJECT );
+			}*/
 		}				
 	}
 }
@@ -205,7 +215,9 @@ static void CtrlTeteScanningProximity( void )
 			if( tete.position.angle_h != START_ANGLE_DETECT )
 			{
 				//on ne lit pas la premiere mesure car elle a pas été effectué
+				//on lance les lecture de capteurs
 				tete.mesure_ultrason = CtrlUltraSonReadMesure();
+				//tete.mesure_infrarouge = DrvAdcReadChannel( CONF_ADC_IR );
 			}
 			CtrlUltraSonLaunchMesure();
 			
@@ -217,6 +229,15 @@ static void CtrlTeteScanningProximity( void )
 			}
 			else
 			{
+				//on confirme par le capteur IR
+				/*if( tete.mesure_infrarouge > 350)
+				{
+					DrvEventAddEvent( CONF_EVENT_FIND_NEAR_OBJECT );
+				}
+				else
+				{
+					DrvEventAddEvent( CONF_EVENT_FIND_NO_OBJECT );
+				}*/
 				DrvEventAddEvent( CONF_EVENT_FIND_NEAR_OBJECT );
 				tete.scanning_proximity = FALSE;
 			}

@@ -76,13 +76,7 @@ void RobotLife ( Event_t event )
 			HumCuriousInit(TRUE);
 			robot.life.humeur = E_HUMEUR_ROBOT_CURIEUX;
 		}
-	}	
-	
-	//dans tout les cas si il y a un obstacle on recul
-	if ( DrvEventTestEvent(event, CONF_EVENT_FIND_NEAR_OBJECT ))
-	{
-		CtrlMarcheMoveStep( E_MOVE_BACKWORD, E_SPEED_3 ) ;
-	}	
+	}		
 }
 
 /////////////////////////////////////////PRIVATE FUNCTIONS////////////////////////////////////////

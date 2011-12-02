@@ -25,7 +25,7 @@
 /*
  * Basic Macros
  */
-#define RAND()						(Int8U)( DrvAdcReadChannel( CONF_ADC_LDR_GAUCHE ) + DrvAdcReadChannel( CONF_ADC_LDR_DROITE ))
+#define RAND()						(Int8U)( DrvAdcReadChannel( CONF_ADC_IR ) + DrvAdcReadChannel( CONF_ADC_LDR_GAUCHE ) + DrvAdcReadChannel( CONF_ADC_LDR_DROITE ))
 
 
 #define BIT_HIGH( reg , bit )		reg |=  ( 1U << bit );

@@ -67,7 +67,7 @@ void CtrlMarcheDispatcher( Event_t event )
 	if (( DrvEventTestEvent(event, CONF_EVENT_FIND_NO_OBJECT )) || ( DrvEventTestEvent(event, CONF_EVENT_FIND_NEAR_OBJECT )) )
 	{
 		//sa sert a rien de scanner l'avant quand on recul et quand on veut un stop
-		if( ( old_move != E_MOVE_BACKWORD ) && (old_move == E_MOVE_STOP)) 
+		if( ( body.move != E_MOVE_BACKWORD ) && (body.move != E_MOVE_STOP)) 
 		{
 			//on valide le mouvemnt
 			if( body.move == E_MOVE_FORWORD )	
@@ -106,13 +106,14 @@ void CtrlMarcheMove( EMove move, ESpeed speed )
 //deplace le robot d'un pas
 void CtrlMarcheMoveStep( EMove move, ESpeed speed ) 
 {
-	step = 0;
-	body.move = move;
-	body.speed = speed;
-	move_step = TRUE;
-	old_move = E_MOVE_STOP;
+	if( old_move == E_MOVE_STOP )
+	{
+		step = 0;
+		body.move = move;
+		body.speed = speed;
+		move_step = TRUE;
+	}
 }
-
 
 /////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 //on lance les sequence de mouvements du robot
@@ -383,7 +384,10 @@ static void CtrlMarcheSequenceStop( void )
 	CtrlPatteMove(ARRIERE_GAUCHE,	NEUTRE_EPAULE_ARRIERE_GAUCHE ,	NEUTRE_COUDE_ARRIERE_GAUCHE );
 	CtrlPatteMove(ARRIERE_DROITE,	NEUTRE_EPAULE_ARRIERE_DROITE ,	NEUTRE_COUDE_ARRIERE_DROITE );
 	//on envoie l'event 
-	DrvEventAddEvent( CONF_EVENT_MOVE_END );	
+	DrvEventAddEvent( CONF_EVENT_MOVE_END );
+	
+	old_move = E_MOVE_STOP;	
+	body.move = E_MOVE_STOP;
 	
 	
 }	

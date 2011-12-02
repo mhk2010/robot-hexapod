@@ -36,7 +36,6 @@ Boolean MainInitSystemDrivers( void ) ;
 Boolean MainInitSystemControl(void) ;
 //excecution du dispatcher d'evenement des controls
 void MainInitSystemControlDispatcher() ;
-static Int16U toto;
 static Event_t main_event_flags = 0;
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //start here
