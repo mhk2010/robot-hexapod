@@ -48,6 +48,7 @@ typedef struct {
 	Boolean find_light_angle;
 	Boolean follow_light_enable;
 	Int8U light_angle;
+	Int16U mesure_infrarouge;
 	Int16U mesure_ultrason;
 	Int16U mesure_ldr_gauche;
 	Int16U mesure_ldr_droite;

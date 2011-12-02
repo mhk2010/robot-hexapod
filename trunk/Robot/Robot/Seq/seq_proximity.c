@@ -33,6 +33,7 @@ void SeqProximity( void )
 void SeqProximityDispatcher ( Event_t event )
 {
 	//event 1 sec
+		
 	if ( DrvEventTestEvent(event, CONF_EVENT_FIND_NEAR_OBJECT ))
 	{
 		//on passe directement a l'etape de scan de proximité
@@ -69,7 +70,7 @@ void SeqProximityDispatcher ( Event_t event )
 	{
 		if(step_sequencement_object == E_SEQUENCE_FACE_OBJECT_IN_PROGRESS)
 		{
-			CtrlTeteStartScanLight();
+			CtrlTeteStartScanProximity();
 		}
 	}	
 }
