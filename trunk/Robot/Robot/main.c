@@ -23,20 +23,22 @@
 #include "Ctrl/ctrl_boussole.h"
 #include "Ctrl/ctrl_accel.h"
 
-#include "Seq/seq_light.h"
-#include "Seq/seq_proximity.h"
+#include "Ctrl/ctrl_proximity.h"
+#include "Ctrl/ctrl_light.h"
 
 #include "App/app_robot.h"
 
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 //init du main
-Boolean MainInitSystemDrivers( void ) ;
+static Boolean MainInitSystemDrivers( void ) ;
 //lancement des control du robot
-Boolean MainInitSystemControl(void) ;
+static Boolean MainInitSystemControl(void) ;
 //excecution du dispatcher d'evenement des controls
-void MainInitSystemControlDispatcher() ;
+static void MainSystemControlDispatcher() ;
+//event main
 static Event_t main_event_flags = 0;
+
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //start here
 int main(void)
@@ -51,8 +53,8 @@ int main(void)
 	DrvInterruptSetAllInterrupts();
 	
 	//on active la vie du robot
-	RobotLifeInit();
-	
+	//RobotLifeInit();
+	CtrlLightLaunchFollowLight();
 	//on boucle
     while( TRUE )
     {
@@ -60,10 +62,12 @@ int main(void)
 		main_event_flags = DrvEventGetEvent();
 		
 		//excecution du dispatcher d'evenements
-		MainInitSystemControlDispatcher( );
+		MainSystemControlDispatcher( );
+		
 		
 		//on fait vivre le robot
-		RobotLife( main_event_flags );
+		//RobotLife( main_event_flags );
+		
 		//on kill les events
 		DrvEventKillEvent( main_event_flags );	
     }
@@ -72,7 +76,7 @@ int main(void)
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 //init du main
-Boolean MainInitSystemDrivers(void)
+static Boolean MainInitSystemDrivers(void)
 {
 	Boolean o_success = TRUE;
 	
@@ -86,7 +90,7 @@ Boolean MainInitSystemDrivers(void)
 }	
 
 //lancement des controles du robot
-Boolean MainInitSystemControl(void) 
+static Boolean MainInitSystemControl( void ) 
 {
 	Boolean o_success = TRUE;
 	
@@ -98,16 +102,16 @@ Boolean MainInitSystemControl(void)
 	CtrlTete();
 	CtrlMarche();
 	
-	//init des sequences
-	SeqLight();
-	SeqProximity();
+	CtrlProximity();
+	CtrlLight();
+	
 	return o_success;
 }
 
 
 
 //excecution du dispatcher d'evenement
-void MainInitSystemControlDispatcher()
+static void MainSystemControlDispatcher( void )
 {
 	//get next event
 	if(main_event_flags > 0)
@@ -117,8 +121,10 @@ void MainInitSystemControlDispatcher()
 		CtrlAccelDispatcher( main_event_flags );
 		//CtrlBoussoleDispatcher( main_event_flags );
 		CtrlUltraSonDispatcher( main_event_flags );
-		CtrlMarcheDispatcher( main_event_flags );
-		CtrlTeteDispatcher( main_event_flags );
+		//CtrlMarcheDispatcher( main_event_flags );
+		//CtrlTeteDispatcher( main_event_flags );
+		CtrlProximityDispatcher(main_event_flags);
+		CtrlLightDispatcher(main_event_flags);
 	}	
 }	
 	

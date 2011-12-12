@@ -169,6 +169,12 @@
     <Compile Include="Ctrl\ctrl_boussole.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Ctrl\ctrl_light.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_light.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Ctrl\ctrl_marche.c">
       <SubType>compile</SubType>
     </Compile>
@@ -179,6 +185,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Ctrl\ctrl_patte.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_proximity.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_proximity.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Ctrl\ctrl_tete.c">
