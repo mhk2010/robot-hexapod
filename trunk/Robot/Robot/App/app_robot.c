@@ -88,24 +88,24 @@ void RobotLife ( Event_t event )
 		  )
 		{
 			if(
-			   (robot.life.res.mesure_droite > robot.life.res.mesure_milieu) && 
-			   (robot.life.res.mesure_droite > robot.life.res.mesure_gauche)
+			   (robot.life.res.mesure_droite >= robot.life.res.mesure_milieu) && 
+			   (robot.life.res.mesure_droite >= robot.life.res.mesure_gauche)
 			  )
 			{
 				//on va a droite
 				CtrlMarcheMove(E_MOVE_RIGHT, E_SPEED_3 );
 			}
 			else if(
-			   (robot.life.res.mesure_gauche > robot.life.res.mesure_milieu) && 
-			   (robot.life.res.mesure_gauche > robot.life.res.mesure_droite)
+			   (robot.life.res.mesure_gauche >= robot.life.res.mesure_milieu) && 
+			   (robot.life.res.mesure_gauche >= robot.life.res.mesure_droite)
 			  )
 			{
 				//on va a gauche
 				CtrlMarcheMove(E_MOVE_LEFT, E_SPEED_3 );
 			}
 			else if(
-			   (robot.life.res.mesure_milieu > robot.life.res.mesure_gauche) && 
-			   (robot.life.res.mesure_gauche > robot.life.res.mesure_droite)
+			   (robot.life.res.mesure_milieu >= robot.life.res.mesure_gauche) && 
+			   (robot.life.res.mesure_milieu >= robot.life.res.mesure_droite)
 			  )
 			{
 				//on va tout droit
