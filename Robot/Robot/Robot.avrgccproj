@@ -143,8 +143,6 @@
     <Folder Include="Drv" />
     <Folder Include="Mic" />
     <Folder Include="App" />
-    <Folder Include="Hum" />
-    <Folder Include="Seq" />
     <Folder Include="Tools" />
   </ItemGroup>
   <ItemGroup>
@@ -155,18 +153,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Conf\conf_hard.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_accel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_accel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_boussole.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_boussole.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Ctrl\ctrl_light.c">
@@ -271,12 +257,6 @@
     <Compile Include="Drv\drv_uart.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Hum\hum_curious.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Hum\hum_curious.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -328,15 +308,6 @@
     <Compile Include="Mic\mic_usart.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Seq\seq_light.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Seq\seq_proximity.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Seq\seq_proximity.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Tools\tools_string.c">
       <SubType>compile</SubType>
     </Compile>
@@ -346,11 +317,6 @@
     <Compile Include="Tools\tools_typedefs.h">
       <SubType>compile</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Seq\seq_light.h">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

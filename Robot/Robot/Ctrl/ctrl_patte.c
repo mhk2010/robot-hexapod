@@ -65,8 +65,6 @@ void CtrlPatte( void )
 	}	
 }
 
-
-
 //on bouge une patte
 void CtrlPatteMove( Int8U index, Int8U angle_epaule, Int8U angle_coude )
 {

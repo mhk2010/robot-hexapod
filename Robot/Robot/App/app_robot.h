@@ -14,7 +14,10 @@
 
 #include "Conf/conf_hard.h"
 
-#include "Hum/hum_curious.h"
+#include "Ctrl/ctrl_marche.h"
+#include "Ctrl/ctrl_light.h"
+#include "Ctrl/ctrl_proximity.h"
+
 
 ////////////////////////////////////////////PUBLIC ENUMS/////////////////////////////////////////
 
