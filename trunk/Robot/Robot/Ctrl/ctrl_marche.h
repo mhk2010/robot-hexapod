@@ -57,5 +57,7 @@ void CtrlMarcheMove( EMove move, ESpeed speed ) ;
 void CtrlMarcheMoveStep( EMove move, ESpeed speed ) ;
 //on recupere la structure
 move_t* CtrlMarcheGetStruct( void ) ;
+//on arrte a la fin du mouvement
+void CtrlMarcheMoveWantStop( void ) ;
 
 #endif /* CTRL_MARCHE_H_ */

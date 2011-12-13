@@ -16,15 +16,13 @@
 #include "Drv/drv_servo.h"
 
 #include "Ctrl/ctrl_uart_protocole.h"
-#include "Ctrl/ctrl_tete.h"
 #include "Ctrl/ctrl_marche.h"
 #include "Ctrl/ctrl_patte.h"
 #include "Ctrl/ctrl_ultrason.h"
-#include "Ctrl/ctrl_boussole.h"
-#include "Ctrl/ctrl_accel.h"
 
 #include "Ctrl/ctrl_proximity.h"
 #include "Ctrl/ctrl_light.h"
+#include "Ctrl/ctrl_tete.h"
 
 #include "App/app_robot.h"
 
@@ -53,8 +51,8 @@ int main(void)
 	DrvInterruptSetAllInterrupts();
 	
 	//on active la vie du robot
-	//RobotLifeInit();
-	CtrlLightLaunchFollowLight();
+	RobotLifeInit();
+	
 	//on boucle
     while( TRUE )
     {
@@ -64,9 +62,8 @@ int main(void)
 		//excecution du dispatcher d'evenements
 		MainSystemControlDispatcher( );
 		
-		
 		//on fait vivre le robot
-		//RobotLife( main_event_flags );
+		RobotLife( main_event_flags );
 		
 		//on kill les events
 		DrvEventKillEvent( main_event_flags );	
@@ -75,16 +72,18 @@ int main(void)
 
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
-//init du main
+//init des drivers du main
 static Boolean MainInitSystemDrivers(void)
 {
 	Boolean o_success = TRUE;
 	
+	//init des drivers
+	DrvTimer();
 	DrvEvent();
 	
 	DrvAdc();
 	DrvI2C();
-	DrvTimer();
+	
 	
 	return o_success;
 }	
@@ -95,11 +94,9 @@ static Boolean MainInitSystemControl( void )
 	Boolean o_success = TRUE;
 	
 	//init des controls
+	CtrlTete();
 	CtrlUartProtocole();
 	CtrlUltraSon();
-	CtrlBoussole();
-	CtrlAccel();
-	CtrlTete();
 	CtrlMarche();
 	
 	CtrlProximity();
@@ -118,13 +115,10 @@ static void MainSystemControlDispatcher( void )
 	{
 		//on dispatch l'event 
 		CtrlUartProtocoleDispatcher( main_event_flags );
-		CtrlAccelDispatcher( main_event_flags );
-		//CtrlBoussoleDispatcher( main_event_flags );
 		CtrlUltraSonDispatcher( main_event_flags );
-		//CtrlMarcheDispatcher( main_event_flags );
-		//CtrlTeteDispatcher( main_event_flags );
 		CtrlProximityDispatcher(main_event_flags);
 		CtrlLightDispatcher(main_event_flags);
+		CtrlMarcheDispatcher( main_event_flags );
 	}	
 }	
 	

@@ -61,8 +61,6 @@ typedef struct {
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void CtrlPatte( void ) ;
-//dispatcher
-void CtrlPatteDispatcher( Event_t event )  ;
 //on bouge une patte
 void CtrlPatteMove( Int8U index, Int8U angle_epaule, Int8U angle_coude );
 

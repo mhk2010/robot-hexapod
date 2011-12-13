@@ -33,8 +33,14 @@ void CtrlLight( void ) ;
 //dispatcher
 void CtrlLightDispatcher( Event_t event )  ;
 //on lance un scan 
-void CtrlLightLaunch( void );
+void CtrlLightLaunchFollowLight( void );
+//renvoit le taux de luminosite de l'environnement
+luminosity_level_t CtrlLightGetLightIntensity( void );
 
+//on boucle sur la recherhce de lumiere
+void CtrlLightContinueFollowLight( void );
+//on arrete de suivre la lumiere
+void CtrlLightStopFollowLight( void );
 
 
 #endif /* CTRL_LIGHT_H_ */

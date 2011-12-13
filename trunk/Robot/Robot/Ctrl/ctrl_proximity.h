@@ -18,6 +18,13 @@
 #include "Drv/drv_event.h"
 #include "Drv/drv_servo.h"
 
+//strucutre qui defini le robot
+typedef struct {
+	Int16U mesure_droite ;
+	Int16U mesure_milieu ;
+	Int16U mesure_gauche ;
+} proximity_result_t;
+
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void CtrlProximity( void ) ;
@@ -25,6 +32,8 @@ void CtrlProximity( void ) ;
 void CtrlProximityDispatcher( Event_t event )  ;
 //on lance un scan 
 void CtrlProximityLaunchScan( void );
+//retourn les resultat du scan
+proximity_result_t CtrlProximityGetScanResult( void );
 
 
 #endif /* CTRL_PROXIMITY_H_ */
