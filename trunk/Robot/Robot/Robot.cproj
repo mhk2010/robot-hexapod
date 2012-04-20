@@ -175,6 +175,12 @@
     <Folder Include="Tools" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app_robot.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="app_robot.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Conf\conf_hard.h">
       <SubType>compile</SubType>
     </Compile>

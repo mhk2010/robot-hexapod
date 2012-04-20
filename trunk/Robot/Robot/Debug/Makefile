@@ -40,6 +40,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../app_robot.c \
 ../Ctrl/ctrl_marche.c \
 ../Ctrl/ctrl_patte.c \
 ../Ctrl/ctrl_tete.c \
@@ -58,8 +59,7 @@ C_SRCS +=  \
 ../Mic/mic_system_clock.c \
 ../Mic/mic_system_control.c \
 ../Mic/mic_timer_0.c \
-../Mic/mic_usart.c \
-../Tools/tools_string.c
+../Mic/mic_usart.c
 
 
 PREPROCESSING_SRCS += 
@@ -69,6 +69,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+app_robot.o \
 Ctrl/ctrl_marche.o \
 Ctrl/ctrl_patte.o \
 Ctrl/ctrl_tete.o \
@@ -87,11 +88,11 @@ Mic/mic_power_management.o \
 Mic/mic_system_clock.o \
 Mic/mic_system_control.o \
 Mic/mic_timer_0.o \
-Mic/mic_usart.o \
-Tools/tools_string.o
+Mic/mic_usart.o
 
 
 OBJS_AS_ARGS +=  \
+app_robot.o \
 Ctrl/ctrl_marche.o \
 Ctrl/ctrl_patte.o \
 Ctrl/ctrl_tete.o \
@@ -110,11 +111,11 @@ Mic/mic_power_management.o \
 Mic/mic_system_clock.o \
 Mic/mic_system_control.o \
 Mic/mic_timer_0.o \
-Mic/mic_usart.o \
-Tools/tools_string.o
+Mic/mic_usart.o
 
 
 C_DEPS +=  \
+app_robot.d \
 Ctrl/ctrl_marche.d \
 Ctrl/ctrl_patte.d \
 Ctrl/ctrl_tete.d \
@@ -133,11 +134,11 @@ Mic/mic_power_management.d \
 Mic/mic_system_clock.d \
 Mic/mic_system_control.d \
 Mic/mic_timer_0.d \
-Mic/mic_usart.d \
-Tools/tools_string.d
+Mic/mic_usart.d
 
 
 C_DEPS_AS_ARGS +=  \
+app_robot.d \
 Ctrl/ctrl_marche.d \
 Ctrl/ctrl_patte.d \
 Ctrl/ctrl_tete.d \
@@ -156,8 +157,7 @@ Mic/mic_power_management.d \
 Mic/mic_system_clock.d \
 Mic/mic_system_control.d \
 Mic/mic_timer_0.d \
-Mic/mic_usart.d \
-Tools/tools_string.d
+Mic/mic_usart.d
 
 
 OUTPUT_FILE_PATH +=Robot.elf
@@ -210,6 +210,12 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 
 
 
+./%.o: .././%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	@echo Finished building: $<
+
 Ctrl/%.o: ../Ctrl/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
@@ -222,19 +228,7 @@ Drv/%.o: ../Drv/%.c
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
-./%.o: .././%.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
-	@echo Finished building: $<
-
 Mic/%.o: ../Mic/%.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
-	@echo Finished building: $<
-
-Tools/%.o: ../Tools/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 

@@ -10,10 +10,9 @@
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 ////////////////////////////////////////PRIVATE VARIABLES/////////////////////////////////////////
-static STete MaTete;
+static head_member_t MaTete;
 
 #define NB_SCAN_POSTION			9U
-Boolean enable_scan = TRUE;
 Int8U scan_position[ NB_SCAN_POSTION ] = {	NEUTRE_TETE_HORIZONTAL ,
 											NEUTRE_TETE_HORIZONTAL ,
 											MIN_TETE_HORIZONTAL ,
@@ -34,9 +33,9 @@ Int8U index_scan_position = 0U;
 void CtrlTete( void ) 
 { 
 	//on fixe les variables
-	enable_scan = TRUE;
+	MaTete.is_scaning = FALSE;
 	index_scan_position = 0U;
-	
+		
 	//on ajoute les 2 servo a la tete
 	MaTete.angle_h = NEUTRE_TETE_HORIZONTAL;
 	MaTete.angle_v = NEUTRE_TETE_VERTICAL;
@@ -50,7 +49,7 @@ void CtrlTeteDispatcher( Event_t event )
 	if ( DrvEventTestEvent(event ,CONF_EVENT_TIMER_1S ))
 	{	
 		//si le scan est activé
-		if( enable_scan == TRUE )	
+		if( MaTete.is_scaning == TRUE )	
 		{
 			//on fait un balayage horizontal de la tete
 			if (DrvServoMoveToPosition( CONF_SERVO_TETE_H_INDEX, scan_position[index_scan_position], E_SERVO_VITESSE_5) == TRUE)
@@ -61,33 +60,30 @@ void CtrlTeteDispatcher( Event_t event )
 			{
 				//on a fini de scanner
 				index_scan_position = 0U;
-				enable_scan = FALSE;
+				MaTete.is_scaning = FALSE;
 			}
 		}
-	}
-	if ( DrvEventTestEvent(event ,CONF_EVENT_ALERT_US_PROX ))
-	{	
-		//on eteind le scan
-		//si le scan est activé
-		if( enable_scan == TRUE )	
-		{
-			enable_scan = FALSE;
-		}
-	}					
+	}				
 }	
 
 //on start le scan de la tete
 void CtrlTeteStartScan( void )
 {
 	index_scan_position = 0U;	
-	enable_scan = TRUE;
+	MaTete.is_scaning = TRUE;
 }
 
 //on stop le scan de la tete
 void CtrlTeteStopScan( void )
 {
-	enable_scan = FALSE;
+	MaTete.is_scaning = FALSE;
 }	
+
+//on recupere la structure
+head_member_t* CtrlTeteGetStruct( void )
+{
+	return &MaTete;	
+}
 
 //on bouge la tete
 void CtrlTeteMove( Int8U angle_tete_hor, Int8U angle_tete_ver, Int8U vitesse )

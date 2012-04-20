@@ -18,7 +18,9 @@ main.d main.o: .././main.c .././Conf/conf_hard.h .././Drv/drv_event.h \
  .././Ctrl/ctrl_uart_protocole.h ../Drv/drv_uart.h \
  ../Tools/tools_string.h ../Mic/mic_usart.h ../Drv/drv_timer.h \
  .././Ctrl/ctrl_marche.h ../Drv/drv_servo.h .././Ctrl/ctrl_patte.h \
- .././Ctrl/ctrl_tete.h ../Drv/drv_adc.h ../Mic/mic_adc.h
+ .././Ctrl/ctrl_tete.h ../Drv/drv_adc.h ../Mic/mic_adc.h \
+ .././App/app_robot.h ../Ctrl/ctrl_marche.h ../Ctrl/ctrl_light.h \
+ ../Ctrl/ctrl_proximity.h
 
 .././Conf/conf_hard.h:
 
@@ -89,3 +91,11 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 ../Drv/drv_adc.h:
 
 ../Mic/mic_adc.h:
+
+.././App/app_robot.h:
+
+../Ctrl/ctrl_marche.h:
+
+../Ctrl/ctrl_light.h:
+
+../Ctrl/ctrl_proximity.h:

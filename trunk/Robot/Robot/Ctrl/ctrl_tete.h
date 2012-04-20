@@ -32,7 +32,8 @@
 typedef struct SSTete{
 	Int8U angle_h;
 	Int8U angle_v;
-} STete;
+	Boolean is_scaning;
+} head_member_t;
 
 //init de la tete
 void CtrlTete( void ) ;
@@ -40,7 +41,8 @@ void CtrlTete( void ) ;
 void CtrlTeteMove( Int8U angle_tete_hor, Int8U angle_tete_ver, Int8U vitesse );
 //dispatacher d'event
 void CtrlTeteDispatcher( Event_t event );
-
+//on recupere la structure
+head_member_t* CtrlTeteGetStruct( void ) ;
 //on start le scan de la tete
 void CtrlTeteStartScan( void ) ;
 //on stop le scan de la tete
