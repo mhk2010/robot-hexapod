@@ -26,7 +26,7 @@ static void CtrlMarcheSequenceRight( void ) ;
 static Boolean CtrlMarcheSequenceSitDown( void ) ;
 static Boolean CtrlMarcheSequenceStop( void ) ;
 static Boolean CtrlMarcheSequenceStar( void ) ;
-static move_t body;
+static body_member_t body;
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void CtrlMarche( void ) 
@@ -59,7 +59,7 @@ void CtrlMarcheDispatcher( Event_t event )
 }
 
 //on recupere la structure
-move_t* CtrlMarcheGetStruct( void )
+body_member_t* CtrlMarcheGetStruct( void )
 {
 	return &body;	
 }
@@ -73,13 +73,6 @@ void CtrlMarcheMove( EMove move, EServoVitesse speed )
 	body.speed = speed;
 }
 
-//deplace le robot d'un pas
-void CtrlMarcheMoveStep( EMove move, EServoVitesse speed ) 
-{
-	step = 0U;
-	body.move = move;
-	body.speed = speed;
-}
 
 /////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 

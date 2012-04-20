@@ -38,7 +38,7 @@ typedef enum EEMove
 typedef struct {
 	EMove move;
 	EServoVitesse speed;
-} move_t;
+} body_member_t;
 
 
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
@@ -48,10 +48,8 @@ void CtrlMarche( void ) ;
 void CtrlMarcheDispatcher( Event_t event )  ;
 //deplace le robot
 void CtrlMarcheMove( EMove move, EServoVitesse speed ) ;
-//deplace le robot d'un pas
-void CtrlMarcheMoveStep( EMove move, EServoVitesse speed ) ;
 //on recupere la structure
-move_t* CtrlMarcheGetStruct( void ) ;
+body_member_t* CtrlMarcheGetStruct( void ) ;
 //on arrte a la fin du mouvement
 void CtrlMarcheMoveWantStop( void ) ;
 

@@ -35,4 +35,8 @@
 void CtrlUartProtocole( void ) ;
 //dispatcher 
 void CtrlUartProtocoleDispatcher( Event_t event ) ;
+//retourne la valeur mesurer lar l'us
+Int16U CtrlUartProtocoleReadHeadUs( void ) ;
+//valeur mesurer par l'us
+void CtrlUartProtocoleSendReadHeadUs( void ) ;
 #endif /* CTRL_UART_PROTOCOLE_H_ */

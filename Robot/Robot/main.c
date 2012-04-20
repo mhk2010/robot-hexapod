@@ -18,6 +18,8 @@
 #include "Ctrl/ctrl_patte.h"
 #include "Ctrl/ctrl_tete.h"
 
+#include "App/app_robot.h"
+
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 //init du main
 static Boolean MainInitSystemDrivers( void ) ;
@@ -43,6 +45,9 @@ int main(void)
 	//lance les its
 	DrvInterruptSetAllInterrupts();
 	
+	//on init la vie du robot
+	//RobotLifeInit();
+	
 	//on boucle à l'infini
     while( TRUE )
     {
@@ -51,6 +56,9 @@ int main(void)
 
 		//excecution du dispatcher d'evenements
 		MainSystemControlDispatcher();
+		
+		//on fait vivre le robot
+		//RobotLife( main_event_flags );
 		
 		//on kill les events
 		DrvEventKillEvent( main_event_flags );	

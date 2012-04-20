@@ -25,6 +25,9 @@ Int8U i_message_len_from_digi = 0;
 Int8U i_message_from_head[ 50U ];
 Int8U i_message_len_from_head = 0;
 
+//mesure de l'ultrason
+Int16U ultrason_mesure = 0U;
+
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 
 static void CtrlUartProtocoleHeadUs( void ) ;
@@ -118,6 +121,12 @@ void CtrlUartProtocoleDispatcher( Event_t event )
 		//on eteinds la led apres le traitement
 		DrvLedOff(CONF_LED_RX_DIGI);			
 	}	
+}	
+
+//on lit la mesure US
+Int16U CtrlUartProtocoleReadHeadUs( void ) 
+{
+	return ultrason_mesure;
 }	
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
@@ -276,13 +285,17 @@ static void CtrlUartProtocoleHeadLight( void )
 	}
 }
 
+//valeur mesurer par l'us
+void CtrlUartProtocoleSendReadHeadUs( void ) 
+{
+	Int8U message[ 5U ] = {'*',0,0,'#','#'};
+	//on l'envoie a la tete
+	DrvUart0SendMessage( message, 5U );
+}
+
 static void CtrlUartProtocoleHeadUs( void ) 
 {
-	Int16U ultrason_mesure = 0U;
 	ultrason_mesure = (Int16U)((Int16U)(i_message_from_head[ 3U ] >> 8U )| i_message_from_head[ 4U ]);
-	if( ultrason_mesure < SECURITY_PERIMETER )
-	{
-		//on lance l'event
-		DrvEventAddEvent( CONF_EVENT_ALERT_US_PROX );
-	}
+	//on lance l'event
+	DrvEventAddEvent( CONF_EVENT_ALERT_US_PROX );
 }
