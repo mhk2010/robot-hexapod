@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.0</ProjectVersion>
+    <ProjectGuid>{a138d219-7af8-4f0b-a3eb-2a217b64ec2a}</ProjectGuid>
+    <avrdevice>ATmega1284P</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+    <AssemblyName>Robot_head</AssemblyName>
+    <Name>Robot_head</Name>
+    <RootNamespace>Robot_head</RootNamespace>
+    <avrtool>com.atmel.avrdbg.tool.jtagicemkii</avrtool>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <com_atmel_avrdbg_tool_jtagicemkii>
+      <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
+      <ToolName>JTAGICE mkII</ToolName>
+      <ToolNumber>0700000005F2</ToolNumber>
+      <KeepTimersRunning>false</KeepTimersRunning>
+      <OverrideVtor>false</OverrideVtor>
+      <OverrideVtorValue>
+      </OverrideVtorValue>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>3023</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions>
+        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>150000</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>150000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_jtagicemkii>
+    <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <AsfVersion>2.11.1</AsfVersion>
+    <com_atmel_avrdbg_tool_jtagicemk3>
+      <ToolType>com.atmel.avrdbg.tool.jtagicemk3</ToolType>
+      <ToolName>JTAGICE3</ToolName>
+      <ToolNumber>J30200010429</ToolNumber>
+      <KeepTimersRunning>false</KeepTimersRunning>
+      <OverrideVtor>false</OverrideVtor>
+      <OverrideVtorValue>
+      </OverrideVtorValue>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>1387</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions>
+        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>2182895</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>150000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_jtagicemk3>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <OverrideVtorValue />
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolType>com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolName>AVR Simulator</ToolName>
+      <ToolNumber>
+      </ToolNumber>
+      <KeepTimersRunning>true</KeepTimersRunning>
+      <OverrideVtor>false</OverrideVtor>
+      <OverrideVtorValue>
+      </OverrideVtorValue>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>1387</port>
+        <ssl>False</ssl>
+      </Channel>
+    </com_atmel_avrdbg_tool_simulator>
+    <preserveEEPROM>True</preserveEEPROM>
+    <com_atmel_avrdbg_tool_ispmk2>
+      <ToolType>com.atmel.avrdbg.tool.ispmk2</ToolType>
+      <ToolName>AVRISP mkII</ToolName>
+      <ToolNumber>000200104222</ToolNumber>
+      <KeepTimersRunning>true</KeepTimersRunning>
+      <OverrideVtor>false</OverrideVtor>
+      <OverrideVtorValue>
+      </OverrideVtorValue>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>1387</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions>
+        <InterfaceName>ISP</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>32000</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>150000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_ispmk2>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputFileName>Robot_head</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.optimization.level>Optimize most (-O3)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>m</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputFileName>Robot_head</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>m</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.linker.memorysettings.InitialStack>0x4000</avrgcc.linker.memorysettings.InitialStack>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Conf\conf_hard.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_camera.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_camera.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_eye.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_eye.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_light.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_light.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_uart_protocole.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_uart_protocole.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_ultrason.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Ctrl\ctrl_ultrason.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_event.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_event.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_i2c.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_i2c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_i2c_ultrason.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_i2c_ultrason.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_interrupt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_interrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_led.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_led.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_timer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drv\drv_uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_interrupt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_interrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_io_ports.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_io_ports.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_power_management.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_power_management.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_system_clock.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_system_clock.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_system_control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_system_control.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_timer_0.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_timer_0.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Mic\mic_usart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Robot_head.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tools\tools_string.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tools\tools_string.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tools\tools_typedefs.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Conf\" />
+    <Folder Include="Ctrl\" />
+    <Folder Include="Drv\" />
+    <Folder Include="Mic\" />
+    <Folder Include="Tools\" />
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
+</Project>
