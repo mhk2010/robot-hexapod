@@ -6,220 +6,193 @@
  */ 
 
 #include "drv_uart.h"
-
-
-////////////////////////////////////////PRIVATE VARIABLES/////////////////////////////////////////
-//structure qui sert a envoyer les octets sur la liaison serie
-typedef struct SSUartSend
-{
-	Int8U loc_loop_bytes_to_send;
-	Int8U loc_nb_bytes_to_send;
-	Int8U loc_bytes_to_send[NB_BYTES_SEND_MAX];
-}SUartSend;
-
-//structure uart
-typedef struct SSUart
-{
-	Boolean enable;
-	EUsartBaudRate baudrate;
-	EUsartDataSize datasize;
-	EUsartParityMode parity;
-	EUsartStopBits stop_bit;
-	ptrfct_Isr_Callback_Uart_RX loc_ptrfct_Isr_Callback_Uart_RX;
-	SUartSend send;
-}SUart ;
-
-//configuration initial des uarts
-SUart MesUarts[ CONF_UART_NB ] = 
-{
-	//CONF_UART_0_INDEX
-	{
-		.enable		= TRUE,
-		.baudrate	= USART_BAUD_9600,
-		.datasize	= USART_8_BITS_DATA,
-		.parity		= USART_NO_PARITY,
-		.stop_bit	= USART_1_STOP_BIT,
-		.loc_ptrfct_Isr_Callback_Uart_RX = NULL,
-		.send = 
-		{
-			.loc_loop_bytes_to_send = 0U,
-			.loc_nb_bytes_to_send = 0U,
-		},
-	},
-};
-
+#include "drv_event.h"
+#include "Tools/tools_string.h"
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
+
+////////////////////////////////////////PRIVATE VARIABLES/////////////////////////////////////////
+
+
+//UART 0
+//-------
+//message stocke
+Int8U in_message_0[50U];
+Int8U in_message_len_0 = 0U;
+//buffer de recpetion de message uart 0
+Int8U buff_uart_0[50U];
+Int8U ptr_buff_uart_0 = 0U;
+Boolean start_frame_uart_0 = FALSE;
+
+//UART 1
+//-------
+//message stocke
+Int8U in_message_1[50U];
+Int8U in_message_len_1 = 0U;
+//buffer de recpetion de message uart 0
+Int8U buff_uart_1[50U];
+Int8U ptr_buff_uart_1 = 0U;
+Boolean start_frame_uart_1 = FALSE;
  
+
   
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 // Init du Drv Uart 
 void DrvUart( )
 {
-	for(Int8U loop_config = 0; loop_config < CONF_UART_NB ; loop_config++ )
-	{
-		if ( MesUarts[loop_config].enable == TRUE )
-		{
-			if( loop_config == E_USART_0 )
-			{
-				micUsart0SetBaudRateAsynchronousNormalMode( MesUarts[loop_config].baudrate ) ;
-				micUsart0SetDataSize( MesUarts[loop_config].datasize ) ;
-				micUsart0SetParityMode( MesUarts[loop_config].parity ) ;
-				micUsart0SetStopBits( MesUarts[loop_config].stop_bit ) ;
-				micUsart0SetTransmitterEnable();
-				micUsart0SetReceiverEnable();
-				micUsart0SetRxInterrupt();
-				micUsart0SetTxInterrupt();
-			}
-			else if( loop_config == E_USART_1 )
-			{
-				micUsart1SetBaudRateAsynchronousNormalMode( MesUarts[loop_config].baudrate ) ;
-				micUsart1SetDataSize( MesUarts[loop_config].datasize ) ;
-				micUsart1SetParityMode( MesUarts[loop_config].parity ) ;
-				micUsart1SetStopBits( MesUarts[loop_config].stop_bit ) ;
-				micUsart1SetTransmitterEnable();
-				micUsart1SetReceiverEnable();
-				micUsart1SetRxInterrupt();
-				micUsart1SetTxInterrupt();
-			}
-			else
-			{
-				break;
-			}
-		}
-	}
+	//on fixe les registres
+	#ifdef CONF_UART_0_INDEX 
+		UBRR0 = 0x0010U;		//57600 baud
+		UCSR0B |= (1<<RXEN0);	//enable RX
+		UCSR0B |= (1<<TXEN0);	//enable TX 
+		UCSR0B |= (1<<RXCIE0);	//enable RX interrupt 
+		UCSR0C|= (1<<UCSZ00); 	//8 bits, no parity, 1 stop 
+		UCSR0C|= (1<<UCSZ01); 
+	#endif
+			
+	#ifdef CONF_UART_1_INDEX
+		UBRR1 = 0x0010U;		//57600 baud
+		UCSR1B |= (1<<RXEN1);	//enable RX
+		UCSR1B |= (1<<TXEN1);	//enable TX 
+		UCSR1B |= (1<<RXCIE1);	//enable RX interrupt 
+		UCSR1C|= (1<<UCSZ10); 	//8 bits, no parity, 1 stop 
+		UCSR1C|= (1<<UCSZ11);  
+	#endif
 }
 
-//envoie d'un string sur la liason serie
-Boolean DrvUartSendString( Int8U index_uart , Char* string )
+//on recupere le message
+void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
 {
-	Boolean o_success = FALSE;
-	//on cherhce le carcatere nul //fin de trame
-	Int8U index_fin = TlsStringSearchCaract( string, 0x00, NB_BYTES_SEND_MAX);
-	if( index_fin > 0 )
+	//on enregistre le message 
+	for ( Int8U loop_send = 0U ; loop_send < in_message_len_0 ; loop_send++)
 	{
-		o_success = TRUE;	
-	}
-	DrvUartSendBytes( index_uart , (Int8U*)string , index_fin ) ;
-	return o_success;
+		i_message[ loop_send ] = in_message_0[ loop_send ];
+	} 
+	*i_message_len = in_message_len_0;
+}
+//on recupere le message
+void DrvUart0SendMessage( Int8U i_message[50U], Int8U i_message_len )
+{
+	//on enregistre le message 
+	for ( Int8U loop_send = 0U ; loop_send < i_message_len ; loop_send++)
+	{
+		while ( !( UCSR0A & (1<<UDRE0)) );
+		UDR0 = i_message[ loop_send ];
+	} 
+}
+
+
+//on recupere le message
+void DrvUart1ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
+{
+	//on enregistre le message 
+	for ( Int8U loop_send = 0U ; loop_send < in_message_len_1 ; loop_send++)
+	{
+		i_message[ loop_send ] = in_message_1[ loop_send ];
+	} 
+	*i_message_len = in_message_len_1;
+}
+
+//on recupere le message
+void DrvUart1SendMessage( Int8U i_message[50U], Int8U i_message_len )
+{
+	//on enregistre le message 
+	for ( Int8U loop_send = 0U ; loop_send < i_message_len ; loop_send++)
+	{
+		while ( !( UCSR1A & (1<<UDRE1)) );
+		UDR1 = i_message[ loop_send ];
+	} 
 }	
-
-//envoie d'octets sur la liason serie
-Boolean DrvUartSendBytes( Int8U index_uart , Int8U* ptr_byte_to_send , Int8U nb_bytes )
-{
-	Boolean o_success = FALSE;
 	
-	//on envoie le premier octet l'it TX se charge de faire la suite
-	o_success = DrvUartSendByte( index_uart , ptr_byte_to_send[0U] );
-		
-	//on charge les variables locales
-	MesUarts[index_uart].send.loc_loop_bytes_to_send = 0U;
-	MesUarts[index_uart].send.loc_nb_bytes_to_send = nb_bytes;
-	for ( Int8U loop_send = 1U ; loop_send <= NB_BYTES_SEND_MAX ; loop_send++ )
-	{
-		MesUarts[index_uart].send.loc_bytes_to_send[ loop_send - 1 ] = ptr_byte_to_send[ loop_send ];
-	}
-	
-	return o_success;		
-}
-
-//envoie de bytes sur la liason serie
-Boolean DrvUartSendByte( Int8U index_uart , Int8U byte_to_send )
-{
-	Boolean o_success = FALSE;
-	if( index_uart== E_USART_0 )
-	{
-		//on attend que le registre d'envoie soit vide
-		while ( !micUsart0GetDataRegisterEmpty() );
-		micUsart0SetIODataRegister( byte_to_send );
-		micUsart0SetTransmitCompleted();
-		o_success = TRUE;
-	}
-	else if( index_uart == E_USART_1 )
-	{
-		//on attend que le registre d'envoie soit vide
-		while ( !micUsart1GetDataRegisterEmpty() );
-		micUsart1SetIODataRegister( byte_to_send );
-		micUsart1SetTransmitCompleted();
-		o_success = TRUE;
-	}
-	return o_success;
-}	
-
-//reception d'octets sur la liason serie
-void DrvUartSetPtrfctReceiveComplete( Int8U index_uart , ptrfct_Isr_Callback_Uart_RX ptrfct )
-{
-	MesUarts[index_uart].loc_ptrfct_Isr_Callback_Uart_RX = ptrfct ;
-}
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 
 
 /////////////////////////////////////ISR PRIVATE FUNCTIONS////////////////////////////////////////
-
 //UART0
 //-------------------
-
 //ISR uart octet recu 
 ISR(USART0_RX_vect)
 {
-	#ifdef CONF_UART_0_INDEX
-		//on recoit un octet
-		if( MesUarts[CONF_UART_0_INDEX].loc_ptrfct_Isr_Callback_Uart_RX != NULL )
+	#ifdef CONF_UART_0_INDEX	
+		Int8U rcv_byte = 0U;
+		//on enregistre l'octet recu
+		rcv_byte = UDR0;
+		//si on a deja recu le start frame
+		if( start_frame_uart_0 == FALSE )
+        {
+			//si c'est un debut de trame
+			if(rcv_byte == '*' )
+			{
+				buff_uart_0[ 0U ] = '*';
+				ptr_buff_uart_0 = 1U;
+				//on a recu le start frame
+				start_frame_uart_0 = TRUE;
+			}
+		}
+		else
 		{
-			MesUarts[ CONF_UART_0_INDEX ].loc_ptrfct_Isr_Callback_Uart_RX( micUsart0GetIODataRegister());
+			//on charge le message dans le buff_uart_0er
+			buff_uart_0[ptr_buff_uart_0] = rcv_byte;
+			ptr_buff_uart_0++;	
+			if(( buff_uart_0[ptr_buff_uart_0 - 1U] == '#' ) && ( buff_uart_0[ptr_buff_uart_0 - 2U] == '#' ))
+			{
+				//on charge le message
+				for ( Int8U loop_send = 0U ; loop_send < ptr_buff_uart_0 ; loop_send++)
+				{
+					in_message_0[ loop_send ] = buff_uart_0[ loop_send ];
+				} 
+				//on stock la taille
+				in_message_len_0 = ptr_buff_uart_0;
+				//on attend le start frame
+				start_frame_uart_0 = FALSE;				
+				//on lance l'event
+				DrvEventAddEvent( CONF_EVENT_HEAD_MSG_RCV );
+			}			
 		}		
 	#endif
 }
 
-//ISR uart octet envoyé
-ISR(USART0_TX_vect)
-{
-	#ifdef CONF_UART_0_INDEX
-		//on envoie les octets tant qu'il y en a
-		if (MesUarts[ CONF_UART_0_INDEX ].send.loc_nb_bytes_to_send > MesUarts[ CONF_UART_0_INDEX ].send.loc_loop_bytes_to_send + 1U )
-		{
-			DrvUartSendByte( CONF_UART_0_INDEX , MesUarts[ CONF_UART_0_INDEX ].send.loc_bytes_to_send[ MesUarts[ CONF_UART_0_INDEX ].send.loc_loop_bytes_to_send++ ] );
-		}
-		else
-		{
-			//on remet a zero les variables locales
-			MesUarts[ CONF_UART_0_INDEX ].send.loc_loop_bytes_to_send = 0U;
-			MesUarts[ CONF_UART_0_INDEX ].send.loc_nb_bytes_to_send = 0U;
-		}
-	#endif
-}
-
-
 //UART1
 //-------------------
-
 //ISR uart octet recu 
 ISR(USART1_RX_vect)
 {
-	#ifdef CONF_UART_1_INDEX
-		//on recoit un octet
-		if( MesUarts[CONF_UART_1_INDEX].loc_ptrfct_Isr_Callback_Uart_RX != NULL )
-		{
-			MesUarts[ CONF_UART_1_INDEX ].loc_ptrfct_Isr_Callback_Uart_RX( micUsart1GetIODataRegister());
-		}	
-	#endif
-}
-
-//ISR uart octet envoyé
-ISR(USART1_TX_vect)
-{
-	#ifdef CONF_UART_1_INDEX
-		//on envoie les octets tant qu'il y en a
-		if (MesUarts[ CONF_UART_1_INDEX ].send.loc_nb_bytes_to_send > MesUarts[ CONF_UART_1_INDEX ].send.loc_loop_bytes_to_send + 1U )
-		{
-			DrvUartSendByte( CONF_UART_1_INDEX , MesUarts[ CONF_UART_1_INDEX ].send.loc_bytes_to_send[ MesUarts[ CONF_UART_1_INDEX ].send.loc_loop_bytes_to_send++ ] );
+	#ifdef CONF_UART_1_INDEX		
+		Int8U rcv_byte = 0U;
+		//on enregistre l'octet recu
+		rcv_byte = UDR1;
+		//si on a deja recu le start frame
+		if( start_frame_uart_1 == FALSE )
+        {
+			//si c'est un debut de trame
+			if(rcv_byte == '*' )
+			{
+				buff_uart_1[ 0U ] = '*';
+				ptr_buff_uart_1 = 1U;
+				//on a recu le start frame
+				start_frame_uart_1 = TRUE;
+			}
 		}
 		else
 		{
-			//on remet a zero les variables locales
-			MesUarts[ CONF_UART_1_INDEX ].send.loc_loop_bytes_to_send = 0U;
-			MesUarts[ CONF_UART_1_INDEX ].send.loc_nb_bytes_to_send = 0U;
-		}
+			//on charge le message dans le buff_uart_0er
+			buff_uart_1[ptr_buff_uart_1] = rcv_byte;
+			ptr_buff_uart_1++;	
+			if(( buff_uart_1[ptr_buff_uart_1 - 1U] == '#' ) && ( buff_uart_1[ptr_buff_uart_1 - 2U] == '#' ))
+			{
+				//on charge le message
+				for ( Int8U loop_send = 0U ; loop_send < ptr_buff_uart_1 ; loop_send++)
+				{
+					in_message_1[ loop_send ] = buff_uart_1[ loop_send ];
+				} 
+				//on stock la taille
+				in_message_len_1 = ptr_buff_uart_1;
+				//on attend le start frame
+				start_frame_uart_1 = FALSE;				
+				//on lance l'event
+				DrvEventAddEvent( CONF_EVENT_DIGI_MSG_RCV );
+			}			
+		}		
 	#endif
 }

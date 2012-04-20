@@ -14,18 +14,20 @@
 //-----------------------------------------------------------------------------------------------//
 
 ////////////////////////////////////////PUBLIC FREQUENCE OSC///////////////////////////////////////
-#define		CONF_FOSC_HZ				8000000U
+#define		CONF_FOSC_HZ				16000000U
 //-----------------------------------------------------------------------------------------------//
 
 
 ////////////////////////////////////////////PUBLIC EVENT///////////////////////////////////////////
 #define		CONF_EVENT_TIMER_10MS		0U
-#define		CONF_EVENT_TIMER_100MS		1U
-#define		CONF_EVENT_TIMER_1S			2U
-#define		CONF_EVENT_UART_MSG_RCV		3U
-#define		CONF_EVENT_MOVE_END			4U
-#define		CONF_EVENT_FIND_MAX_LIGHT	5U
-#define		CONF_EVENT_END_OF_PROX_SCAN	6U
+#define		CONF_EVENT_TIMER_100MS		CONF_EVENT_TIMER_10MS	+ 1U
+#define		CONF_EVENT_TIMER_1S			CONF_EVENT_TIMER_100MS	+ 1U
+#define		CONF_EVENT_TIMER_5S			CONF_EVENT_TIMER_1S		+ 1U
+#define		CONF_EVENT_TIMER_10S		CONF_EVENT_TIMER_5S		+ 1U
+#define		CONF_EVENT_DIGI_MSG_RCV		CONF_EVENT_TIMER_10S	+ 1U
+#define		CONF_EVENT_HEAD_MSG_RCV		CONF_EVENT_DIGI_MSG_RCV + 1U
+#define		CONF_EVENT_ALERT_US_PROX	CONF_EVENT_HEAD_MSG_RCV + 1U
+#define		CONF_EVENT_ALERT_LIGHT		CONF_EVENT_ALERT_US_PROX + 1U
 
 
 //-----------------------------------------------------------------------------------------------//
@@ -37,52 +39,53 @@
 #define		CONF_SERVO_PATTE_AVANT_GAUCHE_EPAULE		E_PORTB_PIN2_IO
 #define		CONF_SERVO_PATTE_AVANT_GAUCHE_COUDE			E_PORTB_PIN3_IO
 
-#define		CONF_SERVO_PATTE_MILIEU_GAUCHE_EPAULE		E_PORTB_PIN4_IO
-#define		CONF_SERVO_PATTE_MILIEU_GAUCHE_COUDE		E_PORTB_PIN5_IO
+#define		CONF_SERVO_PATTE_MILIEU_GAUCHE_EPAULE		E_PORTB_PIN5_IO
+#define		CONF_SERVO_PATTE_MILIEU_GAUCHE_COUDE		E_PORTB_PIN4_IO
 
-#define		CONF_SERVO_PATTE_ARRIERE_GAUCHE_EPAULE		E_PORTB_PIN6_IO
-#define		CONF_SERVO_PATTE_ARRIERE_GAUCHE_COUDE		E_PORTB_PIN7_IO
+#define		CONF_SERVO_PATTE_ARRIERE_GAUCHE_EPAULE		E_PORTB_PIN7_IO
+#define		CONF_SERVO_PATTE_ARRIERE_GAUCHE_COUDE		E_PORTB_PIN6_IO
 
-#define		CONF_SERVO_PATTE_AVANT_DROITE_EPAULE		E_PORTD_PIN2_IO
-#define		CONF_SERVO_PATTE_AVANT_DROITE_COUDE			E_PORTD_PIN3_IO
+#define		CONF_SERVO_PATTE_AVANT_DROITE_EPAULE		E_PORTC_PIN6_IO
+#define		CONF_SERVO_PATTE_AVANT_DROITE_COUDE			E_PORTC_PIN7_IO
 
-#define		CONF_SERVO_PATTE_MILIEU_DROITE_EPAULE		E_PORTD_PIN4_IO
-#define		CONF_SERVO_PATTE_MILIEU_DROITE_COUDE		E_PORTD_PIN5_IO
+#define		CONF_SERVO_PATTE_MILIEU_DROITE_EPAULE		E_PORTD_PIN6_IO
+#define		CONF_SERVO_PATTE_MILIEU_DROITE_COUDE		E_PORTD_PIN7_IO
 
-#define		CONF_SERVO_PATTE_ARRIERE_DROITE_EPAULE		E_PORTD_PIN6_IO
-#define		CONF_SERVO_PATTE_ARRIERE_DROITE_COUDE		E_PORTD_PIN7_IO
+#define		CONF_SERVO_PATTE_ARRIERE_DROITE_EPAULE		E_PORTD_PIN4_IO
+#define		CONF_SERVO_PATTE_ARRIERE_DROITE_COUDE		E_PORTD_PIN5_IO
+
+#define		CONF_SERVO_TETE_H_INDEX																			0U
+#define		CONF_SERVO_TETE_V_INDEX							CONF_SERVO_TETE_H_INDEX							+ 1U
+#define		CONF_SERVO_PATTE_AVANT_GAUCHE_EPAULE_INDEX		CONF_SERVO_TETE_V_INDEX							+ 1U
+#define		CONF_SERVO_PATTE_AVANT_GAUCHE_COUDE_INDEX		CONF_SERVO_PATTE_AVANT_GAUCHE_EPAULE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_MILIEU_GAUCHE_EPAULE_INDEX		CONF_SERVO_PATTE_AVANT_GAUCHE_COUDE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_MILIEU_GAUCHE_COUDE_INDEX		CONF_SERVO_PATTE_MILIEU_GAUCHE_EPAULE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_ARRIERE_GAUCHE_EPAULE_INDEX	CONF_SERVO_PATTE_MILIEU_GAUCHE_COUDE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_ARRIERE_GAUCHE_COUDE_INDEX		CONF_SERVO_PATTE_ARRIERE_GAUCHE_EPAULE_INDEX	+ 1U
+#define		CONF_SERVO_PATTE_AVANT_DROITE_EPAULE_INDEX		CONF_SERVO_PATTE_ARRIERE_GAUCHE_COUDE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_AVANT_DROITE_COUDE_INDEX		CONF_SERVO_PATTE_AVANT_DROITE_EPAULE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_MILIEU_DROITE_EPAULE_INDEX		CONF_SERVO_PATTE_AVANT_DROITE_COUDE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_MILIEU_DROITE_COUDE_INDEX		CONF_SERVO_PATTE_MILIEU_DROITE_EPAULE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_ARRIERE_DROITE_EPAULE_INDEX	CONF_SERVO_PATTE_MILIEU_DROITE_COUDE_INDEX		+ 1U
+#define		CONF_SERVO_PATTE_ARRIERE_DROITE_COUDE_INDEX		CONF_SERVO_PATTE_ARRIERE_DROITE_EPAULE_INDEX	+ 1U
+
 
 //------------
 #define		CONF_SERVO_NB			14U
-#define		CONF_SERVO_PATTES_NB	12U
-#define		CONF_SERVO_TETE_NB		2U
 //----------------------------------------------------------------------------------------------//
-
-/////////////////////////////////////////////PUBLIC ADC///////////////////////////////////////////
-#define		CONF_ADC_IR				E_PORTA_PIN0_IO
-#define		CONF_ADC_ACCEL_X		E_PORTA_PIN1_IO
-#define		CONF_ADC_ACCEL_Y		E_PORTA_PIN2_IO
-#define		CONF_ADC_ACCEL_Z		E_PORTA_PIN3_IO
-#define		CONF_ADC_LDR_GAUCHE		E_PORTA_PIN4_IO
-#define		CONF_ADC_LDR_DROITE		E_PORTA_PIN5_IO
-//------------
-#define		CONF_ADC_NB				6U
-//----------------------------------------------------------------------------------------------//
-
-/////////////////////////////////////////////PUBLIC I2C///////////////////////////////////////////
-#define		CONF_I2C_SCL				E_PORTC_PIN0_IO
-#define		CONF_I2C_SDA				E_PORTC_PIN1_IO
-
-#define		CONF_I2C_ULTRASON			0U
-//------------
-#define		CONF_I2C_NB					1U
-//-----------------------------------------------------------------------------------------------//
 
 /////////////////////////////////////////////PUBLIC LEDS///////////////////////////////////////////
-#define		CONF_LED_0_INDEX		0U
-#define		CONF_LED_1_INDEX		1U
-//------------	
-#define		CONF_LED_NB				2U
+#define		CONF_LED_ACTIVITY		0U
+#define		CONF_LED_HEARTBEAT		CONF_LED_ACTIVITY	+ 1U
+#define		CONF_LED_RX_HEAD		CONF_LED_HEARTBEAT	+ 1U
+#define		CONF_LED_RX_DIGI		CONF_LED_RX_HEAD	+ 1U
+
+#define		CONF_LED_0_INDEX		E_PORTA_PIN7_IO 
+#define		CONF_LED_1_INDEX		E_PORTA_PIN6_IO 
+#define		CONF_LED_2_INDEX		E_PORTC_PIN0_IO 
+#define		CONF_LED_3_INDEX		E_PORTC_PIN1_IO 
+//------------
+#define		CONF_LED_NB				4U
 //-----------------------------------------------------------------------------------------------//
 
 /////////////////////////////////////////////PUBLIC TIMER///////////////////////////////////////////
@@ -94,8 +97,13 @@
 
 /////////////////////////////////////////////PUBLIC UART///////////////////////////////////////////
 #define		CONF_UART_0_INDEX		0U//E_USART_0
+#define		CONF_UART_0_RX_PIN		E_PORTD_PIN0_IO
+#define		CONF_UART_0_TX_PIN		E_PORTD_PIN1_IO
+#define		CONF_UART_1_INDEX		1U//E_USART_1
+#define		CONF_UART_1_RX_PIN		E_PORTD_PIN2_IO
+#define		CONF_UART_1_TX_PIN		E_PORTD_PIN3_IO
 //------------
-#define		CONF_UART_NB			1U
+#define		CONF_UART_NB			2U
 //-----------------------------------------------------------------------------------------------//
 
 

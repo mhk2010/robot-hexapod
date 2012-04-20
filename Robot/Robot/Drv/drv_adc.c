@@ -22,8 +22,7 @@ SAdc MesAdc[ CONF_ADC_NB ] ;
 Int8U nb_use_adc = 0 ;
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
-static Int8U DrvAdcPinConvertToIndex( EIoPin pin_name );
-static Int8U DrvAdcChannelConvertToIndex( EAdcChannelSelection channel );
+static Int8U DrvAdcPinConvertToIndex( const EIoPin pin_name );
 
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 // Init du Drv Adc 
@@ -64,7 +63,7 @@ Int16U DrvAdcReadChannel( EIoPin pin_name )
 }
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
-static Int8U DrvAdcPinConvertToIndex( EIoPin pin_name )
+static Int8U DrvAdcPinConvertToIndex( const EIoPin pin_name )
 {
 	Int8U find_index = 0;
 	for(Int8U loop_config = 0; loop_config < nb_use_adc ; loop_config++ )

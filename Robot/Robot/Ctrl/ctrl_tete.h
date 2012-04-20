@@ -19,25 +19,30 @@
 
 
 /////////////////////////////////////////PUBLIC DEFINES/////////////////////////////////////////
-#define MIN_TETE_HORIZONTAL					0
-#define NEUTRE_TETE_HORIZONTAL				80
-#define MAX_TETE_HORIZONTAL					160
-#define NEUTRE_TETE_VERTICAL				140
-#define LEFT_TETE_HORIZONTAL				115
-#define RIGHT_TETE_HORIZONTAL				45
+#define NEUTRE_TETE_HORIZONTAL		90
+#define MIN_TETE_HORIZONTAL			( NEUTRE_TETE_HORIZONTAL - 60 )
+#define MAX_TETE_HORIZONTAL			( NEUTRE_TETE_HORIZONTAL + 60 )
 
-#define TIMEOUT_HEAD_SCAN_SPEED		5 //(500ms)
-#define START_ANGLE_DETECT			( NEUTRE_TETE_HORIZONTAL - 60 )
-#define END_ANGLE_DETECT			( NEUTRE_TETE_HORIZONTAL + 60 )  
+
+#define NEUTRE_TETE_VERTICAL				140
+
 
 
 //strucutre qui defini la position de la tete du robot
-typedef struct {
+typedef struct SSTete{
 	Int8U angle_h;
 	Int8U angle_v;
-} tete_position_t;
+} STete;
 
+//init de la tete
 void CtrlTete( void ) ;
+//on bouge la tete
+void CtrlTeteMove( Int8U angle_tete_hor, Int8U angle_tete_ver, Int8U vitesse );
+//dispatacher d'event
+void CtrlTeteDispatcher( Event_t event );
 
-
+//on start le scan de la tete
+void CtrlTeteStartScan( void ) ;
+//on stop le scan de la tete
+void CtrlTeteStopScan( void ) ;
 #endif /* CTRL_TETE_H_ */

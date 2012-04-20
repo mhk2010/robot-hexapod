@@ -159,7 +159,7 @@ Boolean micUsart1GetTransmitCompleted(void)
 //Get the UDREn: USART Data Register Empty
 Boolean micUsart0GetDataRegisterEmpty(void)
 {
-  return (Boolean)( 0x20 & ( 1U << UDRE0  ) ) >> UDRE0;
+  return ( UCSR0A & ( 1U << UDRE0 ) );
 }
 //Get the UDREn: USART Data Register Empty
 Boolean micUsart1GetDataRegisterEmpty(void)

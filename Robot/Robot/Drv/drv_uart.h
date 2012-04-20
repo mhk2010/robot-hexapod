@@ -19,7 +19,7 @@
 
 ////////////////////////////////////////////PUBLIC DEFINES/////////////////////////////////////////
 // nombre d'octet maximum que l'on peux envoyer en une trame
-#define NB_BYTES_SEND_MAX 40U
+#define NB_BYTES_SEND_MAX 50U
 
 ////////////////////////////////////////////PUBLIC ENUMS///////////////////////////////////////////
 
@@ -34,51 +34,51 @@ typedef void (*ptrfct_Isr_Callback_Uart_RX)( Int8U received_byte );
 // Init du Drv Uart 
 void DrvUart( void ) ;
 
-//************************************
-// Method:    DrvUartSendByte
-// FullName:  DrvUartSendByte
-// Access:    public 
-// Returns:   void
-// Qualifier: envoie d'un octet sur la liason serie
-// Parameter: Int8U index_uart			//index uart conf_hard.h
-// Parameter: Int8U byte_to_send		//octet a envoyer
-//************************************
-Boolean DrvUartSendByte( Int8U index_uart , Int8U byte_to_send ) ;
 
 
 //************************************
-// Method:    DrvUartSendString
-// FullName:  DrvUartSendString
+// Method:    DrvUart0SendMessage
+// FullName:  DrvUart0SendMessage
 // Access:    public 
 // Returns:   void
-// Qualifier: envoie d'un string sur la liason serie
-// Parameter: Int8U index_uart			//index uart conf_hard.h
-// Parameter: Int8U* ptr_byte_to_send	//ptr vers le premier des octets a envoyer
+// Qualifier: on recupere le message
+// Parameter: Int8U i_message[50U]		//message a recuperer
+// Parameter: Int8U byte_to_send		//taille du message a recuperer 
 //************************************
-Boolean DrvUartSendString( Int8U index_uart , Char* string ) ;
+void DrvUart0SendMessage( Int8U i_message[50U], Int8U i_message_len ) ;
 
 //************************************
-// Method:    DrvUartSendBytes
-// FullName:  DrvUartSendBytes
+// Method:    DrvUart1SendMessage
+// FullName:  DrvUart1SendMessage
 // Access:    public 
 // Returns:   void
-// Qualifier: envoie d'octets sur la liason serie
-// Parameter: Int8U index_uart			//index uart conf_hard.h
-// Parameter: Int8U* ptr_byte_to_send	//ptr vers le premier des octets a envoyer
-// Parameter: Int8U nb_bytes			//nb d'octets a envoyé
+// Qualifier: on recupere le message
+// Parameter: Int8U i_message[50U]		//message a recuperer
+// Parameter: Int8U i_message_len		//taille du message a recuperer 
 //************************************
-Boolean DrvUartSendBytes( Int8U index_uart , Int8U* ptr_byte_to_send , Int8U nb_bytes ) ;
+void DrvUart1SendMessage( Int8U i_message[50U], Int8U i_message_len ) ;
 
 //************************************
-// Method:    DrvUartSetPtrfctReceiveComplete
-// FullName:  DrvUartSetPtrfctReceiveComplete
+// Method:    DrvUart0ReadMessage
+// FullName:  DrvUart0ReadMessage
 // Access:    public 
 // Returns:   void
-// Qualifier: recois les octet de la liason serie
-// Parameter: Int8U index_uart						//index de l'uart auquel on associe le ptr de fct
-// Parameter: ptrfct_Isr_Callback_Uart_RX ptrfct	//ptrfct appellé lors d'une reception 
+// Qualifier: on recupere le message
+// Parameter: Int8U i_message[50U]		//message a recuperer
+// Parameter: Int8U byte_to_send		//taille du message a recuperer 
 //************************************
-void DrvUartSetPtrfctReceiveComplete( Int8U index_uart , ptrfct_Isr_Callback_Uart_RX ptrfct ) ;
+void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len ) ;
+
+//************************************
+// Method:    DrvUart1ReadMessage
+// FullName:  DrvUart1ReadMessage
+// Access:    public 
+// Returns:   void
+// Qualifier: on recupere le message
+// Parameter: Int8U i_message[50U]		//message a recuperer
+// Parameter: Int8U i_message_len		//taille du message a recuperer 
+//************************************
+void DrvUart1ReadMessage( Int8U i_message[50U], Int8U *i_message_len ) ;
 
 #endif /* DRV_UART_H_ */
 

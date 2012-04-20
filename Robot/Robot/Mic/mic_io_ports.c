@@ -250,7 +250,7 @@ Int8U micIoPortsReadDataRegisterA( void )
 Boolean micIoPortsDirectionRegisterA( Int8U pin_io , Boolean value ) 
 {
 	Boolean o_success = TRUE;
-	BIT_SET(PORTA,pin_io,value);
+	BIT_SET(DDRA,pin_io,value);
 	return o_success;
 }
 

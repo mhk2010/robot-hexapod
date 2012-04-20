@@ -15,27 +15,27 @@
     </ToolchainDirPath>
     <MakeDirPath>
     </MakeDirPath>
-    <GlobalToolchainPath>C:\Program Files\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
+    <GlobalToolchainPath>C:\Program Files (x86)\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
     <AvrGccProjectExtensions>
     </AvrGccProjectExtensions>
     <AssemblyName>Robot</AssemblyName>
     <Name>Robot</Name>
     <RootNamespace>Robot</RootNamespace>
-    <avrtool>com.atmel.avrdbg.tool.jtagicemkii</avrtool>
+    <avrtool>com.atmel.avrdbg.tool.jtagicemk3</avrtool>
     <avrtoolinterface>JTAG</avrtoolinterface>
     <com_atmel_avrdbg_tool_jtagicemkii>
       <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
       <ToolName>JTAGICE mkII</ToolName>
-      <ToolNumber>00B000004D4D</ToolNumber>
+      <ToolNumber>070000000651</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>1045</port>
+        <port>1977</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
         <InterfaceName>JTAG</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>1000000</JtagDbgClock>
+          <JtagDbgClock>33780</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
@@ -53,13 +53,13 @@
       <ToolNumber>J30200010429</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>2317</port>
+        <port>1998</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
         <InterfaceName>JTAG</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>1959075</JtagDbgClock>
+          <JtagDbgClock>2633019</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
@@ -82,6 +82,30 @@
         <ssl>False</ssl>
       </Channel>
     </com_atmel_avrdbg_tool_simulator>
+    <com_atmel_avrdbg_tool_avrdragon>
+      <ToolType>com.atmel.avrdbg.tool.avrdragon</ToolType>
+      <ToolName>AVR Dragon</ToolName>
+      <ToolNumber>00A200013245</ToolNumber>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>2249</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions>
+        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>1000000</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>150000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_avrdragon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -142,23 +166,10 @@
     <Folder Include="Ctrl" />
     <Folder Include="Drv" />
     <Folder Include="Mic" />
-    <Folder Include="App" />
     <Folder Include="Tools" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App\app_robot.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="App\app_robot.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Conf\conf_hard.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_light.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_light.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Ctrl\ctrl_marche.c">
@@ -173,12 +184,6 @@
     <Compile Include="Ctrl\ctrl_patte.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Ctrl\ctrl_proximity.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_proximity.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Ctrl\ctrl_tete.c">
       <SubType>compile</SubType>
     </Compile>
@@ -191,40 +196,10 @@
     <Compile Include="Ctrl\ctrl_uart_protocole.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Ctrl\ctrl_ultrason.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Ctrl\ctrl_ultrason.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_adc.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_adc.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Drv\drv_event.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Drv\drv_event.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_i2c.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_i2c.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_i2c_boussole.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_i2c_boussole.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_i2c_ultrason.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drv\drv_i2c_ultrason.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Drv\drv_interrupt.c">

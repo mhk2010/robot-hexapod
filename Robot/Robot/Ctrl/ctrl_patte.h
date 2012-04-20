@@ -18,41 +18,56 @@
 #include "Drv/drv_servo.h"
 
 /////////////////////////////////////////PUBLIC DEFINES/////////////////////////////////////////
-#define NB_PATTES 6
+//on fixe le nombre de pattes
+#define NB_PATTES 6U
 
-#define ANGLE_MAX_COUDE			100
-#define ANGLE_MID_COUDE			90
-#define ANGLE_MIN_COUDE			80
-#define ANGLE_MAX_EPAULE		120
-#define ANGLE_MID_EPAULE		90
-#define ANGLE_MIN_EPAULE		70
+//on fixe le nom des pattes
+#define AVANT_GAUCHE			0U
+#define MILIEU_GAUCHE			1U 
+#define ARRIERE_GAUCHE			2U 
+#define AVANT_DROITE			3U
+#define MILIEU_DROITE			4U 
+#define ARRIERE_DROITE			5U 
 
-#define AVANT_GAUCHE			0 
-#define MILIEU_GAUCHE			1 
-#define ARRIERE_GAUCHE			2 
-#define AVANT_DROITE			3
-#define MILIEU_DROITE			4 
-#define ARRIERE_DROITE			5 
+//on fixe les angles min et max du servo coude
+#define ANGLE_MID_COUDE			90U
+#define ANGLE_DETLA_COUDE		20U
+#define ANGLE_MAX_COUDE			ANGLE_MID_COUDE - ANGLE_DETLA_COUDE
+#define ANGLE_MIN_COUDE			ANGLE_MID_COUDE + ANGLE_DETLA_COUDE
 
-#define NEUTRE_COUDE_AVANT_GAUCHE				39
-#define NEUTRE_EPAULE_AVANT_GAUCHE				85
-#define NEUTRE_COUDE_AVANT_DROITE				112
-#define NEUTRE_EPAULE_AVANT_DROITE				79
-#define NEUTRE_COUDE_MILIEU_GAUCHE				39
-#define NEUTRE_EPAULE_MILIEU_GAUCHE				83
-#define NEUTRE_COUDE_MILIEU_DROITE				112
-#define NEUTRE_EPAULE_MILIEU_DROITE				85
-#define NEUTRE_COUDE_ARRIERE_GAUCHE				39
-#define NEUTRE_EPAULE_ARRIERE_GAUCHE			86
-#define NEUTRE_COUDE_ARRIERE_DROITE				112
-#define NEUTRE_EPAULE_ARRIERE_DROITE			78
+//on fixe les angles min et max du servo epaule
+#define ANGLE_MID_EPAULE		90U
+#define ANGLE_DETLA_EPAULE		40U
+#define ANGLE_MAX_EPAULE		ANGLE_MID_EPAULE - ANGLE_DETLA_EPAULE
+#define ANGLE_MIN_EPAULE		ANGLE_MID_EPAULE + ANGLE_DETLA_EPAULE
+
+//on fixe les position neutre
+#define NEUTRE_COUDE_AVANT_GAUCHE				ANGLE_MID_COUDE
+#define NEUTRE_EPAULE_AVANT_GAUCHE				ANGLE_MID_EPAULE
+#define NEUTRE_COUDE_AVANT_DROITE				ANGLE_MID_COUDE
+#define NEUTRE_EPAULE_AVANT_DROITE				ANGLE_MID_EPAULE
+#define NEUTRE_COUDE_MILIEU_GAUCHE				ANGLE_MID_COUDE
+#define NEUTRE_EPAULE_MILIEU_GAUCHE				ANGLE_MID_EPAULE
+#define NEUTRE_COUDE_MILIEU_DROITE				ANGLE_MID_COUDE
+#define NEUTRE_EPAULE_MILIEU_DROITE				ANGLE_MID_EPAULE
+#define NEUTRE_COUDE_ARRIERE_GAUCHE				ANGLE_MID_COUDE
+#define NEUTRE_EPAULE_ARRIERE_GAUCHE			ANGLE_MID_EPAULE
+#define NEUTRE_COUDE_ARRIERE_DROITE				ANGLE_MID_COUDE
+#define NEUTRE_EPAULE_ARRIERE_DROITE			ANGLE_MID_EPAULE
+
+
+
 
 /////////////////////////////////////////PUBLIC STRUCTURES/////////////////////////////////////////
+//structure d'un servo 
 typedef struct {
-	Int8U pin_servo;
+	Int8U pin;
+	Int8U index;
 	Int8U angle;
+	Int8S compensation;
 } patte_servo_t;
 
+//structure d'une patte de 2 servos
 typedef struct {
 	patte_servo_t epaule;
 	patte_servo_t coude;
@@ -62,7 +77,9 @@ typedef struct {
 //init
 void CtrlPatte( void ) ;
 //on bouge une patte
-void CtrlPatteMove( Int8U index, Int8U angle_epaule, Int8U angle_coude );
+Boolean CtrlPatteMove( Int8U index, Int8U angle_epaule, Int8U angle_coude, EServoVitesse vitesse );
 
+//on bouge une patte direct sans attendre quel finisse son mouvement
+Boolean CtrlPatteDirectMove( Int8U index, Int8U angle_epaule, Int8U angle_coude, EServoVitesse vitesse );
 
 #endif /* CTRL_PATTE_H_ */

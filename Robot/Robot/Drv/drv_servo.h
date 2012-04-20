@@ -18,26 +18,39 @@
 #include "drv_timer.h"
 
 ////////////////////////////////////////////PUBLIC DEFINES///////////////////////////////////////////
-#define MIN_ANGLE				0      
-#define MAX_ANGLE				180  
-#define MIN_PULSE_WIDTH			400     
-#define MAX_PULSE_WIDTH			2400   
-#define DEFAULT_PULSE_WIDTH		1200
-#define REFRESH_INTERVAL		20000
+#define MIN_ANGLE				0U      
+#define MAX_ANGLE				180U 
 
-#define OFFSET_TIMER			7
+#define MIN_PULSE_WIDTH			400U //us  
+#define MAX_PULSE_WIDTH			2300U   //us  
+ 
+#define DEFAULT_PULSE_WIDTH		1200U
+#define REFRESH_INTERVAL		20000U
+
+#define OFFSET_TIMER			7U
 	
-#define MAX_SERVOS				14
+#define MAX_SERVOS				14U
 
-#define INVALID_SERVO			0xFF
+#define INVALID_SERVO			0xFFU
+
 ////////////////////////////////////////////PUBLIC ENUMS///////////////////////////////////////////
-
+typedef enum EEServoVitesse
+{
+  E_SERVO_VITESSE_0	= 100U,
+  E_SERVO_VITESSE_1	= 80U,
+  E_SERVO_VITESSE_2	= 60U,
+  E_SERVO_VITESSE_3	= 40U,
+  E_SERVO_VITESSE_4	= 20U,
+  E_SERVO_VITESSE_5	= 0U,
+}EServoVitesse;
 
 /////////////////////////////////////////PUBLIC STRUCTURES/////////////////////////////////////////
 typedef struct {
 	EIoPin pin;
 	uint16_t ticks;
 	uint16_t ticks_consigne;
+	EServoVitesse vitesse;
+	uint16_t increment;
 	Boolean moving;
 	Boolean active;
 } servo_t;
@@ -47,18 +60,25 @@ typedef struct {
 void DrvServo( void ) ;
 
 // Ajout d'un Drv Servo 
-void DrvAddServo( EIoPin pin , Int8U angle ) ;
+void DrvAddServo( EIoPin pin , Int16U angle )  ;
 
 // Ajout d'un Drv Servo 
 void DrvDeleteServo( EIoPin pin ) ;
 
+// si le servo a une consigne ne cours
+Boolean DrvServoMoving( Int8U index ) ;
+
 // bouge le servo a la position voulu en angle
-void DrvServoMoveToPosition( EIoPin pin, Int8U angle ) ;
-// bouge le servo a la position voulu en angle
-void DrvServoIndexMoveToPosition( Int8U index_servo, Int8U angle );
+Boolean DrvServoMoveToPosition( Int8U index, Int16U angle, EServoVitesse vitesse) ;
+
+// bouge le servo a la position voulu en angle sans savoir si il été deja en mouvement
+Boolean DrvServoDirectMoveToPosition( Int8U index, Int16U angle, EServoVitesse vitesse) ;
 
 // donne la position du servo en angle
-Int8U DrvServoGetPosition( EIoPin pin) ;
+Int16U DrvServoGetPosition( Int8U index) ;
+
+// envoie la position de tout les servo sur l'UART
+void DrvServoSendUartPosition( void ) ;
 
 
 #endif /* DRV_SERVO_H_ */
