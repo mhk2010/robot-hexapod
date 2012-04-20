@@ -57,7 +57,7 @@ void DrvTimer( void )
 void DrvTimerPlayTimer( Int8U index_timer, Int16U delay, ETimerMode mode, ptrfct_Isr_Callback_Timer ptrfct )
 {
 	MesTimer[ index_timer ].enable = TRUE;
-	MesTimer[ index_timer ].delay = delay / 5;
+	MesTimer[ index_timer ].delay = delay;
 	MesTimer[ index_timer ].cpt_delay = 0U;
 	MesTimer[ index_timer ].mode = mode;
 	MesTimer[ index_timer ].ptrfct = ptrfct;
@@ -100,7 +100,7 @@ void DrvTimerInitSystemTimer( void )
 {
 	//timer system a la ms
 	ETimer0Clock clock_div;
-	Int8U ocr = DrvTimerComputeOCR( 5000U , &clock_div );
+	Int8U ocr = DrvTimerComputeOCR( 1000U , &clock_div );
 	micTimer0SetOutputCompareRegisterA( ocr );
     micTimer0SetClockDivision( clock_div ) ;
 	micTimer0WaveformGenerationMode( TIMER_0_CLEAR_ON_COMPARE ); 
@@ -156,11 +156,13 @@ Int16U DrvTimerComputeOCR(Int32U us_time , ETimer0Clock *clock_div)
 //ISR timer system 1 ms
 volatile Int8U timeout_ms =0;
 volatile Int8U timeout_s =0;
+volatile Int8U timeout_5s =0;
+volatile Int8U timeout_10s =0;
 ISR(TIMER0_COMPA_vect)
 {
 	//on gere l'evenement 100 ms
 	timeout_ms++;
-	if(timeout_ms == 20)
+	if(timeout_ms == 100)
 	{
 		timeout_ms =0;
 		DrvEventAddEvent( CONF_EVENT_TIMER_100MS );	
@@ -168,11 +170,23 @@ ISR(TIMER0_COMPA_vect)
 		timeout_s++;
 		if(timeout_s == 10)
 		{
-			timeout_s =0;
+			timeout_s = 0;
+			timeout_5s++;
 			DrvEventAddEvent( CONF_EVENT_TIMER_1S );	
 		}
+		if(timeout_5s == 5)
+		{
+			timeout_5s = 0;
+			timeout_10s++;
+			DrvEventAddEvent( CONF_EVENT_TIMER_5S );	
+		}
+		if(timeout_10s == 2)
+		{
+			timeout_10s = 0;
+			DrvEventAddEvent( CONF_EVENT_TIMER_10S );	
+		}
 	}
-	else if( ( timeout_ms % 2 ) == 1)
+	else if( ( timeout_ms % 10 ) == 0)
 	{
 		DrvEventAddEvent( CONF_EVENT_TIMER_10MS );	
 	}

@@ -23,11 +23,10 @@
 
 ///////////////////////////////////////////PUBLIC DEFINES/////////////////////////////////////////
 #define E_PROTOCOLE_PARAMETER_SERVO		0U
-#define E_PROTOCOLE_PARAMETER_PATTE		1U
+#define E_PROTOCOLE_PARAMETER_MEMBRE	1U
+#define E_PROTOCOLE_PARAMETER_TETE		2U
+#define E_PROTOCOLE_PARAMETER_MARCHE	3U
 
-#define E_PROTOCOLE_PARAMETER_SERVO_POSITION		0U
-
-#define E_PROTOCOLE_PARAMETER_ADC		1U
 /////////////////////////////////////////PUBLIC STRUCTURES/////////////////////////////////////////
 
 

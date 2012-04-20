@@ -18,31 +18,26 @@
 #include "Drv/drv_servo.h"
 
 ////////////////////////////////////////////PUBLIC ENUMS/////////////////////////////////////////
+//donne l'enim des deplacments possible
 typedef enum EEMove
 {
   E_MOVE_STOP,
-  E_MOVE_FORWORD,
-  E_MOVE_BACKWORD,
+  E_MOVE_FORWARD,
+  E_MOVE_BACKWARD,
   E_MOVE_LEFT,
   E_MOVE_RIGHT,
+  E_MOVE_SIT_DOWN,
+  E_MOVE_STAR,
+  E_MOVE_NONE,
 }EMove;
 
-typedef enum EESpeed
-{
-  E_SPEED_0 = 25,
-  E_SPEED_1 = 20,
-  E_SPEED_2 = 15,
-  E_SPEED_3 = 10,
-  E_SPEED_4 = 5,
-  E_SPEED_5 = 0,
-}ESpeed;
 
 
 ////////////////////////////////////////////PUBLIC STRUCTS/////////////////////////////////////////
 //strucutre qui defini les mouvements du robot
 typedef struct {
 	EMove move;
-	ESpeed speed;
+	EServoVitesse speed;
 } move_t;
 
 
@@ -52,9 +47,9 @@ void CtrlMarche( void ) ;
 //dispatcher
 void CtrlMarcheDispatcher( Event_t event )  ;
 //deplace le robot
-void CtrlMarcheMove( EMove move, ESpeed speed ) ;
+void CtrlMarcheMove( EMove move, EServoVitesse speed ) ;
 //deplace le robot d'un pas
-void CtrlMarcheMoveStep( EMove move, ESpeed speed ) ;
+void CtrlMarcheMoveStep( EMove move, EServoVitesse speed ) ;
 //on recupere la structure
 move_t* CtrlMarcheGetStruct( void ) ;
 //on arrte a la fin du mouvement

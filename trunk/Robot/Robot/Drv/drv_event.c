@@ -24,19 +24,21 @@ void DrvEvent( void )
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 
 //
-void DrvEventKillEvent(Event_t in_event) 
+inline void DrvEventKillEvent(Event_t in_event) 
 {
-	event_flags = ~(in_event | ~event_flags);
+	ATOMIC(
+		event_flags = ~(in_event | ~event_flags);
+	)
 }
 
 //
-Event_t DrvEventGetEvent(void)
+inline Event_t DrvEventGetEvent(void)
 {
   return event_flags;
 }
 
 //
-Boolean DrvEventTestEvent(Event_t in_event,Int8U conf_event ) 
+inline Boolean DrvEventTestEvent(Event_t in_event,Int8U conf_event ) 
 {
 	if (( in_event & ( 1 << conf_event)) > 0 )
 	{
@@ -49,7 +51,7 @@ Boolean DrvEventTestEvent(Event_t in_event,Int8U conf_event )
 }
 
 //
-Boolean DrvEventAddEvent(Event_t event)
+inline Boolean DrvEventAddEvent(Event_t event)
 {
 	Boolean o_success = FALSE;
 	event_flags |= (1<<event) ;

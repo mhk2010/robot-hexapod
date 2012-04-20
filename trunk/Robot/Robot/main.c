@@ -9,23 +9,14 @@
 
 #include "Drv/drv_event.h"
 #include "Drv/drv_timer.h"
+#include "Drv/drv_led.h"
 #include "Drv/drv_interrupt.h"
-#include "Drv/drv_adc.h"
-#include "Drv/drv_i2c.h"
-#include "Drv/drv_timer.h"
 #include "Drv/drv_servo.h"
 
 #include "Ctrl/ctrl_uart_protocole.h"
 #include "Ctrl/ctrl_marche.h"
 #include "Ctrl/ctrl_patte.h"
-#include "Ctrl/ctrl_ultrason.h"
-
-#include "Ctrl/ctrl_proximity.h"
-#include "Ctrl/ctrl_light.h"
 #include "Ctrl/ctrl_tete.h"
-
-#include "App/app_robot.h"
-
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 //init du main
@@ -33,9 +24,11 @@ static Boolean MainInitSystemDrivers( void ) ;
 //lancement des control du robot
 static Boolean MainInitSystemControl(void) ;
 //excecution du dispatcher d'evenement des controls
-static void MainSystemControlDispatcher() ;
+static void MainSystemControlDispatcher( void ) ;
+//excecution du heartbeat
+static void MainSystemControlHearbeat( void );
 //event main
-static Event_t main_event_flags = 0;
+volatile Event_t main_event_flags = 0;
 
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //start here
@@ -50,23 +43,21 @@ int main(void)
 	//lance les its
 	DrvInterruptSetAllInterrupts();
 	
-	//on active la vie du robot
-	RobotLifeInit();
-	
-	//on boucle
+	//on boucle à l'infini
     while( TRUE )
     {
 		//on prend les events 
 		main_event_flags = DrvEventGetEvent();
-		
+
 		//excecution du dispatcher d'evenements
-		MainSystemControlDispatcher( );
-		
-		//on fait vivre le robot
-		RobotLife( main_event_flags );
+		MainSystemControlDispatcher();
 		
 		//on kill les events
 		DrvEventKillEvent( main_event_flags );	
+		
+		//on toggle la led activity
+		//elle permet de controler que l'on passe souvent dans la boucle infini du main
+		DrvLedToggle ( CONF_LED_ACTIVITY );
     }
 }
 
@@ -78,13 +69,12 @@ static Boolean MainInitSystemDrivers(void)
 	Boolean o_success = TRUE;
 	
 	//init des drivers
-	DrvTimer();
+ 	DrvTimer();
 	DrvEvent();
-	
-	DrvAdc();
-	DrvI2C();
-	
-	
+	DrvLed();
+	DrvUart();
+	DrvServo();
+				
 	return o_success;
 }	
 
@@ -94,13 +84,9 @@ static Boolean MainInitSystemControl( void )
 	Boolean o_success = TRUE;
 	
 	//init des controls
-	CtrlTete();
 	CtrlUartProtocole();
-	CtrlUltraSon();
+	CtrlTete();
 	CtrlMarche();
-	
-	CtrlProximity();
-	CtrlLight();
 	
 	return o_success;
 }
@@ -111,14 +97,23 @@ static Boolean MainInitSystemControl( void )
 static void MainSystemControlDispatcher( void )
 {
 	//get next event
-	if(main_event_flags > 0)
+	if( main_event_flags > 0 )
 	{
-		//on dispatch l'event 
+		//on dispatch l'event sur les different services
 		CtrlUartProtocoleDispatcher( main_event_flags );
-		CtrlUltraSonDispatcher( main_event_flags );
-		CtrlProximityDispatcher(main_event_flags);
-		CtrlLightDispatcher(main_event_flags);
 		CtrlMarcheDispatcher( main_event_flags );
+		CtrlTeteDispatcher( main_event_flags );
+		
+		//hearbeat
+		MainSystemControlHearbeat();			
 	}	
 }	
-	
+
+//excecution du heartbeat
+static void MainSystemControlHearbeat( void )
+{
+	if ( DrvEventTestEvent(main_event_flags, CONF_EVENT_TIMER_1S ))
+	{
+		DrvLedToggle ( CONF_LED_HEARTBEAT );
+	}	
+}		

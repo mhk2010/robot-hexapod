@@ -30,12 +30,8 @@ typedef struct SSled
 SLed MesLeds[ CONF_LED_NB ];
 
 //Pin name
-EIoPin led_pin_name[ CONF_LED_NB ] = {E_PORTB_PIN1_IO, E_PORTB_PIN2_IO};
+EIoPin led_pin_name[ CONF_LED_NB ] = {CONF_LED_0_INDEX, CONF_LED_1_INDEX, CONF_LED_2_INDEX, CONF_LED_3_INDEX};
 	
-////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
-//ISR de flash de la led
-static void DrvLedFlash_ISR( void );
-
   
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 // Init du Drv LED 
@@ -45,7 +41,7 @@ void DrvLed ( void )
 	for (Int8U loop_led = 0 ; loop_led < CONF_LED_NB ; loop_led++)
 	{
 		MesLeds[ loop_led ].pin_name		= led_pin_name[ loop_led ];
-		MesLeds[ loop_led ].active_level	= IO_LEVEL_VCC;
+		MesLeds[ loop_led ].active_level	= IO_LEVEL_GND;
 		MesLeds[ loop_led ].init_state		= STATE_LED_OFF;
 		MesLeds[ loop_led ].actual_state	= STATE_LED_OFF;
 		MesLeds[ loop_led ].flash_active	= FALSE;
@@ -121,9 +117,9 @@ void DrvLedFlash ( Int8U led_name, Int8U nb_flash, Int16U time_on, Int16U time_o
 
 
 
-/////////////////////////////////////ISR PRIVATE FUNCTIONS////////////////////////////////////////
+/////////////////////////////////////ISR PUBLIC FUNCTIONS////////////////////////////////////////
 //ISR de flash de la led
-static void DrvLedFlash_ISR( void )
+void DrvLedFlash_ISR( void )
 {
 	for (Int8U loop_index = 0U ; loop_index < CONF_LED_NB ; loop_index++ )
 	{

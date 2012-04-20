@@ -79,6 +79,7 @@ void DrvLedToggle ( Int8U led_name );
 void DrvLedFlash ( Int8U led_name, Int8U nb_flash, Int16U time_on, Int16U time_off ) ;
 
 
-
+//ISR de flash de la led
+void DrvLedFlash_ISR( void );
 
 #endif /* DRV_LED_H_ */
