@@ -26,66 +26,78 @@ void CtrlPatte( void )
 	MesPattes[ AVANT_GAUCHE ].epaule.pin = CONF_SERVO_PATTE_AVANT_GAUCHE_EPAULE;
 	MesPattes[ AVANT_GAUCHE ].epaule.index = CONF_SERVO_PATTE_AVANT_GAUCHE_EPAULE_INDEX;
 	MesPattes[ AVANT_GAUCHE ].epaule.angle = NEUTRE_EPAULE_AVANT_GAUCHE;
+	MesPattes[ AVANT_GAUCHE ].epaule.offset = 0U;
 	DrvAddServo( MesPattes[ AVANT_GAUCHE ].epaule.pin, MesPattes[ AVANT_GAUCHE ].epaule.angle );
 		
 	MesPattes[ AVANT_GAUCHE ].coude.pin = CONF_SERVO_PATTE_AVANT_GAUCHE_COUDE;
 	MesPattes[ AVANT_GAUCHE ].coude.index = CONF_SERVO_PATTE_AVANT_GAUCHE_COUDE_INDEX;
 	MesPattes[ AVANT_GAUCHE ].coude.angle = NEUTRE_COUDE_AVANT_GAUCHE;
+	MesPattes[ AVANT_GAUCHE ].coude.offset = 4;
 	DrvAddServo( MesPattes[ AVANT_GAUCHE ].coude.pin ,MesPattes[ AVANT_GAUCHE ].coude.angle );
 					
 	//milieu gauche
 	MesPattes[ MILIEU_GAUCHE ].epaule.pin = CONF_SERVO_PATTE_MILIEU_GAUCHE_EPAULE;
 	MesPattes[ MILIEU_GAUCHE ].epaule.index = CONF_SERVO_PATTE_MILIEU_GAUCHE_EPAULE_INDEX;
 	MesPattes[ MILIEU_GAUCHE ].epaule.angle = NEUTRE_EPAULE_MILIEU_GAUCHE;
+	MesPattes[ MILIEU_GAUCHE ].epaule.offset = -3;
 	DrvAddServo( MesPattes[ MILIEU_GAUCHE ].epaule.pin ,MesPattes[ MILIEU_GAUCHE ].epaule.angle );
 		
 	MesPattes[ MILIEU_GAUCHE ].coude.pin = CONF_SERVO_PATTE_MILIEU_GAUCHE_COUDE;
 	MesPattes[ MILIEU_GAUCHE ].coude.index = CONF_SERVO_PATTE_MILIEU_GAUCHE_COUDE_INDEX;
 	MesPattes[ MILIEU_GAUCHE ].coude.angle = NEUTRE_COUDE_MILIEU_GAUCHE;
+	MesPattes[ MILIEU_GAUCHE ].coude.offset = 0U;
 	DrvAddServo( MesPattes[ MILIEU_GAUCHE ].coude.pin ,MesPattes[ MILIEU_GAUCHE ].coude.angle );
 	
 	//arriere gauche
 	MesPattes[ ARRIERE_GAUCHE ].epaule.pin = CONF_SERVO_PATTE_ARRIERE_GAUCHE_EPAULE;
 	MesPattes[ ARRIERE_GAUCHE ].epaule.index = CONF_SERVO_PATTE_ARRIERE_GAUCHE_EPAULE_INDEX;
 	MesPattes[ ARRIERE_GAUCHE ].epaule.angle = NEUTRE_EPAULE_MILIEU_GAUCHE;
+	MesPattes[ ARRIERE_GAUCHE ].epaule.offset = 0U;
 	DrvAddServo( MesPattes[ ARRIERE_GAUCHE ].epaule.pin ,MesPattes[ ARRIERE_GAUCHE ].epaule.angle );
 		
 	MesPattes[ ARRIERE_GAUCHE ].coude.pin = CONF_SERVO_PATTE_ARRIERE_GAUCHE_COUDE;
 	MesPattes[ ARRIERE_GAUCHE ].coude.index = CONF_SERVO_PATTE_ARRIERE_GAUCHE_COUDE_INDEX;
 	MesPattes[ ARRIERE_GAUCHE ].coude.angle = NEUTRE_COUDE_ARRIERE_GAUCHE;
+	MesPattes[ ARRIERE_GAUCHE ].coude.offset = 0U;
 	DrvAddServo( MesPattes[ ARRIERE_GAUCHE ].coude.pin ,MesPattes[ ARRIERE_GAUCHE ].coude.angle);
 					
 	//avant droite
 	MesPattes[ AVANT_DROITE ].epaule.pin = CONF_SERVO_PATTE_AVANT_DROITE_EPAULE;
 	MesPattes[ AVANT_DROITE ].epaule.index = CONF_SERVO_PATTE_AVANT_DROITE_EPAULE_INDEX;
 	MesPattes[ AVANT_DROITE ].epaule.angle = NEUTRE_EPAULE_AVANT_DROITE;
+	MesPattes[ AVANT_DROITE ].epaule.offset = -7;
 	DrvAddServo( MesPattes[ AVANT_DROITE ].epaule.pin ,MesPattes[ AVANT_DROITE ].epaule.angle);
 		
 	MesPattes[ AVANT_DROITE ].coude.pin = CONF_SERVO_PATTE_AVANT_DROITE_COUDE;
 	MesPattes[ AVANT_DROITE ].coude.index = CONF_SERVO_PATTE_AVANT_DROITE_COUDE_INDEX;
 	MesPattes[ AVANT_DROITE ].coude.angle = NEUTRE_COUDE_AVANT_DROITE;
+	MesPattes[ AVANT_DROITE ].coude.offset = 0U;
 	DrvAddServo( MesPattes[ AVANT_DROITE ].coude.pin ,MesPattes[ AVANT_DROITE ].coude.angle );
 					
 	//milieu droite
 	MesPattes[ MILIEU_DROITE ].epaule.pin = CONF_SERVO_PATTE_MILIEU_DROITE_EPAULE;
 	MesPattes[ MILIEU_DROITE ].epaule.index = CONF_SERVO_PATTE_MILIEU_DROITE_EPAULE_INDEX;
 	MesPattes[ MILIEU_DROITE ].epaule.angle = NEUTRE_EPAULE_MILIEU_DROITE;
+	MesPattes[ MILIEU_DROITE ].epaule.offset = 0U;
 	DrvAddServo( MesPattes[ MILIEU_DROITE ].epaule.pin ,MesPattes[ MILIEU_DROITE ].epaule.angle );
 		
 	MesPattes[ MILIEU_DROITE ].coude.pin = CONF_SERVO_PATTE_MILIEU_DROITE_COUDE;
 	MesPattes[ MILIEU_DROITE ].coude.index = CONF_SERVO_PATTE_MILIEU_DROITE_COUDE_INDEX;
 	MesPattes[ MILIEU_DROITE ].coude.angle = NEUTRE_COUDE_MILIEU_DROITE;
+	MesPattes[ MILIEU_DROITE ].coude.offset = 0U;
 	DrvAddServo( MesPattes[ MILIEU_DROITE ].coude.pin ,MesPattes[ MILIEU_DROITE ].coude.angle );
 					
 	//arriere droite
 	MesPattes[ ARRIERE_DROITE ].epaule.pin = CONF_SERVO_PATTE_ARRIERE_DROITE_EPAULE;
 	MesPattes[ ARRIERE_DROITE ].epaule.index = CONF_SERVO_PATTE_ARRIERE_DROITE_EPAULE_INDEX;
 	MesPattes[ ARRIERE_DROITE ].epaule.angle = NEUTRE_EPAULE_MILIEU_DROITE;
+	MesPattes[ ARRIERE_DROITE ].epaule.offset = -7;
 	DrvAddServo( MesPattes[ ARRIERE_DROITE ].epaule.pin ,MesPattes[ ARRIERE_DROITE ].epaule.angle );
 		
 	MesPattes[ ARRIERE_DROITE ].coude.pin = CONF_SERVO_PATTE_ARRIERE_DROITE_COUDE;
 	MesPattes[ ARRIERE_DROITE ].coude.index = CONF_SERVO_PATTE_ARRIERE_DROITE_COUDE_INDEX;
 	MesPattes[ ARRIERE_DROITE ].coude.angle = NEUTRE_COUDE_ARRIERE_DROITE;
+	MesPattes[ ARRIERE_DROITE ].coude.offset = 2;
 	DrvAddServo( MesPattes[ ARRIERE_DROITE ].coude.pin ,MesPattes[ ARRIERE_DROITE ].coude.angle );
 		
 }
@@ -97,13 +109,13 @@ Boolean CtrlPatteMove( Int8U index, Int8U angle_epaule, Int8U angle_coude, EServ
 	MesPattes[ index ].epaule.angle = angle_epaule;
 	MesPattes[ index ].coude.angle = angle_coude;
 	
-	if ( DrvServoMoveToPosition( MesPattes[ index ].epaule.index, MesPattes[ index ].epaule.angle, vitesse ) == TRUE )	
+	if ( DrvServoMoveToPosition( MesPattes[ index ].epaule.index, MesPattes[ index ].epaule.angle + MesPattes[ index ].epaule.offset , vitesse ) == TRUE )	
 	{
 		//si on a atteind la position
 		ret = (1U << 0U);
 	}
 	//on deplace tjrs le coude a sa vitesse max
-	if ( DrvServoMoveToPosition( MesPattes[ index ].coude.index, MesPattes[ index ].coude.angle, E_SERVO_VITESSE_5 ) == TRUE )	
+	if ( DrvServoMoveToPosition( MesPattes[ index ].coude.index, MesPattes[ index ].coude.angle + MesPattes[ index ].coude.offset, vitesse ) == TRUE )	
 	{
 		//si on a atteind la position
 		ret |= (1U << 1U);
@@ -126,13 +138,13 @@ Boolean CtrlPatteDirectMove( Int8U index, Int8U angle_epaule, Int8U angle_coude,
 	MesPattes[ index ].epaule.angle = angle_epaule;
 	MesPattes[ index ].coude.angle = angle_coude;
 	
-	if ( DrvServoDirectMoveToPosition( MesPattes[ index ].epaule.index, MesPattes[ index ].epaule.angle, vitesse ) == TRUE )	
+	if ( DrvServoDirectMoveToPosition( MesPattes[ index ].epaule.index, MesPattes[ index ].epaule.angle + MesPattes[ index ].epaule.offset, vitesse ) == TRUE )	
 	{
 		//si on a atteind la position
 		ret = (1U << 0U);
 	}
 	//on deplace tjrs le coude a sa vitesse max
-	if ( DrvServoDirectMoveToPosition( MesPattes[ index ].coude.index, MesPattes[ index ].coude.angle, E_SERVO_VITESSE_5 ) == TRUE )	
+	if ( DrvServoDirectMoveToPosition( MesPattes[ index ].coude.index, MesPattes[ index ].coude.angle + MesPattes[ index ].coude.offset, vitesse ) == TRUE )	
 	{
 		//si on a atteind la position
 		ret |= (1U << 1U);

@@ -19,12 +19,13 @@
 
 
 /////////////////////////////////////////PUBLIC DEFINES/////////////////////////////////////////
-#define NEUTRE_TETE_HORIZONTAL		90
+#define OFFSET_TETE_HORIZONTAL		7U
+#define NEUTRE_TETE_HORIZONTAL		90 - OFFSET_TETE_HORIZONTAL
 #define MIN_TETE_HORIZONTAL			( NEUTRE_TETE_HORIZONTAL - 60 )
 #define MAX_TETE_HORIZONTAL			( NEUTRE_TETE_HORIZONTAL + 60 )
 
 
-#define NEUTRE_TETE_VERTICAL				140
+#define NEUTRE_TETE_VERTICAL		150
 
 
 

@@ -40,7 +40,6 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../app_robot.c \
 ../Ctrl/ctrl_marche.c \
 ../Ctrl/ctrl_patte.c \
 ../Ctrl/ctrl_tete.c \
@@ -69,7 +68,6 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-app_robot.o \
 Ctrl/ctrl_marche.o \
 Ctrl/ctrl_patte.o \
 Ctrl/ctrl_tete.o \
@@ -92,7 +90,6 @@ Mic/mic_usart.o
 
 
 OBJS_AS_ARGS +=  \
-app_robot.o \
 Ctrl/ctrl_marche.o \
 Ctrl/ctrl_patte.o \
 Ctrl/ctrl_tete.o \
@@ -115,7 +112,6 @@ Mic/mic_usart.o
 
 
 C_DEPS +=  \
-app_robot.d \
 Ctrl/ctrl_marche.d \
 Ctrl/ctrl_patte.d \
 Ctrl/ctrl_tete.d \
@@ -138,7 +134,6 @@ Mic/mic_usart.d
 
 
 C_DEPS_AS_ARGS +=  \
-app_robot.d \
 Ctrl/ctrl_marche.d \
 Ctrl/ctrl_patte.d \
 Ctrl/ctrl_tete.d \
@@ -208,30 +203,28 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 
 
 
-
-
-./%.o: .././%.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
-	@echo Finished building: $<
-
 Ctrl/%.o: ../Ctrl/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	$(QUOTE)C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
 Drv/%.o: ../Drv/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	$(QUOTE)C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	@echo Finished building: $<
+
+./%.o: .././%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler
+	$(QUOTE)C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
 Mic/%.o: ../Mic/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	$(QUOTE)C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
 
@@ -259,12 +252,12 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU C Linker
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="Robot.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--defsym=__stack=0x4000  -mmcu=atmega1284p  
+	$(QUOTE)C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="Robot.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--defsym=__stack=0x4000  -mmcu=atmega1284p  
 	@echo Finished building target: $@
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "Robot.elf" "Robot.hex"
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "Robot.elf" "Robot.eep" || exit 0
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-objdump.exe" -h -S "Robot.elf" > "Robot.lss"
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-size.exe" -C --mcu=atmega1284p  "Robot.elf"
+	"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "Robot.elf" "Robot.hex"
+	"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "Robot.elf" "Robot.eep" || exit 0
+	"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-objdump.exe" -h -S "Robot.elf" > "Robot.lss"
+	"C:\Program Files\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-size.exe" -C --mcu=atmega1284p  "Robot.elf"
 	
 
 

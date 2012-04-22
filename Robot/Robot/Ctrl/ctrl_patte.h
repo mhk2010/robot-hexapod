@@ -31,13 +31,13 @@
 
 //on fixe les angles min et max du servo coude
 #define ANGLE_MID_COUDE			90U
-#define ANGLE_DETLA_COUDE		20U
+#define ANGLE_DETLA_COUDE		40U
 #define ANGLE_MAX_COUDE			ANGLE_MID_COUDE - ANGLE_DETLA_COUDE
 #define ANGLE_MIN_COUDE			ANGLE_MID_COUDE + ANGLE_DETLA_COUDE
 
 //on fixe les angles min et max du servo epaule
 #define ANGLE_MID_EPAULE		90U
-#define ANGLE_DETLA_EPAULE		40U
+#define ANGLE_DETLA_EPAULE		20U
 #define ANGLE_MAX_EPAULE		ANGLE_MID_EPAULE - ANGLE_DETLA_EPAULE
 #define ANGLE_MIN_EPAULE		ANGLE_MID_EPAULE + ANGLE_DETLA_EPAULE
 
@@ -64,7 +64,7 @@ typedef struct {
 	Int8U pin;
 	Int8U index;
 	Int8U angle;
-	Int8S compensation;
+	Int8S offset;
 } patte_servo_t;
 
 //structure d'une patte de 2 servos

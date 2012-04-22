@@ -19,20 +19,20 @@
     <com_atmel_avrdbg_tool_jtagicemkii>
       <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
       <ToolName>JTAGICE mkII</ToolName>
-      <ToolNumber>0700000005F2</ToolNumber>
-      <KeepTimersRunning>false</KeepTimersRunning>
+      <ToolNumber>00B000004D4D</ToolNumber>
+      <KeepTimersRunning>true</KeepTimersRunning>
       <OverrideVtor>false</OverrideVtor>
       <OverrideVtorValue>
       </OverrideVtorValue>
       <Channel>
         <host>127.0.0.1</host>
-        <port>3481</port>
+        <port>1262</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
         <InterfaceName>JTAG</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>996928</JtagDbgClock>
+          <JtagDbgClock>32000</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
@@ -48,19 +48,19 @@
       <ToolType>com.atmel.avrdbg.tool.jtagicemk3</ToolType>
       <ToolName>JTAGICE3</ToolName>
       <ToolNumber>J30200010429</ToolNumber>
-      <KeepTimersRunning>false</KeepTimersRunning>
+      <KeepTimersRunning>true</KeepTimersRunning>
       <OverrideVtor>false</OverrideVtor>
       <OverrideVtorValue>
       </OverrideVtorValue>
       <Channel>
         <host>127.0.0.1</host>
-        <port>1243</port>
+        <port>1313</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
         <InterfaceName>JTAG</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>3481547</JtagDbgClock>
+          <JtagDbgClock>1000000</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
@@ -175,12 +175,6 @@
     <Folder Include="Tools" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="app_robot.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="app_robot.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Conf\conf_hard.h">
       <SubType>compile</SubType>
     </Compile>

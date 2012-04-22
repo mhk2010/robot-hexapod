@@ -556,8 +556,45 @@ static void CtrlMarcheSequenceForward( void )
 	else if(step == 1U)
 	{
 		/*
+			//| |//				mid max |  | max max
+			\\| |\\		step 4	min min |  | min mid
+			//| |//				mid max |  | max max
+		*/
+		if( CtrlPatteMove(AVANT_GAUCHE		,	ANGLE_MAX_EPAULE	,	ANGLE_MID_COUDE	,	body.speed ) == TRUE )
+		{
+			ret |= (1U<<0U);
+		}	
+		if( CtrlPatteMove(MILIEU_GAUCHE		,	ANGLE_MIN_EPAULE	,	ANGLE_MIN_COUDE	,	body.speed ) == TRUE )
+		{
+			ret |= (1U<<1U);
+		}	
+		if( CtrlPatteMove(ARRIERE_GAUCHE	,	ANGLE_MAX_EPAULE	,	ANGLE_MID_COUDE	,	body.speed ) == TRUE )
+		{
+			ret |= (1U<<2U);
+		}	
+		if( CtrlPatteMove(AVANT_DROITE		,	ANGLE_MAX_EPAULE	,	ANGLE_MAX_COUDE	,	body.speed ) == TRUE )
+		{
+			ret |= (1U<<3U);
+		}	
+		if( CtrlPatteMove(MILIEU_DROITE		,	ANGLE_MIN_EPAULE	,	ANGLE_MID_COUDE	,	body.speed ) == TRUE )
+		{
+			ret |= (1U<<4U);
+		}	
+		if( CtrlPatteMove(ARRIERE_DROITE	,	ANGLE_MAX_EPAULE	,	ANGLE_MAX_COUDE	,	body.speed ) == TRUE )
+		{
+			ret |= (1U<<5U);
+		}		
+		//quand on est arrivé a la bonne position on change de step	
+		if( ret == 0x3FU )
+		{
+			step = 2U;
+		}
+	}
+	else if(step == 2U)
+	{
+		/*
 			\/| |/\				min max |  | max mid
-			/\| |\/		step 1	mid min |  | min max
+			/\| |\/		step 2	mid min |  | min max
 			\/| |/\				min max |  | max mid
 		*/
 		if( CtrlPatteMove(AVANT_GAUCHE		,	ANGLE_MAX_EPAULE	,	ANGLE_MIN_COUDE	,	body.speed ) == TRUE )
@@ -587,14 +624,14 @@ static void CtrlMarcheSequenceForward( void )
 		//quand on est arrivé a la bonne position on change de step	
 		if( ret == 0x3FU )
 		{
-			step = 2U;
+			step = 3U;
 		}
 	}
-	else if(step == 2U)
+	else if(step == 3U)
 	{
 		/*
 			\\| |\\				min min |  | min mid
-			//| |//		step 2	mid max |  | max max
+			//| |//		step 3	mid max |  | max max
 			\\| |\\				min min |  | min mid
 		*/
 		if( CtrlPatteMove(AVANT_GAUCHE		,	ANGLE_MIN_EPAULE	,	ANGLE_MIN_COUDE	,	body.speed ) == TRUE )
@@ -624,14 +661,14 @@ static void CtrlMarcheSequenceForward( void )
 		//quand on est arrivé a la bonne position on change de step	
 		if( ret == 0x3FU )
 		{
-			step = 3U;
+			step = 4U;
 		}
 	}
-	else if(step == 3U)
+	else if(step == 4U)
 	{
 		/*
 			/\| |\/				mid min |  | min max
-			\/| |/\		step 3	min max |  | max mid
+			\/| |/\		step 4	min max |  | max mid
 			/\| |\/				mid min |  | min max
 		*/
 		if( CtrlPatteMove(AVANT_GAUCHE		,	ANGLE_MIN_EPAULE	,	ANGLE_MID_COUDE	,	body.speed ) == TRUE )
@@ -655,43 +692,6 @@ static void CtrlMarcheSequenceForward( void )
 			ret |= (1U<<4U);
 		}	
 		if( CtrlPatteMove(ARRIERE_DROITE	,	ANGLE_MIN_EPAULE	,	ANGLE_MAX_COUDE	,	body.speed ) == TRUE )
-		{
-			ret |= (1U<<5U);
-		}		
-		//quand on est arrivé a la bonne position on change de step	
-		if( ret == 0x3FU )
-		{
-			step = 4U;
-		}
-	}
-	else if(step == 4U)
-	{
-		/*
-			//| |//				mid max |  | max max
-			\\| |\\		step 4	min min |  | min mid
-			//| |//				mid max |  | max max
-		*/
-		if( CtrlPatteMove(AVANT_GAUCHE		,	ANGLE_MAX_EPAULE	,	ANGLE_MID_COUDE	,	body.speed ) == TRUE )
-		{
-			ret |= (1U<<0U);
-		}	
-		if( CtrlPatteMove(MILIEU_GAUCHE		,	ANGLE_MIN_EPAULE	,	ANGLE_MIN_COUDE	,	body.speed ) == TRUE )
-		{
-			ret |= (1U<<1U);
-		}	
-		if( CtrlPatteMove(ARRIERE_GAUCHE	,	ANGLE_MAX_EPAULE	,	ANGLE_MID_COUDE	,	body.speed ) == TRUE )
-		{
-			ret |= (1U<<2U);
-		}	
-		if( CtrlPatteMove(AVANT_DROITE		,	ANGLE_MAX_EPAULE	,	ANGLE_MAX_COUDE	,	body.speed ) == TRUE )
-		{
-			ret |= (1U<<3U);
-		}	
-		if( CtrlPatteMove(MILIEU_DROITE		,	ANGLE_MIN_EPAULE	,	ANGLE_MID_COUDE	,	body.speed ) == TRUE )
-		{
-			ret |= (1U<<4U);
-		}	
-		if( CtrlPatteMove(ARRIERE_DROITE	,	ANGLE_MAX_EPAULE	,	ANGLE_MAX_COUDE	,	body.speed ) == TRUE )
 		{
 			ret |= (1U<<5U);
 		}		
