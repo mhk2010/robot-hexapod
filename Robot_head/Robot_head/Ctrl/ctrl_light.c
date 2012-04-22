@@ -48,7 +48,7 @@ void CtrlLightDispatcher( Event_t event )
 			mesure_ldr_droite_moy = mesure_ldr_droite >> 3;
 			mesure_ldr_gauche = 0;
 			mesure_ldr_droite = 0;
-			//CtrlLightSendUartLightMesure();			
+			CtrlLightSendUartLightMesure();			
 		}
 	}		
 }
