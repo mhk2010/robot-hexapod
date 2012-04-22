@@ -83,8 +83,8 @@ static void CtrlUltraSonReadSensorMesure( void )
 	{
 		CtrlEyeBlinkSpeed(5,us_mesure_tab_echo[0]);
 		us_mesure = us_mesure_tab_echo[0];
-		CtrlUltraSendUartProximity() ;
 	}	
+	CtrlUltraSendUartProximity() ;
 }
 
 //permet d'envoyé un pulse 

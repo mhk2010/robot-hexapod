@@ -46,7 +46,7 @@
 
 #define SNAPSHOT_TYPE_RAW			0x01U
 
-#define NB_PIXELS_PAR_BYTES			0x02U
+#define NB_PIXELS_PAR_BYTES			0x04U
 
 #define WIDTH				80U
 #define HEIGHT				60U 
@@ -132,7 +132,7 @@ Int8U camera_ack[] = {START_FRAME,CMD_ACK,0x00,0x00,0x00,0x00} ;
 	
 const Int8U camera_sync[] = {START_FRAME,CMD_SYNC,0x00,0x00,0x00,0x00} ;
 	
-const Int8U camera_initial[] = {START_FRAME,CMD_INITIAL,0x00,GRAY_SCALE_4_BIT,RES_80_60,0x00} ;
+const Int8U camera_initial[] = {START_FRAME,CMD_INITIAL,0x00,GRAY_SCALE_2_BIT,RES_80_60,0x00} ;
 	
 const Int8U camera_get_picture[] = {START_FRAME,CMD_GET_PICTURE,GET_PICTURE_TYPE_RAW,0x00,0x00,0x00} ;
 	
@@ -221,7 +221,7 @@ void CtrlCameraDispatcher( Event_t event )
 					cam.state.rcv_data_complete = FALSE;
 						
 					//on change de pointeur sur le record de la prochaine image	
-					if(index_image == 0U)
+					/*if(index_image == 0U)
 					{		
 						index_image = 1U;						
 					}
@@ -242,12 +242,12 @@ void CtrlCameraDispatcher( Event_t event )
 						//on fait un premier seuilage pour voir les difference entre les 2
 						if (TRUE == CtrlCameraSeuillage() ) 
 						{
-							//on envoie la diff d'image sur l'uart
-							CtrlCameraExecuteSendUartMovement();	
+								
 						}
 						
-					}				
-				
+					}*/				
+					//on envoie la diff d'image sur l'uart
+					CtrlCameraExecuteSendUartMovement();
 					
 					//on remet les données a jour
 					cam.image->size = 0U ;
@@ -425,7 +425,7 @@ static void CtrlCameraExecuteSendUartMovement(void)
 	Int8U buffer[27];
 	static Int16U loop_mvt = 0U;
 	static Int16U loop_area = 0U;
-	for ( loop_area = 0U; loop_area < 600U ; loop_area += 20U)
+	for ( loop_area = 0U; loop_area < 1200U ; loop_area += 20U)
 	{
 		buffer[0] = '*';
 		buffer[1] = E_PROTOCOLE_HEAD;
@@ -434,7 +434,7 @@ static void CtrlCameraExecuteSendUartMovement(void)
 		buffer[4] = loop_area ;
 		for (loop_mvt = 0U; loop_mvt < 20U ; loop_mvt++)
 		{
-			buffer[5 + loop_mvt] = compress_tab_mvt[ loop_area + loop_mvt ] ;
+			buffer[5 + loop_mvt] = cam.image->image/* compress_tab_mvt*/[ loop_area + loop_mvt ] ;
 		}	
 		buffer[25] = '#';
 		buffer[26] = '#';
