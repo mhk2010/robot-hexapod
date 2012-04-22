@@ -2,8 +2,6 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-app_robot.c
-
 Ctrl\ctrl_marche.c
 
 Ctrl\ctrl_patte.c

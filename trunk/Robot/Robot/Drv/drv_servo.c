@@ -96,11 +96,11 @@ Boolean DrvServoDirectMoveToPosition( Int8U index, Int16U angle, EServoVitesse v
 		//calcul de la vitesse d'incrementation pour atteindre la consigne
 		if( MesServos[index].ticks < MesServos[index].ticks_consigne )
 		{
-			MesServos[index].increment = ( MesServos[index].ticks_consigne - MesServos[index].ticks ) / (12U + MesServos[ index ].vitesse);
+			MesServos[index].increment = ( MesServos[index].ticks_consigne - MesServos[index].ticks ) / (1+ MesServos[ index ].vitesse);
 		}
 		else
 		{
-			MesServos[index].increment = ( MesServos[index].ticks - MesServos[index].ticks_consigne ) / (12U + MesServos[ index ].vitesse);
+			MesServos[index].increment = ( MesServos[index].ticks - MesServos[index].ticks_consigne ) / (1+ MesServos[ index ].vitesse);
 		}
 			
 		//si le calcul renvoit 0 on le met a 1
