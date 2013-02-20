@@ -42,7 +42,7 @@ void DrvUart( )
 {
 	//on fixe les registres
 	#ifdef CONF_UART_0_INDEX 
-		UBRR0 = 0x0010U;		//57600 baud
+		UBRR0 = 0x0008U;		//57600 baud
 		UCSR0B |= (1<<RXEN0);	//enable RX
 		UCSR0B |= (1<<TXEN0);	//enable TX 
 		UCSR0B |= (1<<RXCIE0);	//enable RX interrupt 

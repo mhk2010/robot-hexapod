@@ -21,17 +21,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_abbrev 000012e5  00000000  00000000  0000dbc7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   00008f08  00000000  00000000  0000eeac  2**0
+  9 .debug_line   000090e2  00000000  00000000  0000eeac  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  00001060  00000000  00000000  00017db4  2**2
+ 10 .debug_frame  00001060  00000000  00000000  00017f90  2**2
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    0000345a  00000000  00000000  00018e14  2**0
+ 11 .debug_str    00003452  00000000  00000000  00018ff0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macinfo 000b5b06  00000000  00000000  0001c26e  2**0
+ 12 .debug_macinfo 000b5b06  00000000  00000000  0001c442  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_pubtypes 00000b7d  00000000  00000000  000d1d74  2**0
+ 13 .debug_pubtypes 00000b7d  00000000  00000000  000d1f48  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_ranges 00000830  00000000  00000000  000d28f1  2**0
+ 14 .debug_ranges 00000830  00000000  00000000  000d2ac5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -6542,10 +6542,10 @@ void DrvUart( )
     29d2:	cd b7       	in	r28, 0x3d	; 61
     29d4:	de b7       	in	r29, 0x3e	; 62
 	#ifdef CONF_UART_0_INDEX 
-		UBRR0 = 0x0010U;
+		UBRR0 = 0x0008U;
     29d6:	84 ec       	ldi	r24, 0xC4	; 196
     29d8:	90 e0       	ldi	r25, 0x00	; 0
-    29da:	20 e1       	ldi	r18, 0x10	; 16
+    29da:	28 e0       	ldi	r18, 0x08	; 8
     29dc:	30 e0       	ldi	r19, 0x00	; 0
     29de:	fc 01       	movw	r30, r24
     29e0:	31 83       	std	Z+1, r19	; 0x01

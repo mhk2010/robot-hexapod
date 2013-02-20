@@ -38,7 +38,7 @@ Boolean start_frame_uart_0 = FALSE;
 void DrvUart( )
 {
 	#ifdef CONF_UART_0_INDEX 
-		UBRR0 = 0x0010U;
+		UBRR0 = 0x0008U;
 		micUsart0SetDataSize( USART_8_BITS_DATA ) ;
 		micUsart0SetParityMode( USART_NO_PARITY ) ;
 		micUsart0SetStopBits( USART_1_STOP_BIT ) ;
