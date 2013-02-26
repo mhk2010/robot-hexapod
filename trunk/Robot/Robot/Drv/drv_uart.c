@@ -17,20 +17,20 @@
 //UART 0
 //-------
 //message stocke
-Int8U in_message_0[50U];
+Int8U in_message_0[100U];
 Int8U in_message_len_0 = 0U;
 //buffer de recpetion de message uart 0
-Int8U buff_uart_0[50U];
+Int8U buff_uart_0[100U];
 Int8U ptr_buff_uart_0 = 0U;
 Boolean start_frame_uart_0 = FALSE;
 
 //UART 1
 //-------
 //message stocke
-Int8U in_message_1[50U];
+Int8U in_message_1[100U];
 Int8U in_message_len_1 = 0U;
 //buffer de recpetion de message uart 0
-Int8U buff_uart_1[50U];
+Int8U buff_uart_1[100U];
 Int8U ptr_buff_uart_1 = 0U;
 Boolean start_frame_uart_1 = FALSE;
  
@@ -42,7 +42,7 @@ void DrvUart( )
 {
 	//on fixe les registres
 	#ifdef CONF_UART_0_INDEX 
-		UBRR0 = 0x0008U;		//57600 baud
+		UBRR0 = 0x0010U;		//57600 baud
 		UCSR0B |= (1<<RXEN0);	//enable RX
 		UCSR0B |= (1<<TXEN0);	//enable TX 
 		UCSR0B |= (1<<RXCIE0);	//enable RX interrupt 
@@ -61,7 +61,7 @@ void DrvUart( )
 }
 
 //on recupere le message
-void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
+void DrvUart0ReadMessage( Int8U *i_message, Int8U *i_message_len )
 {
 	//on enregistre le message 
 	for ( Int8U loop_send = 0U ; loop_send < in_message_len_0 ; loop_send++)
@@ -71,7 +71,7 @@ void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
 	*i_message_len = in_message_len_0;
 }
 //on recupere le message
-void DrvUart0SendMessage( Int8U i_message[50U], Int8U i_message_len )
+void DrvUart0SendMessage( Int8U *i_message, Int8U i_message_len )
 {
 	//on enregistre le message 
 	for ( Int8U loop_send = 0U ; loop_send < i_message_len ; loop_send++)
@@ -83,7 +83,7 @@ void DrvUart0SendMessage( Int8U i_message[50U], Int8U i_message_len )
 
 
 //on recupere le message
-void DrvUart1ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
+void DrvUart1ReadMessage( Int8U *i_message, Int8U *i_message_len )
 {
 	//on enregistre le message 
 	for ( Int8U loop_send = 0U ; loop_send < in_message_len_1 ; loop_send++)
@@ -94,7 +94,7 @@ void DrvUart1ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
 }
 
 //on recupere le message
-void DrvUart1SendMessage( Int8U i_message[50U], Int8U i_message_len )
+void DrvUart1SendMessage( Int8U *i_message, Int8U i_message_len )
 {
 	//on enregistre le message 
 	for ( Int8U loop_send = 0U ; loop_send < i_message_len ; loop_send++)

@@ -7,7 +7,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         000057f8  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000cc3  00800122  00800122  000058ae  2**0
+  2 .bss          00000d27  00800122  00800122  000058ae  2**0
                   ALLOC
   3 .stab         000006cc  00000000  00000000  000058b0  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -97,7 +97,7 @@ Disassembly of section .text:
       b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
 
 000000b2 <__do_clear_bss>:
-      b2:	1d e0       	ldi	r17, 0x0D	; 13
+      b2:	1e e0       	ldi	r17, 0x0E	; 14
       b4:	a2 e2       	ldi	r26, 0x22	; 34
       b6:	b1 e0       	ldi	r27, 0x01	; 1
       b8:	01 c0       	rjmp	.+2      	; 0xbc <.do_clear_bss_start>
@@ -106,7 +106,7 @@ Disassembly of section .text:
       ba:	1d 92       	st	X+, r1
 
 000000bc <.do_clear_bss_start>:
-      bc:	a5 3e       	cpi	r26, 0xE5	; 229
+      bc:	a9 34       	cpi	r26, 0x49	; 73
       be:	b1 07       	cpc	r27, r17
       c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
       c2:	0e 94 0c 2a 	call	0x5418	; 0x5418 <main>
@@ -1009,7 +1009,7 @@ static void CtrlCameraExecuteSendUartMovement(void)
 	Int8U buffer[27];
 	static Int16U loop_mvt = 0U;
 	static Int16U loop_area = 0U;
-	for ( loop_area = 0U; loop_area < 1200U ; loop_area += 20U)
+	for ( loop_area = 0U; loop_area < IMAGE_BYTES_SIZE ; loop_area += 20U)
      654:	10 92 96 0a 	sts	0x0A96, r1
      658:	10 92 95 0a 	sts	0x0A95, r1
      65c:	5b c0       	rjmp	.+182    	; 0x714 <CtrlCameraExecuteSendUartMovement+0xd4>
@@ -1100,7 +1100,7 @@ static void CtrlCameraExecuteSendUartMovement(void)
 	Int8U buffer[27];
 	static Int16U loop_mvt = 0U;
 	static Int16U loop_area = 0U;
-	for ( loop_area = 0U; loop_area < 1200U ; loop_area += 20U)
+	for ( loop_area = 0U; loop_area < IMAGE_BYTES_SIZE ; loop_area += 20U)
      702:	80 91 95 0a 	lds	r24, 0x0A95
      706:	90 91 96 0a 	lds	r25, 0x0A96
      70a:	44 96       	adiw	r24, 0x14	; 20
@@ -6542,10 +6542,10 @@ void DrvUart( )
     29d2:	cd b7       	in	r28, 0x3d	; 61
     29d4:	de b7       	in	r29, 0x3e	; 62
 	#ifdef CONF_UART_0_INDEX 
-		UBRR0 = 0x0008U;
+		UBRR0 = 0x0010U;
     29d6:	84 ec       	ldi	r24, 0xC4	; 196
     29d8:	90 e0       	ldi	r25, 0x00	; 0
-    29da:	28 e0       	ldi	r18, 0x08	; 8
+    29da:	20 e1       	ldi	r18, 0x10	; 16
     29dc:	30 e0       	ldi	r19, 0x00	; 0
     29de:	fc 01       	movw	r30, r24
     29e0:	31 83       	std	Z+1, r19	; 0x01
@@ -6839,7 +6839,7 @@ Boolean DrvUartSendByte( const Int8U index_uart , Int8U byte_to_send )
 00002b7a <DrvUart0ReadMessage>:
 
 //on recupere le message
-void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
+void DrvUart0ReadMessage( Int8U *i_message, Int8U *i_message_len )
 {
     2b7a:	df 93       	push	r29
     2b7c:	cf 93       	push	r28
@@ -6876,7 +6876,7 @@ void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
     2bb2:	20 83       	st	Z, r18
 
 //on recupere le message
-void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
+void DrvUart0ReadMessage( Int8U *i_message, Int8U *i_message_len )
 {
 	//on enregistre le message 
 	for ( Int8U loop_send = 0U ; loop_send < in_message_len_0 ; loop_send++)
@@ -7011,7 +7011,7 @@ ISR(USART0_RX_vect)
 			{
 				buff_uart_0[ 0U ] = '*';
     2c70:	8a e2       	ldi	r24, 0x2A	; 42
-    2c72:	80 93 b3 0d 	sts	0x0DB3, r24
+    2c72:	80 93 e5 0d 	sts	0x0DE5, r24
 				ptr_buff_uart_0 = 1U;
     2c76:	81 e0       	ldi	r24, 0x01	; 1
     2c78:	80 93 b4 0a 	sts	0x0AB4, r24
@@ -7029,7 +7029,7 @@ ISR(USART0_RX_vect)
     2c84:	80 91 b4 0a 	lds	r24, 0x0AB4
     2c88:	88 2f       	mov	r24, r24
     2c8a:	90 e0       	ldi	r25, 0x00	; 0
-    2c8c:	8d 54       	subi	r24, 0x4D	; 77
+    2c8c:	8b 51       	subi	r24, 0x1B	; 27
     2c8e:	92 4f       	sbci	r25, 0xF2	; 242
     2c90:	2a 81       	ldd	r18, Y+2	; 0x02
     2c92:	fc 01       	movw	r30, r24
@@ -7043,7 +7043,7 @@ ISR(USART0_RX_vect)
     2ca4:	88 2f       	mov	r24, r24
     2ca6:	90 e0       	ldi	r25, 0x00	; 0
     2ca8:	01 97       	sbiw	r24, 0x01	; 1
-    2caa:	8d 54       	subi	r24, 0x4D	; 77
+    2caa:	8b 51       	subi	r24, 0x1B	; 27
     2cac:	92 4f       	sbci	r25, 0xF2	; 242
     2cae:	fc 01       	movw	r30, r24
     2cb0:	80 81       	ld	r24, Z
@@ -7053,7 +7053,7 @@ ISR(USART0_RX_vect)
     2cba:	88 2f       	mov	r24, r24
     2cbc:	90 e0       	ldi	r25, 0x00	; 0
     2cbe:	02 97       	sbiw	r24, 0x02	; 2
-    2cc0:	8d 54       	subi	r24, 0x4D	; 77
+    2cc0:	8b 51       	subi	r24, 0x1B	; 27
     2cc2:	92 4f       	sbci	r25, 0xF2	; 242
     2cc4:	fc 01       	movw	r30, r24
     2cc6:	80 81       	ld	r24, Z
@@ -7072,7 +7072,7 @@ ISR(USART0_RX_vect)
     2cd6:	29 81       	ldd	r18, Y+1	; 0x01
     2cd8:	22 2f       	mov	r18, r18
     2cda:	30 e0       	ldi	r19, 0x00	; 0
-    2cdc:	2d 54       	subi	r18, 0x4D	; 77
+    2cdc:	2b 51       	subi	r18, 0x1B	; 27
     2cde:	32 4f       	sbci	r19, 0xF2	; 242
     2ce0:	f9 01       	movw	r30, r18
     2ce2:	20 81       	ld	r18, Z

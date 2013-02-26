@@ -23,10 +23,10 @@
 //UART 0
 //-------
 //message stocke
-Int8U in_message_0[50U];
+Int8U in_message_0[100U];
 Int8U in_message_len_0 = 0U;
 //buffer de recpetion de message uart 0
-Int8U buff_uart_0[50U];
+Int8U buff_uart_0[100U];
 Int8U ptr_buff_uart_0 = 0U;
 Boolean start_frame_uart_0 = FALSE;
 
@@ -38,7 +38,7 @@ Boolean start_frame_uart_0 = FALSE;
 void DrvUart( )
 {
 	#ifdef CONF_UART_0_INDEX 
-		UBRR0 = 0x0008U;
+		UBRR0 = 0x0010U;
 		micUsart0SetDataSize( USART_8_BITS_DATA ) ;
 		micUsart0SetParityMode( USART_NO_PARITY ) ;
 		micUsart0SetStopBits( USART_1_STOP_BIT ) ;
@@ -113,7 +113,7 @@ Boolean DrvUartSendByte( const Int8U index_uart , Int8U byte_to_send )
 }	
 
 //on recupere le message
-void DrvUart0ReadMessage( Int8U i_message[50U], Int8U *i_message_len )
+void DrvUart0ReadMessage( Int8U *i_message, Int8U *i_message_len )
 {
 	//on enregistre le message 
 	for ( Int8U loop_send = 0U ; loop_send < in_message_len_0 ; loop_send++)

@@ -22,8 +22,8 @@ cam                 0x10              Ctrl/ctrl_camera.o
 i_message_from_body
                     0x32              Ctrl/ctrl_uart_protocole.o
 compress_tab_mvt    0x258             Ctrl/ctrl_camera.o
-in_message_0        0x32              Drv/drv_uart.o
-buff_uart_0         0x32              Drv/drv_uart.o
+in_message_0        0x64              Drv/drv_uart.o
+buff_uart_0         0x64              Drv/drv_uart.o
 
 Memory Configuration
 
@@ -1058,7 +1058,7 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
                 0x00800122                _edata = .
                 0x00800122                PROVIDE (__data_end, .)
 
-.bss            0x00800122      0xcc3
+.bss            0x00800122      0xd27
                 0x00800122                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x00800122        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
@@ -1119,19 +1119,19 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
                 0x00800d52                MesLeds
  COMMON         0x00800d78        0x9 Drv/drv_timer.o
                 0x00800d78                MesTimer
- COMMON         0x00800d81       0x64 Drv/drv_uart.o
+ COMMON         0x00800d81       0xc8 Drv/drv_uart.o
                 0x00800d81                in_message_0
-                0x00800db3                buff_uart_0
-                0x00800de5                PROVIDE (__bss_end, .)
+                0x00800de5                buff_uart_0
+                0x00800e49                PROVIDE (__bss_end, .)
                 0x000057f8                __data_load_start = LOADADDR (.data)
                 0x0000581a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800de5        0x0
-                0x00800de5                PROVIDE (__noinit_start, .)
+.noinit         0x00800e49        0x0
+                0x00800e49                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800de5                PROVIDE (__noinit_end, .)
-                0x00800de5                _end = .
-                0x00800de5                PROVIDE (__heap_start, .)
+                0x00800e49                PROVIDE (__noinit_end, .)
+                0x00800e49                _end = .
+                0x00800e49                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)

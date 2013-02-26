@@ -425,7 +425,7 @@ static void CtrlCameraExecuteSendUartMovement(void)
 	Int8U buffer[27];
 	static Int16U loop_mvt = 0U;
 	static Int16U loop_area = 0U;
-	for ( loop_area = 0U; loop_area < 1200U ; loop_area += 20U)
+	for ( loop_area = 0U; loop_area < IMAGE_BYTES_SIZE ; loop_area += 20U)
 	{
 		buffer[0] = '*';
 		buffer[1] = E_PROTOCOLE_HEAD;
