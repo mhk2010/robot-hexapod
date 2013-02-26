@@ -46,7 +46,7 @@
 
 #define SNAPSHOT_TYPE_RAW			0x01U
 
-#define NB_PIXELS_PAR_BYTES			0x04U
+#define NB_PIXELS_PAR_BYTES			2U
 
 #define WIDTH				80U
 #define HEIGHT				60U 
@@ -132,7 +132,7 @@ Int8U camera_ack[] = {START_FRAME,CMD_ACK,0x00,0x00,0x00,0x00} ;
 	
 const Int8U camera_sync[] = {START_FRAME,CMD_SYNC,0x00,0x00,0x00,0x00} ;
 	
-const Int8U camera_initial[] = {START_FRAME,CMD_INITIAL,0x00,GRAY_SCALE_2_BIT,RES_80_60,0x00} ;
+const Int8U camera_initial[] = {START_FRAME,CMD_INITIAL,0x00,GRAY_SCALE_4_BIT,RES_80_60,0x00} ;
 	
 const Int8U camera_get_picture[] = {START_FRAME,CMD_GET_PICTURE,GET_PICTURE_TYPE_RAW,0x00,0x00,0x00} ;
 	
@@ -422,23 +422,25 @@ static Boolean CtrlCameraSeuillage( void )
 //on envoie la trame sur l'uart
 static void CtrlCameraExecuteSendUartMovement(void) 
 {
-	Int8U buffer[27];
+	#define SIZE 40
+	Int8U buffer[SIZE+7];
 	static Int16U loop_mvt = 0U;
 	static Int16U loop_area = 0U;
-	for ( loop_area = 0U; loop_area < IMAGE_BYTES_SIZE ; loop_area += 20U)
+	
+	buffer[0] = '*';
+	buffer[1] = E_PROTOCOLE_HEAD;
+	buffer[2] = E_PROTOCOLE_WHO_CAMERA;
+	buffer[SIZE+5] = '#';
+	buffer[SIZE+6] = '#';
+	for ( loop_area = 0U; loop_area < IMAGE_BYTES_SIZE ; loop_area += SIZE)
 	{
-		buffer[0] = '*';
-		buffer[1] = E_PROTOCOLE_HEAD;
-		buffer[2] = E_PROTOCOLE_WHO_CAMERA;
 		buffer[3] = loop_area >> 8U;
 		buffer[4] = loop_area ;
-		for (loop_mvt = 0U; loop_mvt < 20U ; loop_mvt++)
+		for (loop_mvt = 0U; loop_mvt < SIZE ; loop_mvt++)
 		{
 			buffer[5 + loop_mvt] = cam.image->image/* compress_tab_mvt*/[ loop_area + loop_mvt ] ;
 		}	
-		buffer[25] = '#';
-		buffer[26] = '#';
-		DrvUartDirectSendBytes(CONF_UART_0_INDEX,buffer,27U);
+		DrvUartDirectSendBytes(CONF_UART_0_INDEX,buffer,SIZE+7U);
 	}	
 }	
 

@@ -23,10 +23,10 @@
 //UART 0
 //-------
 //message stocke
-Int8U in_message_0[100U];
+Int8U in_message_0[50U];
 Int8U in_message_len_0 = 0U;
 //buffer de recpetion de message uart 0
-Int8U buff_uart_0[100U];
+Int8U buff_uart_0[50U];
 Int8U ptr_buff_uart_0 = 0U;
 Boolean start_frame_uart_0 = FALSE;
 
