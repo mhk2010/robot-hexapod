@@ -115,7 +115,7 @@ static void MainSystemControlDispatcher( void )
 		CtrlUartProtocoleDispatcher( main_event_flags );
 		CtrlUltraSonDispatcher( main_event_flags );
 		CtrlLightDispatcher( main_event_flags );
-		//CtrlCameraDispatcher( main_event_flags );
+		CtrlEyeDispatcher( main_event_flags );
 	}	
 	//quand il n'y pas d'events
 	//CtrlMicrophoneDispatcher( main_event_flags );

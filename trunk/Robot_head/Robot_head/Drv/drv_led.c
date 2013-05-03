@@ -18,6 +18,7 @@ typedef struct SSled
 	ELedState init_state;
 	ELedState actual_state;
 	Boolean flash_active;
+	Boolean heartbeat;
 	Int16U time_on;
 	Int16U cpt_time_on;
 	Int16U time_off;
@@ -50,6 +51,7 @@ void DrvLed ( void )
 		MesLeds[ loop_led ].init_state		= STATE_LED_OFF;
 		MesLeds[ loop_led ].actual_state	= STATE_LED_OFF;
 		MesLeds[ loop_led ].flash_active	= FALSE;
+		MesLeds[ loop_led ].heartbeat		= FALSE;
 		MesLeds[ loop_led ].time_on			= 0U;
 		MesLeds[ loop_led ].cpt_time_on		= 0U;
 		MesLeds[ loop_led ].time_off		= 0U;
@@ -115,6 +117,7 @@ void DrvLedFlash ( Int8U led_name, Int8U nb_flash, Int16U time_on, Int16U time_o
 		MesLeds[ led_name ].cpt_time_off	= 0U;
 		MesLeds[ led_name ].nb_flash		= nb_flash;
 		MesLeds[ led_name ].cpt_nb_flash	= 0U;
+		MesLeds[ led_name ].heartbeat		= FALSE;
 		MesLeds[ led_name ].flash_active	= TRUE;
 	}
 }
@@ -129,7 +132,11 @@ void DrvLedDirectFlash ( Int8U led_name, Int8U nb_flash, Int16U time_on, Int16U 
 	MesLeds[ led_name ].nb_flash		= nb_flash;
 	MesLeds[ led_name ].cpt_nb_flash	= 0U;
 	MesLeds[ led_name ].flash_active	= TRUE;
+	MesLeds[ led_name ].heartbeat		= FALSE;
 }
+
+
+
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 
@@ -170,7 +177,7 @@ static void DrvLedFlash_ISR( void )
 						//on incremente le nombre de flash a chaque passage a off
 						MesLeds[ loop_index ].cpt_nb_flash++;
 					}
-				}
+				}	
 			}	
 			//plus de flash a faire
 			else

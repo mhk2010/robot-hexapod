@@ -6,8 +6,6 @@
  */ 
 
 #include "ctrl_ultrason.h"
-#include "ctrl_eye.h"
-
 
 #include "Drv/drv_uart.h"
 
@@ -47,6 +45,7 @@ void CtrlUltraSonDispatcher( Event_t event )
 		{	
 			CtrlUltraSonReadSensorMesure();	
 			send_pulse = FALSE;
+			CtrlUltraSendUartProximity() ;
 		}		
 	}	
 }
@@ -65,7 +64,7 @@ Int16U CtrlUltraSonReadMesure( void )
 static void CtrlUltraSonReadSensorMesure( void ) 
 {
 	Int16U us_mesure_tab_echo[16U];
-	
+	//calcul de distance
 	for( Int8U loop_echo = 0 ; loop_echo < 16U ; loop_echo++)
 	{
 		//on prend la vaeur de l'echo
@@ -81,10 +80,16 @@ static void CtrlUltraSonReadSensorMesure( void )
 	
 	if (us_mesure_tab_echo[0] < SECURITY_PERIMETER)
 	{
-		CtrlEyeBlinkSpeed(5,us_mesure_tab_echo[0]);
 		us_mesure = us_mesure_tab_echo[0];
+		//si inf à 5cm on laisse 5 cm
+		if(us_mesure_tab_echo[0] < 5 )
+		{
+			us_mesure_tab_echo[0] = 5;
+		}
+		us_mesure = us_mesure_tab_echo[0];
+		//on envoie l'event
+		DrvEventAddEvent( CONF_EVENT_US_ALARM_PROX );
 	}	
-	CtrlUltraSendUartProximity() ;
 }
 
 //permet d'envoyé un pulse 

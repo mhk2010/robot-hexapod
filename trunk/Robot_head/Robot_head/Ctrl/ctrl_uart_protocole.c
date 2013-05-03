@@ -58,20 +58,25 @@ void CtrlUartProtocoleDispatcher( Event_t event )
 				{
 					CtrlEyeToggle( RIGHT )	;
 				}
-				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_LEFT_RIGHT_EYE_ON )
+				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_EYES_ON )
 				{
 					CtrlEyeState( LEFT, STATE_LED_ON )	;
 					CtrlEyeState( RIGHT, STATE_LED_ON )	;
 				}
-				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_LEFT_RIGHT_EYE_OFF )
+				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_EYES_OFF )
 				{
 					CtrlEyeState( LEFT, STATE_LED_OFF )	;
 					CtrlEyeState( RIGHT, STATE_LED_OFF );
 				}
-				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_LEFT_RIGHT_EYE_TOGGLE )
+				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_EYES_TOGGLE )
 				{
 					CtrlEyeToggle( LEFT );
 					CtrlEyeToggle( RIGHT );
+				}
+				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_EYES_HEARBEAT )
+				{
+					Boolean enable = ( Boolean ) i_message_from_body[ 4U ]; 
+					CtrlEyeHeartBeat(enable);
 				}
 			}	
 			else if( ( Int8U ) i_message_from_body[ 2U ] == E_PROTOCOLE_WHO_LIGHT )
