@@ -11,14 +11,14 @@
 #include "Drv/drv_timer.h"
 #include "Drv/drv_interrupt.h"
 #include "Drv/drv_adc.h"
-#include "Drv/drv_i2c.h"
+#include "Drv/drv_twi.h"
 #include "Drv/drv_timer.h"
 
 #include "Ctrl/ctrl_uart_protocole.h"
-#include "Ctrl/ctrl_microphone.h"
+//#include "Ctrl/ctrl_microphone.h"
 #include "Ctrl/ctrl_eye.h"
 #include "Ctrl/ctrl_ultrason.h"
-#include "Ctrl/ctrl_camera.h"
+//#include "Ctrl/ctrl_camera.h"
 #include "Ctrl/ctrl_light.h"
 
 
@@ -75,7 +75,7 @@ static Boolean MainInitSystemDrivers(void)
 	DrvTimer();
 	DrvEvent();
 	DrvAdc();
-	DrvI2C();
+	DrvTwi();;
 		
 	//on active la pin d'alim du control des LDR et des yeux
 	micIoPortsConfigureOutput(CONF_CMD_ALIM_LDR);
@@ -99,7 +99,7 @@ static Boolean MainInitSystemControl( void )
 	//CtrlMicrophone();
 	CtrlEye();
 	CtrlLight();
-	CtrlCamera();
+	//CtrlCamera();
 	return o_success;
 }
 
@@ -115,7 +115,7 @@ static void MainSystemControlDispatcher( void )
 		CtrlUartProtocoleDispatcher( main_event_flags );
 		CtrlUltraSonDispatcher( main_event_flags );
 		CtrlLightDispatcher( main_event_flags );
-		CtrlCameraDispatcher( main_event_flags );
+		//CtrlCameraDispatcher( main_event_flags );
 	}	
 	//quand il n'y pas d'events
 	//CtrlMicrophoneDispatcher( main_event_flags );
