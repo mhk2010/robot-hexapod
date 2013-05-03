@@ -23,6 +23,9 @@
 //init
 void CtrlEye( void ) ;
 
+//dispatcher
+void CtrlEyeDispatcher( Event_t event );
+
 //on fait clignoter les yeux
 void CtrlEyeBlink( Int8U nb_blink ) ;
 
@@ -41,4 +44,6 @@ void CtrlEyeRightBlink( Int8U nb_blink ) ;
 //on fait varier la vitesse de clignotement
 void CtrlEyeBlinkSpeed( Int8U nb_blink ,Int8U speed ) ;
 
+//on active ou non le hearbeat sur les leds
+void CtrlEyeHeartBeat ( Boolean enable );
 #endif /* CTRL_EYE_H_ */

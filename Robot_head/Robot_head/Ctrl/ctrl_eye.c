@@ -12,6 +12,8 @@
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 #define BLINK_ON_TIME 5U
 #define BLINK_OFF_TIME 10U
+
+Boolean hearbeat_enable = FALSE;
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void CtrlEye( void ) 
@@ -19,6 +21,21 @@ void CtrlEye( void )
 	//on active les yeux
 	DrvLed();
 }
+
+void CtrlEyeDispatcher( Event_t event )
+{
+	if ( DrvEventTestEvent( event, CONF_EVENT_TIMER_1S ))
+	{
+		if(hearbeat_enable == TRUE)
+		{
+			CtrlEyeHeartBeat(hearbeat_enable);
+		}
+	}
+	if ( DrvEventTestEvent( event, CONF_EVENT_TIMER_1S ))
+	{
+		CtrlEyeBlinkSpeed( 5 ,CtrlUltraSonReadMesure());
+	}
+}			
 
 //on joue un etat sur l'oeil
 void CtrlEyeState( Int8U eye, ELedState state ) 
@@ -85,4 +102,12 @@ void CtrlEyeBlinkSpeed( Int8U nb_blink ,Int8U speed )
 { 
 	DrvLedDirectFlash(CONF_INDEX_EYE_LEFT, nb_blink, (speed / 2U)+1U, (speed / 2U)+1U);
 	DrvLedDirectFlash(CONF_INDEX_EYE_RIGHT, nb_blink, (speed / 2U)+1U, (speed / 2U)+1U);
+}
+
+//on active ou non le hearbeat sur les leds
+void CtrlEyeHeartBeat ( Boolean enable )
+{
+	DrvLedDirectFlash(CONF_INDEX_EYE_LEFT, 2U,20,100);
+	DrvLedDirectFlash(CONF_INDEX_EYE_RIGHT, 2U,20,100);
+	hearbeat_enable = enable;
 }
