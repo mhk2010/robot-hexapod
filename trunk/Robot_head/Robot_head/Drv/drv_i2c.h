@@ -17,9 +17,10 @@
 #include "Mic/mic_io_ports.h"
 
 
-#define I2C_SLAVE_OWN_ADDRESS        (0x05U << 1U)   // Slave I2C address
-#define TIMEOUT_I2C				     50
 void DrvI2C(void);
+
+// send I2C data to <device> register <sub>
+void DrvI2CSend(Int8U device, Int8U sub, Int8U length, Int8U *data);
 
 
 
