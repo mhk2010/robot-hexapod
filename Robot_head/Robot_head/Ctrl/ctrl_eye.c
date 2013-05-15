@@ -6,6 +6,7 @@
  */ 
 
 #include "ctrl_eye.h"
+#include "ctrl_ultrason.h"
 
 #include "Drv/drv_led.h"
 
@@ -26,14 +27,17 @@ void CtrlEyeDispatcher( Event_t event )
 {
 	if ( DrvEventTestEvent( event, CONF_EVENT_TIMER_1S ))
 	{
-		if(hearbeat_enable == TRUE)
+		if(CtrlUltraSonReadMesure() < SECURITY_PERIMETER)
 		{
-			CtrlEyeHeartBeat(hearbeat_enable);
+			CtrlEyeBlinkSpeed( 5 ,CtrlUltraSonReadMesure());
 		}
-	}
-	if ( DrvEventTestEvent( event, CONF_EVENT_TIMER_1S ))
-	{
-		CtrlEyeBlinkSpeed( 5 ,CtrlUltraSonReadMesure());
+		else
+		{
+			if(hearbeat_enable == TRUE)
+			{
+				CtrlEyeHeartBeat(hearbeat_enable);
+			}
+		}		
 	}
 }			
 

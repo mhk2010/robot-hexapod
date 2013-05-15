@@ -20,16 +20,15 @@
 #endif
 
 
-//UART 0
-//-------
-//message stocke
-Int8U in_message_0[50U];
-Int8U in_message_len_0 = 0U;
-//buffer de recpetion de message uart 0
-Int8U buff_uart_0[50U];
-Int8U ptr_buff_uart_0 = 0U;
-Boolean start_frame_uart_0 = FALSE;
-
+#ifdef CONF_UART_0_INDEX
+	//message stocke
+	Int8U in_message_0[50U];
+	Int8U in_message_len_0 = 0U;
+	//buffer de recpetion de message uart 0
+	Int8U buff_uart_0[50U];
+	Int8U ptr_buff_uart_0 = 0U;
+	Boolean start_frame_uart_0 = FALSE;
+#endif
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
  
   
@@ -148,62 +147,60 @@ void DrvUartSetPtrfctReceiveComplete( const Int8U index_uart , ptrfct_Isr_Callba
 
 //UART0
 //-------------------
-
+#ifdef CONF_UART_0_INDEX	
 //ISR uart octet recu 
 ISR(USART0_RX_vect)
 {
-	#ifdef CONF_UART_0_INDEX	
-		Int8U rcv_byte = 0U;
-		//on enregistre l'octet recu
-		rcv_byte = UDR0;
-		//si on a deja recu le start frame
-		if( start_frame_uart_0 == FALSE )
-        {
-			//si c'est un debut de trame
-			if(rcv_byte == '*' )
-			{
-				buff_uart_0[ 0U ] = '*';
-				ptr_buff_uart_0 = 1U;
-				//on a recu le start frame
-				start_frame_uart_0 = TRUE;
-			}
-		}
-		else
+	Int8U rcv_byte = 0U;
+	//on enregistre l'octet recu
+	rcv_byte = UDR0;
+	//si on a deja recu le start frame
+	if( start_frame_uart_0 == FALSE )
+    {
+		//si c'est un debut de trame
+		if(rcv_byte == '*' )
 		{
-			//on charge le message dans le buff_uart_0er
-			buff_uart_0[ptr_buff_uart_0] = rcv_byte;
-			ptr_buff_uart_0++;	
-			if(( buff_uart_0[ptr_buff_uart_0 - 1U] == '#' ) && ( buff_uart_0[ptr_buff_uart_0 - 2U] == '#' ))
+			buff_uart_0[ 0U ] = '*';
+			ptr_buff_uart_0 = 1U;
+			//on a recu le start frame
+			start_frame_uart_0 = TRUE;
+		}
+	}
+	else
+	{
+		//on charge le message dans le buff_uart_0er
+		buff_uart_0[ptr_buff_uart_0] = rcv_byte;
+		ptr_buff_uart_0++;	
+		if(( buff_uart_0[ptr_buff_uart_0 - 1U] == '#' ) && ( buff_uart_0[ptr_buff_uart_0 - 2U] == '#' ))
+		{
+			//on charge le message
+			for ( Int8U loop_send = 0U ; loop_send < ptr_buff_uart_0 ; loop_send++)
 			{
-				//on charge le message
-				for ( Int8U loop_send = 0U ; loop_send < ptr_buff_uart_0 ; loop_send++)
-				{
-					in_message_0[ loop_send ] = buff_uart_0[ loop_send ];
-				} 
-				//on stock la taille
-				in_message_len_0 = ptr_buff_uart_0;
-				//on attend le start frame
-				start_frame_uart_0 = FALSE;				
-				//on lance l'event
-				DrvEventAddEvent( CONF_EVENT_UART_MSG_RCV );
-			}			
-		}		
-	#endif
+				in_message_0[ loop_send ] = buff_uart_0[ loop_send ];
+			} 
+			//on stock la taille
+			in_message_len_0 = ptr_buff_uart_0;
+			//on attend le start frame
+			start_frame_uart_0 = FALSE;				
+			//on lance l'event
+			DrvEventAddEvent( CONF_EVENT_UART_MSG_RCV );
+		}			
+	}		
+	
 }
-
+#endif
 
 //UART1
 //-------------------
-
+#ifdef CONF_UART_1_INDEX
 //ISR uart octet recu 
-/*ISR(USART1_RX_vect)
+ISR(USART1_RX_vect)
 {
-	#ifdef CONF_UART_1_INDEX
-		//on recoit un octet
-		if( loc_ptrfct_Isr_Callback_Uart1_RX != NULL )
-		{
-			loc_ptrfct_Isr_Callback_Uart1_RX( micUsart1GetIODataRegister());
-		}	
-	#endif
-}*/
+	//on recoit un octet
+	if( loc_ptrfct_Isr_Callback_Uart1_RX != NULL )
+	{
+		loc_ptrfct_Isr_Callback_Uart1_RX( micUsart1GetIODataRegister());
+	}	
+}
+#endif
 

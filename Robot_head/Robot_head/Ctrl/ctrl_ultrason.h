@@ -20,8 +20,6 @@
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void CtrlUltraSon( void ) ;
-//dispatcher
-void CtrlUltraSonDispatcher( Event_t event ) ;
 //permet d'envoyer sur l'uart un objet proche
 void CtrlUltraSendUartProximity( void ) ;
 

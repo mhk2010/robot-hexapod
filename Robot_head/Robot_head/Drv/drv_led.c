@@ -41,8 +41,6 @@ static void DrvLedFlash_ISR( void );
 // Init du Drv LED 
 void DrvLed ( void )
 {
-	//on met le timer pour la fonction flash des leds
-	DrvTimerPlayTimer( CONF_TIMER_LED, 1, E_TIMER_MODE_PERIODIC, DrvLedFlash_ISR );
 	//on configure chaque LED
 	for (Int8U loop_led = 0 ; loop_led < CONF_LED_NB ; loop_led++)
 	{
@@ -72,6 +70,8 @@ void DrvLed ( void )
 		}
 	}
 	
+	//on met le timer pour la fonction flash des leds
+	DrvTimerPlayTimer( CONF_TIMER_LED, 1, E_TIMER_MODE_PERIODIC, DrvLedFlash_ISR );
 }
 
 // Allume la led

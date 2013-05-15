@@ -65,15 +65,16 @@
 
 /////////////////////////////////////////////PUBLIC TIMER///////////////////////////////////////////
 #define		CONF_TIMER_LED			0U//TIMER_LED
+#define		CONF_TIMER_US			1U//TIMER_ULTRASON
 //------------	
-#define		CONF_TIMER_NB			1U
+#define		CONF_TIMER_NB			2U
 //-----------------------------------------------------------------------------------------------//
 
 /////////////////////////////////////////////PUBLIC UART///////////////////////////////////////////
 #define		CONF_UART_0_INDEX		0U//E_USART_0
-#define		CONF_UART_1_INDEX		1U//E_USART_1
+//#define		CONF_UART_1_INDEX		1U//E_USART_1
 //------------
-#define		CONF_UART_NB			2U
+#define		CONF_UART_NB			1U
 //-----------------------------------------------------------------------------------------------//
 
 #define E_PROTOCOLE_HEAD					0U
