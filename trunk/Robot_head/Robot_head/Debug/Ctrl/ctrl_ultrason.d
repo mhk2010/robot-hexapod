@@ -20,8 +20,7 @@ Ctrl/ctrl_ultrason.d Ctrl/ctrl_ultrason.o: ../Ctrl/ctrl_ultrason.c \
  ../Drv/drv_i2c.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.4.1.95\avrtoolchain\bin\../lib/gcc/avr/4.6.2/../../../../avr/include/compat/twi.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.4.1.95\avrtoolchain\bin\../lib/gcc/avr/4.6.2/../../../../avr/include/util/twi.h \
- ../Ctrl/ctrl_eye.h ../Drv/drv_led.h ../Drv/drv_uart.h \
- ../Tools/tools_string.h ../Mic/mic_usart.h
+ ../Drv/drv_uart.h ../Tools/tools_string.h ../Mic/mic_usart.h
 
 ../Ctrl/ctrl_ultrason.h:
 
@@ -74,10 +73,6 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.4.1.
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.4.1.95\avrtoolchain\bin\../lib/gcc/avr/4.6.2/../../../../avr/include/compat/twi.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.4.1.95\avrtoolchain\bin\../lib/gcc/avr/4.6.2/../../../../avr/include/util/twi.h:
-
-../Ctrl/ctrl_eye.h:
-
-../Drv/drv_led.h:
 
 ../Drv/drv_uart.h:
 

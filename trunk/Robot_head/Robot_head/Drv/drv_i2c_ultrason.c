@@ -17,7 +17,7 @@ static Int16U timeout_ic = 0;
 // Init du Drv I2C 
 void DrvI2CUltraSon( void )
 {
-
+	DrvTwi();
 }
 
 //on envoie un octet sur le registre
