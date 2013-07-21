@@ -12,13 +12,15 @@
 ////////////////////////////////////////PRIVATE VARIABLES/////////////////////////////////////////
 static head_member_t MaTete;
 
-#define NB_SCAN_POSTION			9U
+#define NB_SCAN_POSTION			11U
 Int8U scan_position[ NB_SCAN_POSTION ] = {	NEUTRE_TETE_HORIZONTAL ,
-											NEUTRE_TETE_HORIZONTAL ,
 											MIN_TETE_HORIZONTAL ,
 											MIN_TETE_HORIZONTAL ,
+											MIN_TETE_HORIZONTAL ,
 											NEUTRE_TETE_HORIZONTAL ,
 											NEUTRE_TETE_HORIZONTAL ,
+											NEUTRE_TETE_HORIZONTAL ,
+											MAX_TETE_HORIZONTAL ,
 											MAX_TETE_HORIZONTAL ,
 											MAX_TETE_HORIZONTAL ,
 											NEUTRE_TETE_HORIZONTAL

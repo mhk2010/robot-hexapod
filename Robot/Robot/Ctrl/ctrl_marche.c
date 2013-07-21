@@ -46,15 +46,16 @@ void CtrlMarcheDispatcher( Event_t event )
 	{
 		//on envoie vers la machine d'etat de la marche
 		CtrlMarcheSequence();
-	}
-	
-	//on envoie la position des servo tte les sec quand on est en stop
-	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_1S ))
-	{
 		if( body.move == E_MOVE_STOP )
 		{
 			DrvServoSendUartPosition();
-		}			
+		}
+	}
+	
+	//on envoie la position des servo tte les sec quand on est en stop
+	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_100MS ))
+	{
+					
 	}
 }
 

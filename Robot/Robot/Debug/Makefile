@@ -206,25 +206,25 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 Ctrl/%.o: ../Ctrl/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O1 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
 Drv/%.o: ../Drv/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O1 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O1 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
 Mic/%.o: ../Mic/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O3 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -I".." -I"../Conf" -I"../Ctrl" -I"../Drv" -I"../Mic" -I"../Tools"  -O1 -fpack-struct -fshort-enums -g3 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
 

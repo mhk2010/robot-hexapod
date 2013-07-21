@@ -12,15 +12,13 @@
 #define SRF08_SLAVE_ADDRESS		0xE0U	//addresse du module SRF08
 
 /////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
-//ISR de flash de la led
-static void DrvUltrason_ISR( void );
-
 //permet de lire la valeur mesuré en cm par le dernier pulse envoyé
 static void CtrlUltraSonReadSensorMesure( void ) ;
 //permet d'envoyé un pulse 
 static void CtrlUltraSonSendPulse( void ) ;
 
 /////////////////////////////////////////PRIVATE VARIABLES/////////////////////////////////////////
+Boolean send_pulse = FALSE;
 Int16U us_mesure = 0U;
 
 
@@ -29,10 +27,29 @@ Int16U us_mesure = 0U;
 void CtrlUltraSon( void ) 
 {
 	DrvI2CUltraSon();
+	send_pulse = FALSE;
 	us_mesure = 0;
-	DrvTimerPlayTimer( CONF_TIMER_US, 70U, E_TIMER_MODE_PERIODIC, DrvUltrason_ISR );
-	CtrlUltraSonSendPulse();
 }
+
+//dispatcher
+void CtrlUltraSonDispatcher( Event_t event ) 
+{
+	if ( DrvEventTestEvent(event, CONF_EVENT_TIMER_100MS ))
+	{
+		if ( send_pulse == FALSE )
+		{
+			CtrlUltraSonSendPulse();
+			send_pulse = TRUE;
+		}
+		else
+		{	
+			CtrlUltraSonReadSensorMesure();	
+			send_pulse = FALSE;
+			CtrlUltraSendUartProximity() ;
+		}		
+	}	
+}
+
 
 
 //retourne la mesure 
@@ -97,11 +114,3 @@ void CtrlUltraSendUartProximity( void )
 	DrvUartDirectSendBytes(CONF_UART_0_INDEX,(Int8U*)buffer,7U);
 }
 
-
-/////////////////////////////////////ISR PUBLIC FUNCTIONS////////////////////////////////////////
-//ISR de flash de la led
-static void DrvUltrason_ISR( void )
-{
-	CtrlUltraSonReadSensorMesure();
-	CtrlUltraSendUartProximity();
-}	
