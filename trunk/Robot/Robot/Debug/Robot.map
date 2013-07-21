@@ -161,7 +161,7 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x3dfa
+.text           0x00000000     0x3958
  *(.vectors)
  .vectors       0x00000000       0x8c c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
                 0x00000000                __vector_default
@@ -248,269 +248,269 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
                 0x000000ca                __vector_14
                 0x000000ca                __vector_10
                 0x000000ca                __vector_18
- .text          0x000000ce      0xdf8 Ctrl/ctrl_marche.o
-                0x00000152                CtrlMarche
-                0x00000164                CtrlMarcheDispatcher
-                0x00000eb2                CtrlMarcheGetStruct
-                0x00000eb8                CtrlMarcheMove
- .text          0x00000ec6      0x298 Ctrl/ctrl_patte.o
-                0x00000ec6                CtrlPatte
-                0x0000104e                CtrlPatteMove
-                0x000010d6                CtrlPatteDirectMove
- .text          0x0000115e       0xc0 Ctrl/ctrl_tete.o
-                0x0000115e                CtrlTete
-                0x00001190                CtrlTeteDispatcher
-                0x000011dc                CtrlTeteStartScan
-                0x000011e8                CtrlTeteStopScan
-                0x000011ee                CtrlTeteGetStruct
-                0x000011f4                CtrlTeteMove
- .text          0x0000121e      0x1c8 Ctrl/ctrl_uart_protocole.o
-                0x0000121e                CtrlUartProtocole
-                0x00001220                CtrlUartProtocoleDispatcher
-                0x000013a4                CtrlUartProtocoleReadHeadUs
-                0x000013ae                CtrlUartProtocoleSendReadHeadUs
- .text          0x000013e6       0x76 Drv/drv_event.o
-                0x000013e6                DrvEvent
-                0x000013f0                DrvEventKillEvent
-                0x0000140e                DrvEventGetEvent
-                0x00001418                DrvEventTestEvent
-                0x00001436                DrvEventAddEvent
- .text          0x0000145c        0x8 Drv/drv_interrupt.o
-                0x0000145c                DrvInterruptClearAllInterrupts
-                0x00001460                DrvInterruptSetAllInterrupts
- .text          0x00001464      0x672 Drv/drv_led.o
-                0x00001464                DrvLedFlash_ISR
-                0x0000182c                DrvLed
-                0x00001a10                DrvLedOn
-                0x00001a44                DrvLedOff
-                0x00001a78                DrvLedToggle
-                0x00001a9e                DrvLedFlash
- .text          0x00001ad6      0xc50 Drv/drv_servo.o
-                0x00001ad6                DrvServo
-                0x00001afa                DrvAddServo
-                0x00001c3e                DrvDeleteServo
-                0x00001d16                DrvServoMoveToPosition
-                0x00001f90                DrvServoDirectMoveToPosition
-                0x000021e2                DrvServoMoving
-                0x00002204                DrvServoGetPosition
-                0x00002236                DrvServoSendUartPosition
-                0x000022ee                __vector_13
- .text          0x00002726      0x2ac Drv/drv_timer.o
-                0x00002726                DrvTimer
-                0x00002746                DrvTimerPlayTimer
-                0x0000276e                DrvTimerPauseTimer
-                0x00002786                DrvTimerStopTimer
-                0x000027ae                DrvTimerResetTimer
-                0x000027c8                DrvTimerDelayTimer
-                0x000027e6                DrvTimerInitSystemTimer
-                0x00002806                DrvTimerComputeOCR
-                0x000028f2                __vector_16
- .text          0x000029d2      0x296 Drv/drv_uart.o
-                0x000029d2                DrvUart
-                0x00002a34                DrvUart0ReadMessage
-                0x00002a62                DrvUart0SendMessage
-                0x00002a82                DrvUart1ReadMessage
-                0x00002ab0                DrvUart1SendMessage
-                0x00002ad0                __vector_20
-                0x00002b9c                __vector_28
- .text          0x00002c68       0x8e main.o
-                0x00002c68                main
- .text          0x00002cf6      0x106 Mic/mic_adc.o
-                0x00002cf6                micAdcSetReferenceSelectionBits
-                0x00002d08                micAdcSetLeftAdjustResult
-                0x00002d16                micAdcGetLeftAdjustResult
-                0x00002d1e                micAdcClearLeftAdjustResult
-                0x00002d2c                micAdcSetAnalogChannelandGainSelectionBits
-                0x00002d3e                micAdcGetAnalogChannelandGainSelectionBits
-                0x00002d46                micAdcSetAdcEnable
-                0x00002d54                micAdcSetAdcDisable
-                0x00002d62                micAdcSetStartConversion
-                0x00002d70                micAdcSetAutoTriggerEnable
-                0x00002d7e                micAdcSetAutoTriggerDisable
-                0x00002d8c                micAdcClearConversionCompletedFlag
-                0x00002d9c                micAdcSetInterrupt
-                0x00002daa                micAdcClearInterrupt
-                0x00002db8                micAdcSetPrescalerSelectBits
-                0x00002dca                micAdcSetAutoTriggerSource
-                0x00002ddc                micAdcReadData8
-                0x00002df0                micAdcReadData16
- .text          0x00002dfc      0x1b2 Mic/mic_interrupt.o
-                0x00002dfc                micInterruptMasterControlUnitInterruptVectorSelect
-                0x00002e14                micInterruptMasterControlUnitInterruptVectorChangeEnable
-                0x00002e2c                micInterruptSenseControlBits0
-                0x00002e3a                micInterruptSenseControlBits1
-                0x00002e48                micInterruptSenseControlBits2
-                0x00002e56                micInterruptExternalInterruptRequestEnable0
-                0x00002e66                micInterruptExternalInterruptRequestEnable1
-                0x00002e76                micInterruptExternalInterruptRequestEnable2
-                0x00002e86                micInterruptExternalInterruptFlags0
-                0x00002e96                micInterruptExternalInterruptFlags1
-                0x00002ea6                micInterruptExternalInterruptFlags2
-                0x00002eb6                micInterruptPinChangeInterruptEnable0
-                0x00002ed6                micInterruptPinChangeInterruptEnable1
-                0x00002ef6                micInterruptPinChangeInterruptEnable2
-                0x00002f16                micInterruptPinChangeInterruptEnable3
-                0x00002f36                micInterruptPinChangeInterruptFlag0
-                0x00002f46                micInterruptPinChangeInterruptFlag1
-                0x00002f56                micInterruptPinChangeInterruptFlag2
-                0x00002f66                micInterruptPinChangeInterruptFlag3
-                0x00002f76                micInterruptPinChangeEnableMask3
-                0x00002f84                micInterruptPinChangeEnableMask2
-                0x00002f92                micInterruptPinChangeEnableMask1
-                0x00002fa0                micInterruptPinChangeEnableMask0
- .text          0x00002fae      0x64a Mic/mic_io_ports.o
-                0x00002fae                micIoPortsConfigureToToggleLevel
-                0x00003026                micIoPortsMasterControlUnitPullUpDisable
-                0x0000303e                micIoPortsDataRegister
-                0x0000311c                micIoPortsConfigureToHighLevel
-                0x00003130                micIoPortsConfigureToLowLevel
-                0x00003144                micIoPortsDirectionRegister
-                0x00003222                micIoPortsConfigureInput
-                0x0000326e                micIoPortsConfigureOutput
-                0x00003282                micIoPortsInputPinsAddress
-                0x00003360                micIoPortsDataRegisterA
-                0x00003396                micIoPortsReadDataRegisterA
-                0x0000339a                micIoPortsDirectionRegisterA
-                0x000033d0                micIoPortsInputPinsAddressA
-                0x00003406                micIoPortsDataRegisterB
-                0x0000343c                micIoPortsReadDataRegisterB
-                0x00003440                micIoPortsDirectionRegisterB
-                0x00003476                micIoPortsInputPinsAddressB
-                0x000034ac                micIoPortsDataRegisterC
-                0x000034e2                micIoPortsReadDataRegisterC
-                0x000034e6                micIoPortsDirectionRegisterC
-                0x0000351c                micIoPortsInputPinsAddressC
-                0x00003552                micIoPortsDataRegisterD
-                0x00003588                micIoPortsReadDataRegisterD
-                0x0000358c                micIoPortsDirectionRegisterD
-                0x000035c2                micIoPortsInputPinsAddressD
- .text          0x000035f8      0x152 Mic/mic_power_management.o
-                0x000035f8                micPowerMangementSleepMode
-                0x00003602                micPowerMangementSleepEnable
-                0x0000361a                micPowerMangementMasterControlUnitBrownOutVoltageSleep
-                0x00003632                micPowerMangementMasterControlUnitBrownOutVoltageSleepEnable
-                0x0000364a                micPowerMangementPowerReductionTWI
-                0x0000366a                micPowerMangementPowerReductionTimerCounter2
-                0x0000368a                micPowerMangementPowerReductionTimerCounter0
-                0x000036aa                micPowerMangementPowerReductionUSART1
-                0x000036ca                micPowerMangementPowerReductionTimerCounter1
-                0x000036ea                micPowerMangementPowerReductionSPI
-                0x0000370a                micPowerMangementPowerReductionUSART0
-                0x0000372a                micPowerMangementPowerReductionADC
- .text          0x0000374a       0x38 Mic/mic_system_clock.o
-                0x0000374a                micSystemClockOscillatorCalibrationValue
-                0x00003752                micSystemClockPrescalerChangeEnable
-                0x00003772                micSystemClockPrescalerSelectBits
- .text          0x00003782       0x7c Mic/mic_system_control.o
-                0x00003782                micSystemControlMasterControlUnitJtagResetFlag
-                0x00003788                micSystemControlMasterControlUnitWatchdogResetFlag
-                0x0000378e                micSystemControlMasterControlUnitBrownOutResetFlag
-                0x00003794                micSystemControlMasterControlUnitExternalResetFlag
-                0x0000379a                micSystemControlMasterControlUnitPowerOnResetFlag
-                0x000037a0                micSystemControlWatchdogTimerControlWatchdogFlag
-                0x000037a8                micSystemControlWatchdogTimerControlWatchdogInterruptEnable
-                0x000037c8                micSystemControlWatchdogTimerControlWatchdogChangeEnable
-                0x000037d0                micSystemControlWatchdogTimerControlWatchdogSystemResetEnable
-                0x000037f0                micSystemControlWatchdogTimerControlWatchdogTimerPrescaler
- .text          0x000037fe       0xba Mic/mic_timer_0.o
-                0x000037fe                micTimer0CompareMatchOutputAMode
-                0x0000380c                micTimer0CompareMatchOutputBMode
-                0x0000381a                micTimer0WaveformGenerationMode
-                0x0000385a                micTimer0ForceOutputCompareA
-                0x00003866                micTimer0SetClockDivision
-                0x00003872                micTimer0SetTimerCounterRegister
-                0x00003876                micTimer0GetTimerCounterRegister
-                0x0000387a                micTimer0SetOutputCompareRegisterA
-                0x0000387e                micTimer0GetOutputCompareRegisterA
-                0x00003882                micTimer0SetOutputCompareRegisterB
-                0x00003886                micTimer0GetOutputCompareRegisterB
-                0x0000388a                micTimer0SetTimerCounterInterrupt
-                0x00003898                micTimer0ClearTimerCounterInterrupt
-                0x000038a8                micTimer0ClearTimerCounterInterruptFlagRegister
- .text          0x000038b8      0x47c Mic/mic_usart.o
-                0x000038b8                micUsart0SetIODataRegister
-                0x000038c0                micUsart1SetIODataRegister
-                0x000038c8                micUsart0GetIODataRegister
-                0x000038ce                micUsart1GetIODataRegister
-                0x000038d4                micUsart0GetRegisterEmpty
-                0x000038dc                micUsart1GetRegisterEmpty
-                0x000038e4                micUsart0GetError
-                0x000038ec                micUsart1GetError
-                0x000038f4                micUsart0SetSpeedMode
-                0x0000390e                micUsart1SetSpeedMode
-                0x00003928                micUsart0GetSpeedMode
-                0x00003930                micUsart1GetSpeedMode
-                0x00003938                micUsart0SetMultiProcessorMode
-                0x00003946                micUsart1SetMultiProcessorMode
-                0x00003954                micUsart0GetMultiProcessorMode
-                0x0000395c                micUsart1GetMultiProcessorMode
-                0x00003964                micUsart0GetReceiptCompleted
-                0x0000396c                micUsart1GetReceiptCompleted
-                0x00003974                micUsart0SetTransmitCompleted
-                0x00003982                micUsart1SetTransmitCompleted
-                0x00003990                micUsart0GetTransmitCompleted
-                0x00003998                micUsart1GetTransmitCompleted
-                0x000039a0                micUsart0GetDataRegisterEmpty
-                0x000039a8                micUsart1GetDataRegisterEmpty
-                0x000039b0                micUsart0SetTransmitterEnable
-                0x000039be                micUsart1SetTransmitterEnable
-                0x000039cc                micUsart0SetTransmitterDisable
-                0x000039da                micUsart1SetTransmitterDisable
-                0x000039e8                micUsart0SetReceiverEnable
-                0x000039f6                micUsart1SetReceiverEnable
-                0x00003a04                micUsart0SetReceiverDisable
-                0x00003a12                micUsart1SetReceiverDisable
-                0x00003a20                micUsart0SetDataSize
-                0x00003a44                micUsart1SetDataSize
-                0x00003a68                micUsart0SetParityMode
-                0x00003a7a                micUsart1SetParityMode
-                0x00003a8c                micUsart0SetStopBits
-                0x00003a9e                micUsart1SetStopBits
-                0x00003ab0                micUsart0SetRxInterrupt
-                0x00003abe                micUsart1SetRxInterrupt
-                0x00003acc                micUsart0ClearRxInterrupt
-                0x00003ada                micUsart1ClearRxInterrupt
-                0x00003ae8                micUsart0SetTxInterrupt
-                0x00003af6                micUsart1SetTxInterrupt
-                0x00003b04                micUsart0ClearTxInterrupt
-                0x00003b12                micUsart1ClearTxInterrupt
-                0x00003b20                micUsart0SetDataRegisterEmptyInterrupt
-                0x00003b2e                micUsart1SetDataRegisterEmptyInterrupt
-                0x00003b3c                micUsart0ClearDataRegisterEmptyInterrupt
-                0x00003b4a                micUsart1ClearDataRegisterEmptyInterrupt
-                0x00003b58                micUsart0SetSynchronousClockPolarity
-                0x00003b6a                micUsart1SetSynchronousClockPolarity
-                0x00003b7c                micUsart0SetBaudRateAsynchronousNormalMode
-                0x00003bd4                micUsart1SetBaudRateAsynchronousNormalMode
-                0x00003c2c                micUsart0SetBaudRateAsynchronousDoubleSpeedMode
-                0x00003c7c                micUsart1SetBaudRateAsynchronousDoubleSpeedMode
-                0x00003ccc                micUsart0SetBaudRateSynchronousMasterMode
-                0x00003d00                micUsart1SetBaudRateSynchronousMasterMode
- .text          0x00003d34        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
- .text          0x00003d34        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
- .text          0x00003d34        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
- .text          0x00003d34        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
- .text          0x00003d34        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .text          0x00003d34        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .text          0x00003d34        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
-                0x00003d34                . = ALIGN (0x2)
+ .text          0x000000ce      0xf16 Ctrl/ctrl_marche.o
+                0x0000014a                CtrlMarche
+                0x0000015c                CtrlMarcheDispatcher
+                0x00000fd0                CtrlMarcheGetStruct
+                0x00000fd6                CtrlMarcheMove
+ .text          0x00000fe4      0x29c Ctrl/ctrl_patte.o
+                0x00000fe4                CtrlPatte
+                0x0000117c                CtrlPatteMove
+                0x000011fe                CtrlPatteDirectMove
+ .text          0x00001280       0xbe Ctrl/ctrl_tete.o
+                0x00001280                CtrlTete
+                0x000012b2                CtrlTeteDispatcher
+                0x000012fc                CtrlTeteStartScan
+                0x00001308                CtrlTeteStopScan
+                0x0000130e                CtrlTeteGetStruct
+                0x00001314                CtrlTeteMove
+ .text          0x0000133e      0x258 Ctrl/ctrl_uart_protocole.o
+                0x0000133e                CtrlUartProtocole
+                0x00001340                CtrlUartProtocoleDispatcher
+                0x00001552                CtrlUartProtocoleReadHeadUs
+                0x0000155c                CtrlUartProtocoleSendReadHeadUs
+ .text          0x00001596       0x7c Drv/drv_event.o
+                0x00001596                DrvEvent
+                0x000015a0                DrvEventKillEvent
+                0x000015be                DrvEventGetEvent
+                0x000015c8                DrvEventTestEvent
+                0x000015ea                DrvEventAddEvent
+ .text          0x00001612        0x8 Drv/drv_interrupt.o
+                0x00001612                DrvInterruptClearAllInterrupts
+                0x00001616                DrvInterruptSetAllInterrupts
+ .text          0x0000161a      0x26c Drv/drv_led.o
+                0x0000161a                DrvLedOn
+                0x0000168c                DrvLedOff
+                0x000016fe                DrvLedFlash_ISR
+                0x000017a4                DrvLed
+                0x00001826                DrvLedToggle
+                0x0000184e                DrvLedFlash
+ .text          0x00001886      0xb40 Drv/drv_servo.o
+                0x00001886                DrvServo
+                0x000018aa                DrvAddServo
+                0x000019fe                DrvDeleteServo
+                0x00001abe                DrvServoDirectMoveToPosition
+                0x00001daa                DrvServoMoveToPosition
+                0x00001dd8                DrvServoMoving
+                0x00001dfa                DrvServoGetPosition
+                0x00001e2e                DrvServoSendUartPosition
+                0x00001eee                __vector_13
+ .text          0x000023c6      0x29a Drv/drv_timer.o
+                0x000023c6                DrvTimerPlayTimer
+                0x000023ee                DrvTimerPauseTimer
+                0x00002406                DrvTimerStopTimer
+                0x0000242e                DrvTimerResetTimer
+                0x00002448                DrvTimerDelayTimer
+                0x00002466                DrvTimerComputeOCR
+                0x0000253e                DrvTimerInitSystemTimer
+                0x0000257e                DrvTimer
+                0x00002584                __vector_16
+ .text          0x00002660      0x2d2 Drv/drv_uart.o
+                0x00002660                DrvUart
+                0x000026c2                DrvUart0ReadMessage
+                0x000026fc                DrvUart0SendMessage
+                0x00002728                DrvUart1ReadMessage
+                0x00002762                DrvUart1SendMessage
+                0x0000278e                __vector_20
+                0x00002860                __vector_28
+ .text          0x00002932       0x8c main.o
+                0x00002932                main
+ .text          0x000029be      0x108 Mic/mic_adc.o
+                0x000029be                micAdcSetReferenceSelectionBits
+                0x000029d0                micAdcSetLeftAdjustResult
+                0x000029de                micAdcGetLeftAdjustResult
+                0x000029e6                micAdcClearLeftAdjustResult
+                0x000029f4                micAdcSetAnalogChannelandGainSelectionBits
+                0x00002a06                micAdcGetAnalogChannelandGainSelectionBits
+                0x00002a0e                micAdcSetAdcEnable
+                0x00002a1c                micAdcSetAdcDisable
+                0x00002a2a                micAdcSetStartConversion
+                0x00002a38                micAdcSetAutoTriggerEnable
+                0x00002a46                micAdcSetAutoTriggerDisable
+                0x00002a54                micAdcClearConversionCompletedFlag
+                0x00002a64                micAdcSetInterrupt
+                0x00002a72                micAdcClearInterrupt
+                0x00002a80                micAdcSetPrescalerSelectBits
+                0x00002a92                micAdcSetAutoTriggerSource
+                0x00002aa4                micAdcReadData8
+                0x00002ab8                micAdcReadData16
+ .text          0x00002ac6      0x192 Mic/mic_interrupt.o
+                0x00002ac6                micInterruptMasterControlUnitInterruptVectorSelect
+                0x00002adc                micInterruptMasterControlUnitInterruptVectorChangeEnable
+                0x00002af2                micInterruptSenseControlBits0
+                0x00002b00                micInterruptSenseControlBits1
+                0x00002b0e                micInterruptSenseControlBits2
+                0x00002b1c                micInterruptExternalInterruptRequestEnable0
+                0x00002b2a                micInterruptExternalInterruptRequestEnable1
+                0x00002b38                micInterruptExternalInterruptRequestEnable2
+                0x00002b46                micInterruptExternalInterruptFlags0
+                0x00002b54                micInterruptExternalInterruptFlags1
+                0x00002b62                micInterruptExternalInterruptFlags2
+                0x00002b70                micInterruptPinChangeInterruptEnable0
+                0x00002b8e                micInterruptPinChangeInterruptEnable1
+                0x00002bac                micInterruptPinChangeInterruptEnable2
+                0x00002bca                micInterruptPinChangeInterruptEnable3
+                0x00002be8                micInterruptPinChangeInterruptFlag0
+                0x00002bf6                micInterruptPinChangeInterruptFlag1
+                0x00002c04                micInterruptPinChangeInterruptFlag2
+                0x00002c12                micInterruptPinChangeInterruptFlag3
+                0x00002c20                micInterruptPinChangeEnableMask3
+                0x00002c2e                micInterruptPinChangeEnableMask2
+                0x00002c3c                micInterruptPinChangeEnableMask1
+                0x00002c4a                micInterruptPinChangeEnableMask0
+ .text          0x00002c58      0x4a8 Mic/mic_io_ports.o
+                0x00002c58                micIoPortsConfigureToToggleLevel
+                0x00002cdc                micIoPortsMasterControlUnitPullUpDisable
+                0x00002cf2                micIoPortsDataRegisterA
+                0x00002d2e                micIoPortsReadDataRegisterA
+                0x00002d32                micIoPortsDirectionRegisterA
+                0x00002d6e                micIoPortsInputPinsAddressA
+                0x00002daa                micIoPortsDataRegisterB
+                0x00002de6                micIoPortsReadDataRegisterB
+                0x00002dea                micIoPortsDirectionRegisterB
+                0x00002e26                micIoPortsInputPinsAddressB
+                0x00002e62                micIoPortsDataRegisterC
+                0x00002e9e                micIoPortsReadDataRegisterC
+                0x00002ea2                micIoPortsDirectionRegisterC
+                0x00002ede                micIoPortsInputPinsAddressC
+                0x00002f1a                micIoPortsDataRegisterD
+                0x00002f56                micIoPortsDataRegister
+                0x00002f90                micIoPortsConfigureToHighLevel
+                0x00002fa4                micIoPortsConfigureToLowLevel
+                0x00002fb8                micIoPortsReadDataRegisterD
+                0x00002fbc                micIoPortsDirectionRegisterD
+                0x00002ff8                micIoPortsDirectionRegister
+                0x00003032                micIoPortsConfigureInput
+                0x00003076                micIoPortsConfigureOutput
+                0x0000308a                micIoPortsInputPinsAddressD
+                0x000030c6                micIoPortsInputPinsAddress
+ .text          0x00003100      0x13c Mic/mic_power_management.o
+                0x00003100                micPowerMangementSleepMode
+                0x0000310a                micPowerMangementSleepEnable
+                0x00003120                micPowerMangementMasterControlUnitBrownOutVoltageSleep
+                0x00003136                micPowerMangementMasterControlUnitBrownOutVoltageSleepEnable
+                0x0000314c                micPowerMangementPowerReductionTWI
+                0x0000316a                micPowerMangementPowerReductionTimerCounter2
+                0x00003188                micPowerMangementPowerReductionTimerCounter0
+                0x000031a6                micPowerMangementPowerReductionUSART1
+                0x000031c4                micPowerMangementPowerReductionTimerCounter1
+                0x000031e2                micPowerMangementPowerReductionSPI
+                0x00003200                micPowerMangementPowerReductionUSART0
+                0x0000321e                micPowerMangementPowerReductionADC
+ .text          0x0000323c       0x36 Mic/mic_system_clock.o
+                0x0000323c                micSystemClockOscillatorCalibrationValue
+                0x00003244                micSystemClockPrescalerChangeEnable
+                0x00003262                micSystemClockPrescalerSelectBits
+ .text          0x00003272       0x78 Mic/mic_system_control.o
+                0x00003272                micSystemControlMasterControlUnitJtagResetFlag
+                0x00003278                micSystemControlMasterControlUnitWatchdogResetFlag
+                0x0000327e                micSystemControlMasterControlUnitBrownOutResetFlag
+                0x00003284                micSystemControlMasterControlUnitExternalResetFlag
+                0x0000328a                micSystemControlMasterControlUnitPowerOnResetFlag
+                0x00003290                micSystemControlWatchdogTimerControlWatchdogFlag
+                0x00003298                micSystemControlWatchdogTimerControlWatchdogInterruptEnable
+                0x000032b6                micSystemControlWatchdogTimerControlWatchdogChangeEnable
+                0x000032be                micSystemControlWatchdogTimerControlWatchdogSystemResetEnable
+                0x000032dc                micSystemControlWatchdogTimerControlWatchdogTimerPrescaler
+ .text          0x000032ea       0xb4 Mic/mic_timer_0.o
+                0x000032ea                micTimer0CompareMatchOutputAMode
+                0x000032f8                micTimer0CompareMatchOutputBMode
+                0x00003306                micTimer0WaveformGenerationMode
+                0x00003340                micTimer0ForceOutputCompareA
+                0x0000334c                micTimer0SetClockDivision
+                0x00003358                micTimer0SetTimerCounterRegister
+                0x0000335c                micTimer0GetTimerCounterRegister
+                0x00003360                micTimer0SetOutputCompareRegisterA
+                0x00003364                micTimer0GetOutputCompareRegisterA
+                0x00003368                micTimer0SetOutputCompareRegisterB
+                0x0000336c                micTimer0GetOutputCompareRegisterB
+                0x00003370                micTimer0SetTimerCounterInterrupt
+                0x0000337e                micTimer0ClearTimerCounterInterrupt
+                0x0000338e                micTimer0ClearTimerCounterInterruptFlagRegister
+ .text          0x0000339e      0x4f4 Mic/mic_usart.o
+                0x0000339e                micUsart0SetIODataRegister
+                0x000033a6                micUsart1SetIODataRegister
+                0x000033ae                micUsart0GetIODataRegister
+                0x000033b4                micUsart1GetIODataRegister
+                0x000033ba                micUsart0GetRegisterEmpty
+                0x000033c2                micUsart1GetRegisterEmpty
+                0x000033ca                micUsart0GetError
+                0x000033d2                micUsart1GetError
+                0x000033da                micUsart0SetSpeedMode
+                0x000033f4                micUsart1SetSpeedMode
+                0x0000340e                micUsart0GetSpeedMode
+                0x00003416                micUsart1GetSpeedMode
+                0x0000341e                micUsart0SetMultiProcessorMode
+                0x0000342c                micUsart1SetMultiProcessorMode
+                0x0000343a                micUsart0GetMultiProcessorMode
+                0x00003442                micUsart1GetMultiProcessorMode
+                0x0000344a                micUsart0GetReceiptCompleted
+                0x00003452                micUsart1GetReceiptCompleted
+                0x0000345a                micUsart0SetTransmitCompleted
+                0x00003468                micUsart1SetTransmitCompleted
+                0x00003476                micUsart0GetTransmitCompleted
+                0x0000347e                micUsart1GetTransmitCompleted
+                0x00003486                micUsart0GetDataRegisterEmpty
+                0x0000348e                micUsart1GetDataRegisterEmpty
+                0x00003496                micUsart0SetTransmitterEnable
+                0x000034a4                micUsart1SetTransmitterEnable
+                0x000034b2                micUsart0SetTransmitterDisable
+                0x000034c0                micUsart1SetTransmitterDisable
+                0x000034ce                micUsart0SetReceiverEnable
+                0x000034dc                micUsart1SetReceiverEnable
+                0x000034ea                micUsart0SetReceiverDisable
+                0x000034f8                micUsart1SetReceiverDisable
+                0x00003506                micUsart0SetDataSize
+                0x0000352a                micUsart1SetDataSize
+                0x0000354e                micUsart0SetParityMode
+                0x00003560                micUsart1SetParityMode
+                0x00003572                micUsart0SetStopBits
+                0x00003584                micUsart1SetStopBits
+                0x00003596                micUsart0SetRxInterrupt
+                0x000035a4                micUsart1SetRxInterrupt
+                0x000035b2                micUsart0ClearRxInterrupt
+                0x000035c0                micUsart1ClearRxInterrupt
+                0x000035ce                micUsart0SetTxInterrupt
+                0x000035dc                micUsart1SetTxInterrupt
+                0x000035ea                micUsart0ClearTxInterrupt
+                0x000035f8                micUsart1ClearTxInterrupt
+                0x00003606                micUsart0SetDataRegisterEmptyInterrupt
+                0x00003614                micUsart1SetDataRegisterEmptyInterrupt
+                0x00003622                micUsart0ClearDataRegisterEmptyInterrupt
+                0x00003630                micUsart1ClearDataRegisterEmptyInterrupt
+                0x0000363e                micUsart0SetSynchronousClockPolarity
+                0x00003650                micUsart1SetSynchronousClockPolarity
+                0x00003662                micUsart0SetBaudRateAsynchronousNormalMode
+                0x000036ce                micUsart1SetBaudRateAsynchronousNormalMode
+                0x0000373a                micUsart0SetBaudRateAsynchronousDoubleSpeedMode
+                0x0000379e                micUsart1SetBaudRateAsynchronousDoubleSpeedMode
+                0x00003802                micUsart0SetBaudRateSynchronousMasterMode
+                0x0000384a                micUsart1SetBaudRateSynchronousMasterMode
+ .text          0x00003892        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
+ .text          0x00003892        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
+ .text          0x00003892        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .text          0x00003892        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+ .text          0x00003892        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text          0x00003892        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text          0x00003892        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                0x00003892                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00003d34       0x3e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
-                0x00003d34                __mulsi3
- .text.libgcc   0x00003d72       0x18 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
-                0x00003d72                __udivmodqi4
- .text.libgcc   0x00003d8a       0x28 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
-                0x00003d8a                __udivmodhi4
- .text.libgcc   0x00003db2       0x44 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
-                0x00003db2                __udivmodsi4
- .text.libgcc   0x00003df6        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .text.libgcc   0x00003df6        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .text.libgcc   0x00003df6        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
-                0x00003df6                . = ALIGN (0x2)
+ .text.libgcc   0x00003892       0x3e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
+                0x00003892                __mulsi3
+ .text.libgcc   0x000038d0       0x18 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
+                0x000038d0                __udivmodqi4
+ .text.libgcc   0x000038e8       0x28 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+                0x000038e8                __udivmodhi4
+ .text.libgcc   0x00003910       0x44 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+                0x00003910                __udivmodsi4
+ .text.libgcc   0x00003954        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x00003954        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00003954        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                0x00003954                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00003df6        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
-                0x00003df6                _exit
-                0x00003df6                exit
+ .fini9         0x00003954        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                0x00003954                _exit
+                0x00003954                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -529,119 +529,119 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00003df6        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .fini0         0x00003954        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x00003dfa                _etext = .
+                0x00003958                _etext = .
 
-.data           0x00800100       0x14 load address 0x00003dfa
+.data           0x00800100       0x16 load address 0x00003958
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
  .data          0x00800100        0x1 Ctrl/ctrl_marche.o
  .data          0x00800101        0x0 Ctrl/ctrl_patte.o
- .data          0x00800101        0x9 Ctrl/ctrl_tete.o
+ .data          0x00800101        0xb Ctrl/ctrl_tete.o
                 0x00800101                scan_position
- .data          0x0080010a        0x5 Ctrl/ctrl_uart_protocole.o
- .data          0x0080010f        0x0 Drv/drv_event.o
- .data          0x0080010f        0x0 Drv/drv_interrupt.o
- .data          0x0080010f        0x4 Drv/drv_led.o
-                0x0080010f                led_pin_name
- .data          0x00800113        0x1 Drv/drv_servo.o
- .data          0x00800114        0x0 Drv/drv_timer.o
- .data          0x00800114        0x0 Drv/drv_uart.o
- .data          0x00800114        0x0 main.o
- .data          0x00800114        0x0 Mic/mic_adc.o
- .data          0x00800114        0x0 Mic/mic_interrupt.o
- .data          0x00800114        0x0 Mic/mic_io_ports.o
- .data          0x00800114        0x0 Mic/mic_power_management.o
- .data          0x00800114        0x0 Mic/mic_system_clock.o
- .data          0x00800114        0x0 Mic/mic_system_control.o
- .data          0x00800114        0x0 Mic/mic_timer_0.o
- .data          0x00800114        0x0 Mic/mic_usart.o
- .data          0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
- .data          0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
- .data          0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
- .data          0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
- .data          0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .data          0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .data          0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .data          0x0080010c        0x5 Ctrl/ctrl_uart_protocole.o
+ .data          0x00800111        0x0 Drv/drv_event.o
+ .data          0x00800111        0x0 Drv/drv_interrupt.o
+ .data          0x00800111        0x4 Drv/drv_led.o
+                0x00800111                led_pin_name
+ .data          0x00800115        0x1 Drv/drv_servo.o
+ .data          0x00800116        0x0 Drv/drv_timer.o
+ .data          0x00800116        0x0 Drv/drv_uart.o
+ .data          0x00800116        0x0 main.o
+ .data          0x00800116        0x0 Mic/mic_adc.o
+ .data          0x00800116        0x0 Mic/mic_interrupt.o
+ .data          0x00800116        0x0 Mic/mic_io_ports.o
+ .data          0x00800116        0x0 Mic/mic_power_management.o
+ .data          0x00800116        0x0 Mic/mic_system_clock.o
+ .data          0x00800116        0x0 Mic/mic_system_control.o
+ .data          0x00800116        0x0 Mic/mic_timer_0.o
+ .data          0x00800116        0x0 Mic/mic_usart.o
+ .data          0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
+ .data          0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
+ .data          0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .data          0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+ .data          0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .data          0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .data          0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x00800114                . = ALIGN (0x2)
-                0x00800114                _edata = .
-                0x00800114                PROVIDE (__data_end, .)
+                0x00800116                . = ALIGN (0x2)
+                0x00800116                _edata = .
+                0x00800116                PROVIDE (__data_end, .)
 
-.bss            0x00800114      0x306
-                0x00800114                PROVIDE (__bss_start, .)
+.bss            0x00800116      0x306
+                0x00800116                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800114        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
- .bss           0x00800114        0x3 Ctrl/ctrl_marche.o
- .bss           0x00800117       0x30 Ctrl/ctrl_patte.o
- .bss           0x00800147        0x4 Ctrl/ctrl_tete.o
-                0x00800147                index_scan_position
- .bss           0x0080014b        0x4 Ctrl/ctrl_uart_protocole.o
-                0x0080014b                i_message_len_from_digi
-                0x0080014c                i_message_len_from_head
-                0x0080014d                ultrason_mesure
- .bss           0x0080014f        0x2 Drv/drv_event.o
- .bss           0x00800151        0x0 Drv/drv_interrupt.o
- .bss           0x00800151        0x0 Drv/drv_led.o
- .bss           0x00800151       0x8d Drv/drv_servo.o
- .bss           0x008001de        0x4 Drv/drv_timer.o
-                0x008001de                timeout_ms
-                0x008001df                timeout_s
-                0x008001e0                timeout_5s
-                0x008001e1                timeout_10s
- .bss           0x008001e2        0x6 Drv/drv_uart.o
-                0x008001e2                in_message_len_0
-                0x008001e3                ptr_buff_uart_0
-                0x008001e4                start_frame_uart_0
-                0x008001e5                in_message_len_1
-                0x008001e6                ptr_buff_uart_1
-                0x008001e7                start_frame_uart_1
- .bss           0x008001e8        0x2 main.o
-                0x008001e8                main_event_flags
- .bss           0x008001ea        0x0 Mic/mic_adc.o
- .bss           0x008001ea        0x0 Mic/mic_interrupt.o
- .bss           0x008001ea        0x0 Mic/mic_io_ports.o
- .bss           0x008001ea        0x0 Mic/mic_power_management.o
- .bss           0x008001ea        0x0 Mic/mic_system_clock.o
- .bss           0x008001ea        0x0 Mic/mic_system_control.o
- .bss           0x008001ea        0x0 Mic/mic_timer_0.o
- .bss           0x008001ea        0x0 Mic/mic_usart.o
- .bss           0x008001ea        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
- .bss           0x008001ea        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
- .bss           0x008001ea        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
- .bss           0x008001ea        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
- .bss           0x008001ea        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .bss           0x008001ea        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .bss           0x008001ea        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x00800116        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .bss           0x00800116        0x3 Ctrl/ctrl_marche.o
+ .bss           0x00800119       0x30 Ctrl/ctrl_patte.o
+ .bss           0x00800149        0x4 Ctrl/ctrl_tete.o
+                0x00800149                index_scan_position
+ .bss           0x0080014d        0x4 Ctrl/ctrl_uart_protocole.o
+                0x0080014d                i_message_len_from_digi
+                0x0080014e                i_message_len_from_head
+                0x0080014f                ultrason_mesure
+ .bss           0x00800151        0x2 Drv/drv_event.o
+ .bss           0x00800153        0x0 Drv/drv_interrupt.o
+ .bss           0x00800153        0x0 Drv/drv_led.o
+ .bss           0x00800153       0x8d Drv/drv_servo.o
+ .bss           0x008001e0        0x4 Drv/drv_timer.o
+                0x008001e0                timeout_ms
+                0x008001e1                timeout_s
+                0x008001e2                timeout_5s
+                0x008001e3                timeout_10s
+ .bss           0x008001e4        0x6 Drv/drv_uart.o
+                0x008001e4                in_message_len_0
+                0x008001e5                ptr_buff_uart_0
+                0x008001e6                start_frame_uart_0
+                0x008001e7                in_message_len_1
+                0x008001e8                ptr_buff_uart_1
+                0x008001e9                start_frame_uart_1
+ .bss           0x008001ea        0x2 main.o
+                0x008001ea                main_event_flags
+ .bss           0x008001ec        0x0 Mic/mic_adc.o
+ .bss           0x008001ec        0x0 Mic/mic_interrupt.o
+ .bss           0x008001ec        0x0 Mic/mic_io_ports.o
+ .bss           0x008001ec        0x0 Mic/mic_power_management.o
+ .bss           0x008001ec        0x0 Mic/mic_system_clock.o
+ .bss           0x008001ec        0x0 Mic/mic_system_control.o
+ .bss           0x008001ec        0x0 Mic/mic_timer_0.o
+ .bss           0x008001ec        0x0 Mic/mic_usart.o
+ .bss           0x008001ec        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_mulsi3.o)
+ .bss           0x008001ec        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodqi4.o)
+ .bss           0x008001ec        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .bss           0x008001ec        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+ .bss           0x008001ec        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .bss           0x008001ec        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .bss           0x008001ec        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x008001ea       0x64 Ctrl/ctrl_uart_protocole.o
-                0x008001ea                i_message_from_digi
-                0x0080021c                i_message_from_head
- COMMON         0x0080024e       0x3c Drv/drv_led.o
-                0x0080024e                MesLeds
- COMMON         0x0080028a        0x0 Drv/drv_timer.o
-                0x0080028a                MesTimer
- COMMON         0x0080028a      0x190 Drv/drv_uart.o
-                0x0080028a                buff_uart_1
-                0x008002ee                in_message_1
-                0x00800352                in_message_0
-                0x008003b6                buff_uart_0
-                0x0080041a                PROVIDE (__bss_end, .)
-                0x00003dfa                __data_load_start = LOADADDR (.data)
-                0x00003e0e                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008001ec       0x64 Ctrl/ctrl_uart_protocole.o
+                0x008001ec                i_message_from_digi
+                0x0080021e                i_message_from_head
+ COMMON         0x00800250       0x3c Drv/drv_led.o
+                0x00800250                MesLeds
+ COMMON         0x0080028c        0x0 Drv/drv_timer.o
+                0x0080028c                MesTimer
+ COMMON         0x0080028c      0x190 Drv/drv_uart.o
+                0x0080028c                buff_uart_1
+                0x008002f0                in_message_1
+                0x00800354                in_message_0
+                0x008003b8                buff_uart_0
+                0x0080041c                PROVIDE (__bss_end, .)
+                0x00003958                __data_load_start = LOADADDR (.data)
+                0x0000396e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080041a        0x0
-                0x0080041a                PROVIDE (__noinit_start, .)
+.noinit         0x0080041c        0x0
+                0x0080041c                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080041a                PROVIDE (__noinit_end, .)
-                0x0080041a                _end = .
-                0x0080041a                PROVIDE (__heap_start, .)
+                0x0080041c                PROVIDE (__noinit_end, .)
+                0x0080041c                _end = .
+                0x0080041c                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -777,72 +777,72 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
  .debug_pubnames
                 0x000017ae      0x7a6 Mic/mic_usart.o
 
-.debug_info     0x00000000     0x51ca
+.debug_info     0x00000000     0x4c48
  *(.debug_info)
- .debug_info    0x00000000      0x3ca Ctrl/ctrl_marche.o
- .debug_info    0x000003ca      0x319 Ctrl/ctrl_patte.o
- .debug_info    0x000006e3      0x304 Ctrl/ctrl_tete.o
- .debug_info    0x000009e7      0x2a9 Ctrl/ctrl_uart_protocole.o
- .debug_info    0x00000c90      0x173 Drv/drv_event.o
- .debug_info    0x00000e03       0x93 Drv/drv_interrupt.o
- .debug_info    0x00000e96      0x49a Drv/drv_led.o
- .debug_info    0x00001330      0x4f2 Drv/drv_servo.o
- .debug_info    0x00001822      0x4dd Drv/drv_timer.o
- .debug_info    0x00001cff      0x3c6 Drv/drv_uart.o
- .debug_info    0x000020c5      0x18a main.o
- .debug_info    0x0000224f      0x535 Mic/mic_adc.o
- .debug_info    0x00002784      0x629 Mic/mic_interrupt.o
- .debug_info    0x00002dad      0xbfc Mic/mic_io_ports.o
- .debug_info    0x000039a9      0x36a Mic/mic_power_management.o
- .debug_info    0x00003d13      0x17b Mic/mic_system_clock.o
- .debug_info    0x00003e8e      0x2a7 Mic/mic_system_control.o
- .debug_info    0x00004135      0x42d Mic/mic_timer_0.o
- .debug_info    0x00004562      0xc68 Mic/mic_usart.o
+ .debug_info    0x00000000      0x3e2 Ctrl/ctrl_marche.o
+ .debug_info    0x000003e2      0x319 Ctrl/ctrl_patte.o
+ .debug_info    0x000006fb      0x304 Ctrl/ctrl_tete.o
+ .debug_info    0x000009ff      0x2b1 Ctrl/ctrl_uart_protocole.o
+ .debug_info    0x00000cb0      0x175 Drv/drv_event.o
+ .debug_info    0x00000e25       0x93 Drv/drv_interrupt.o
+ .debug_info    0x00000eb8      0x40e Drv/drv_led.o
+ .debug_info    0x000012c6      0x499 Drv/drv_servo.o
+ .debug_info    0x0000175f      0x47e Drv/drv_timer.o
+ .debug_info    0x00001bdd      0x3c6 Drv/drv_uart.o
+ .debug_info    0x00001fa3      0x18a main.o
+ .debug_info    0x0000212d      0x51b Mic/mic_adc.o
+ .debug_info    0x00002648      0x629 Mic/mic_interrupt.o
+ .debug_info    0x00002c71      0x86e Mic/mic_io_ports.o
+ .debug_info    0x000034df      0x36a Mic/mic_power_management.o
+ .debug_info    0x00003849      0x17b Mic/mic_system_clock.o
+ .debug_info    0x000039c4      0x2a7 Mic/mic_system_control.o
+ .debug_info    0x00003c6b      0x42d Mic/mic_timer_0.o
+ .debug_info    0x00004098      0xbb0 Mic/mic_usart.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000     0x13bf
+.debug_abbrev   0x00000000     0x11b5
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x198 Ctrl/ctrl_marche.o
- .debug_abbrev  0x00000198       0xe9 Ctrl/ctrl_patte.o
- .debug_abbrev  0x00000281      0x10d Ctrl/ctrl_tete.o
- .debug_abbrev  0x0000038e      0x178 Ctrl/ctrl_uart_protocole.o
- .debug_abbrev  0x00000506       0xd1 Drv/drv_event.o
- .debug_abbrev  0x000005d7       0x41 Drv/drv_interrupt.o
- .debug_abbrev  0x00000618      0x15c Drv/drv_led.o
- .debug_abbrev  0x00000774      0x1a3 Drv/drv_servo.o
- .debug_abbrev  0x00000917      0x1b2 Drv/drv_timer.o
- .debug_abbrev  0x00000ac9       0xd8 Drv/drv_uart.o
- .debug_abbrev  0x00000ba1       0xeb main.o
- .debug_abbrev  0x00000c8c       0xce Mic/mic_adc.o
- .debug_abbrev  0x00000d5a       0xac Mic/mic_interrupt.o
- .debug_abbrev  0x00000e06      0x1b7 Mic/mic_io_ports.o
- .debug_abbrev  0x00000fbd       0x9d Mic/mic_power_management.o
- .debug_abbrev  0x0000105a       0x9d Mic/mic_system_clock.o
- .debug_abbrev  0x000010f7       0x9d Mic/mic_system_control.o
- .debug_abbrev  0x00001194       0xe9 Mic/mic_timer_0.o
- .debug_abbrev  0x0000127d      0x142 Mic/mic_usart.o
+ .debug_abbrev  0x00000000      0x18b Ctrl/ctrl_marche.o
+ .debug_abbrev  0x0000018b       0xe9 Ctrl/ctrl_patte.o
+ .debug_abbrev  0x00000274      0x10d Ctrl/ctrl_tete.o
+ .debug_abbrev  0x00000381      0x17a Ctrl/ctrl_uart_protocole.o
+ .debug_abbrev  0x000004fb       0xc2 Drv/drv_event.o
+ .debug_abbrev  0x000005bd       0x41 Drv/drv_interrupt.o
+ .debug_abbrev  0x000005fe      0x104 Drv/drv_led.o
+ .debug_abbrev  0x00000702      0x13d Drv/drv_servo.o
+ .debug_abbrev  0x0000083f      0x155 Drv/drv_timer.o
+ .debug_abbrev  0x00000994       0xd8 Drv/drv_uart.o
+ .debug_abbrev  0x00000a6c       0xeb main.o
+ .debug_abbrev  0x00000b57       0x9f Mic/mic_adc.o
+ .debug_abbrev  0x00000bf6       0xac Mic/mic_interrupt.o
+ .debug_abbrev  0x00000ca2      0x140 Mic/mic_io_ports.o
+ .debug_abbrev  0x00000de2       0x9d Mic/mic_power_management.o
+ .debug_abbrev  0x00000e7f       0x9d Mic/mic_system_clock.o
+ .debug_abbrev  0x00000f1c       0x9d Mic/mic_system_control.o
+ .debug_abbrev  0x00000fb9       0xe9 Mic/mic_timer_0.o
+ .debug_abbrev  0x000010a2      0x113 Mic/mic_usart.o
 
-.debug_line     0x00000000     0x7511
+.debug_line     0x00000000     0x701e
  *(.debug_line)
- .debug_line    0x00000000     0x1001 Ctrl/ctrl_marche.o
- .debug_line    0x00001001      0x5e3 Ctrl/ctrl_patte.o
- .debug_line    0x000015e4      0x45b Ctrl/ctrl_tete.o
- .debug_line    0x00001a3f      0x62c Ctrl/ctrl_uart_protocole.o
- .debug_line    0x0000206b      0x362 Drv/drv_event.o
- .debug_line    0x000023cd      0x30b Drv/drv_interrupt.o
- .debug_line    0x000026d8      0x914 Drv/drv_led.o
- .debug_line    0x00002fec      0x69f Drv/drv_servo.o
- .debug_line    0x0000368b      0x569 Drv/drv_timer.o
- .debug_line    0x00003bf4      0x5ad Drv/drv_uart.o
- .debug_line    0x000041a1      0x537 main.o
- .debug_line    0x000046d8      0x49a Mic/mic_adc.o
- .debug_line    0x00004b72      0x683 Mic/mic_interrupt.o
- .debug_line    0x000051f5      0x85c Mic/mic_io_ports.o
- .debug_line    0x00005a51      0x511 Mic/mic_power_management.o
- .debug_line    0x00005f62      0x341 Mic/mic_system_clock.o
- .debug_line    0x000062a3      0x405 Mic/mic_system_control.o
- .debug_line    0x000066a8      0x46f Mic/mic_timer_0.o
- .debug_line    0x00006b17      0x9fa Mic/mic_usart.o
+ .debug_line    0x00000000     0x1154 Ctrl/ctrl_marche.o
+ .debug_line    0x00001154      0x5cb Ctrl/ctrl_patte.o
+ .debug_line    0x0000171f      0x45b Ctrl/ctrl_tete.o
+ .debug_line    0x00001b7a      0x686 Ctrl/ctrl_uart_protocole.o
+ .debug_line    0x00002200      0x362 Drv/drv_event.o
+ .debug_line    0x00002562      0x30b Drv/drv_interrupt.o
+ .debug_line    0x0000286d      0x557 Drv/drv_led.o
+ .debug_line    0x00002dc4      0x659 Drv/drv_servo.o
+ .debug_line    0x0000341d      0x578 Drv/drv_timer.o
+ .debug_line    0x00003995      0x5d5 Drv/drv_uart.o
+ .debug_line    0x00003f6a      0x53f main.o
+ .debug_line    0x000044a9      0x48f Mic/mic_adc.o
+ .debug_line    0x00004938      0x603 Mic/mic_interrupt.o
+ .debug_line    0x00004f3b      0x74b Mic/mic_io_ports.o
+ .debug_line    0x00005686      0x4b9 Mic/mic_power_management.o
+ .debug_line    0x00005b3f      0x339 Mic/mic_system_clock.o
+ .debug_line    0x00005e78      0x3f5 Mic/mic_system_control.o
+ .debug_line    0x0000626d      0x467 Mic/mic_timer_0.o
+ .debug_line    0x000066d4      0x94a Mic/mic_usart.o
 
 .debug_frame    0x00000000      0xef0
  *(.debug_frame)
@@ -866,107 +866,107 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
  .debug_frame   0x00000a50       0xf0 Mic/mic_timer_0.o
  .debug_frame   0x00000b40      0x3b0 Mic/mic_usart.o
 
-.debug_str      0x00000000     0x32b0
+.debug_str      0x00000000     0x32b6
  *(.debug_str)
- .debug_str     0x00000000      0x2c0 Ctrl/ctrl_marche.o
-                                0x318 (size before relaxing)
- .debug_str     0x000002c0      0x29d Ctrl/ctrl_patte.o
-                                0x3f6 (size before relaxing)
- .debug_str     0x0000055d       0xdb Ctrl/ctrl_tete.o
-                                0x446 (size before relaxing)
- .debug_str     0x00000638      0x159 Ctrl/ctrl_uart_protocole.o
-                                0x2b4 (size before relaxing)
- .debug_str     0x00000791       0x80 Drv/drv_event.o
-                                0x15e (size before relaxing)
- .debug_str     0x00000811       0x53 Drv/drv_interrupt.o
-                                0x102 (size before relaxing)
- .debug_str     0x00000864      0x180 Drv/drv_led.o
-                                0x47f (size before relaxing)
- .debug_str     0x000009e4      0x136 Drv/drv_servo.o
-                                0x4bb (size before relaxing)
- .debug_str     0x00000b1a      0x362 Drv/drv_timer.o
-                                0x48a (size before relaxing)
- .debug_str     0x00000e7c      0x12f Drv/drv_uart.o
-                                0x215 (size before relaxing)
- .debug_str     0x00000fab       0x84 main.o
-                                0x15a (size before relaxing)
- .debug_str     0x0000102f      0x670 Mic/mic_adc.o
-                                0x78e (size before relaxing)
- .debug_str     0x0000169f      0x4fe Mic/mic_interrupt.o
-                                0x5d4 (size before relaxing)
- .debug_str     0x00001b9d      0x333 Mic/mic_io_ports.o
-                                0x62b (size before relaxing)
- .debug_str     0x00001ed0      0x29f Mic/mic_power_management.o
-                                0x375 (size before relaxing)
- .debug_str     0x0000216f      0x12e Mic/mic_system_clock.o
-                                0x204 (size before relaxing)
- .debug_str     0x0000229d      0x32b Mic/mic_system_control.o
-                                0x411 (size before relaxing)
- .debug_str     0x000025c8      0x352 Mic/mic_timer_0.o
-                                0x6d5 (size before relaxing)
- .debug_str     0x0000291a      0x996 Mic/mic_usart.o
-                                0xae1 (size before relaxing)
+ .debug_str     0x00000000      0x2c6 Ctrl/ctrl_marche.o
+                                0x31e (size before relaxing)
+ .debug_str     0x000002c6      0x29d Ctrl/ctrl_patte.o
+                                0x3fc (size before relaxing)
+ .debug_str     0x00000563       0xdb Ctrl/ctrl_tete.o
+                                0x44c (size before relaxing)
+ .debug_str     0x0000063e      0x159 Ctrl/ctrl_uart_protocole.o
+                                0x2ba (size before relaxing)
+ .debug_str     0x00000797       0x80 Drv/drv_event.o
+                                0x164 (size before relaxing)
+ .debug_str     0x00000817       0x53 Drv/drv_interrupt.o
+                                0x108 (size before relaxing)
+ .debug_str     0x0000086a      0x180 Drv/drv_led.o
+                                0x485 (size before relaxing)
+ .debug_str     0x000009ea      0x136 Drv/drv_servo.o
+                                0x4c1 (size before relaxing)
+ .debug_str     0x00000b20      0x362 Drv/drv_timer.o
+                                0x490 (size before relaxing)
+ .debug_str     0x00000e82      0x12f Drv/drv_uart.o
+                                0x21b (size before relaxing)
+ .debug_str     0x00000fb1       0x84 main.o
+                                0x160 (size before relaxing)
+ .debug_str     0x00001035      0x670 Mic/mic_adc.o
+                                0x794 (size before relaxing)
+ .debug_str     0x000016a5      0x4fe Mic/mic_interrupt.o
+                                0x5da (size before relaxing)
+ .debug_str     0x00001ba3      0x333 Mic/mic_io_ports.o
+                                0x631 (size before relaxing)
+ .debug_str     0x00001ed6      0x29f Mic/mic_power_management.o
+                                0x37b (size before relaxing)
+ .debug_str     0x00002175      0x12e Mic/mic_system_clock.o
+                                0x20a (size before relaxing)
+ .debug_str     0x000022a3      0x32b Mic/mic_system_control.o
+                                0x417 (size before relaxing)
+ .debug_str     0x000025ce      0x352 Mic/mic_timer_0.o
+                                0x6db (size before relaxing)
+ .debug_str     0x00002920      0x996 Mic/mic_usart.o
+                                0xae7 (size before relaxing)
 
-.debug_loc      0x00000000     0x2653
+.debug_loc      0x00000000     0x1f61
  *(.debug_loc)
- .debug_loc     0x00000000      0x8db Ctrl/ctrl_marche.o
- .debug_loc     0x000008db      0x170 Ctrl/ctrl_patte.o
- .debug_loc     0x00000a4b       0x76 Ctrl/ctrl_tete.o
- .debug_loc     0x00000ac1       0x6e Ctrl/ctrl_uart_protocole.o
- .debug_loc     0x00000b2f       0x76 Drv/drv_event.o
- .debug_loc     0x00000ba5      0x310 Drv/drv_led.o
- .debug_loc     0x00000eb5      0x2a0 Drv/drv_servo.o
- .debug_loc     0x00001155      0x105 Drv/drv_timer.o
- .debug_loc     0x0000125a      0x174 Drv/drv_uart.o
- .debug_loc     0x000013ce       0x4c Mic/mic_adc.o
- .debug_loc     0x0000141a      0x265 Mic/mic_interrupt.o
- .debug_loc     0x0000167f      0x9b3 Mic/mic_io_ports.o
- .debug_loc     0x00002032      0x15d Mic/mic_power_management.o
- .debug_loc     0x0000218f       0x50 Mic/mic_system_clock.o
- .debug_loc     0x000021df       0x4f Mic/mic_system_control.o
- .debug_loc     0x0000222e       0xa3 Mic/mic_timer_0.o
- .debug_loc     0x000022d1      0x382 Mic/mic_usart.o
+ .debug_loc     0x00000000      0x7fe Ctrl/ctrl_marche.o
+ .debug_loc     0x000007fe      0x148 Ctrl/ctrl_patte.o
+ .debug_loc     0x00000946       0x76 Ctrl/ctrl_tete.o
+ .debug_loc     0x000009bc       0xdd Ctrl/ctrl_uart_protocole.o
+ .debug_loc     0x00000a99       0x89 Drv/drv_event.o
+ .debug_loc     0x00000b22       0xa0 Drv/drv_led.o
+ .debug_loc     0x00000bc2      0x1e8 Drv/drv_servo.o
+ .debug_loc     0x00000daa       0xf7 Drv/drv_timer.o
+ .debug_loc     0x00000ea1      0x12a Drv/drv_uart.o
+ .debug_loc     0x00000fcb       0x4c Mic/mic_adc.o
+ .debug_loc     0x00001017      0x1f7 Mic/mic_interrupt.o
+ .debug_loc     0x0000120e      0x6c8 Mic/mic_io_ports.o
+ .debug_loc     0x000018d6      0x15d Mic/mic_power_management.o
+ .debug_loc     0x00001a33       0x50 Mic/mic_system_clock.o
+ .debug_loc     0x00001a83       0x4f Mic/mic_system_control.o
+ .debug_loc     0x00001ad2       0xa3 Mic/mic_timer_0.o
+ .debug_loc     0x00001b75      0x3ec Mic/mic_usart.o
 
-.debug_macinfo  0x00000000    0x96ead
+.debug_macinfo  0x00000000    0x96eae
  *(.debug_macinfo)
  .debug_macinfo
                 0x00000000     0x88c0 Ctrl/ctrl_marche.o
  .debug_macinfo
                 0x000088c0     0x879a Ctrl/ctrl_patte.o
  .debug_macinfo
-                0x0001105a     0x84c1 Ctrl/ctrl_tete.o
+                0x0001105a     0x84c2 Ctrl/ctrl_tete.o
  .debug_macinfo
-                0x0001951b     0x89cb Ctrl/ctrl_uart_protocole.o
+                0x0001951c     0x89cb Ctrl/ctrl_uart_protocole.o
  .debug_macinfo
-                0x00021ee6     0x8255 Drv/drv_event.o
+                0x00021ee7     0x8255 Drv/drv_event.o
  .debug_macinfo
-                0x0002a13b     0x7668 Drv/drv_interrupt.o
+                0x0002a13c     0x7668 Drv/drv_interrupt.o
  .debug_macinfo
-                0x000317a3     0x82dc Drv/drv_led.o
+                0x000317a4     0x82dc Drv/drv_led.o
  .debug_macinfo
-                0x00039a7f     0x8470 Drv/drv_servo.o
+                0x00039a80     0x8470 Drv/drv_servo.o
  .debug_macinfo
-                0x00041eef     0x8339 Drv/drv_timer.o
+                0x00041ef0     0x8339 Drv/drv_timer.o
  .debug_macinfo
-                0x0004a228     0x82f6 Drv/drv_uart.o
+                0x0004a229     0x82f6 Drv/drv_uart.o
  .debug_macinfo
-                0x0005251e     0x8a39 main.o
+                0x0005251f     0x8a39 main.o
  .debug_macinfo
-                0x0005af57     0x7662 Mic/mic_adc.o
+                0x0005af58     0x7662 Mic/mic_adc.o
  .debug_macinfo
-                0x000625b9     0x7668 Mic/mic_interrupt.o
+                0x000625ba     0x7668 Mic/mic_interrupt.o
  .debug_macinfo
-                0x00069c21     0x769b Mic/mic_io_ports.o
+                0x00069c22     0x769b Mic/mic_io_ports.o
  .debug_macinfo
-                0x000712bc     0x766f Mic/mic_power_management.o
+                0x000712bd     0x766f Mic/mic_power_management.o
  .debug_macinfo
-                0x0007892b     0x766b Mic/mic_system_clock.o
+                0x0007892c     0x766b Mic/mic_system_clock.o
  .debug_macinfo
-                0x0007ff96     0x766d Mic/mic_system_control.o
+                0x0007ff97     0x766d Mic/mic_system_control.o
  .debug_macinfo
-                0x00087603     0x7666 Mic/mic_timer_0.o
+                0x00087604     0x7666 Mic/mic_timer_0.o
  .debug_macinfo
-                0x0008ec69     0x8244 Mic/mic_usart.o
+                0x0008ec6a     0x8244 Mic/mic_usart.o
 OUTPUT(Robot.elf elf32-avr)
 LOAD linker stubs
 
@@ -1011,9 +1011,5 @@ LOAD linker stubs
  .debug_pubtypes
                 0x00000929      0x15c Mic/mic_usart.o
 
-.debug_ranges   0x00000000      0x678
- .debug_ranges  0x00000000      0x2a0 Ctrl/ctrl_marche.o
- .debug_ranges  0x000002a0       0x90 Ctrl/ctrl_uart_protocole.o
- .debug_ranges  0x00000330       0xd8 Drv/drv_led.o
- .debug_ranges  0x00000408       0x30 Drv/drv_servo.o
- .debug_ranges  0x00000438      0x240 Mic/mic_io_ports.o
+.debug_ranges   0x00000000       0x18
+ .debug_ranges  0x00000000       0x18 Drv/drv_led.o

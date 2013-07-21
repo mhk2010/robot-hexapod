@@ -78,6 +78,10 @@ void CtrlUartProtocoleDispatcher( Event_t event )
 					Boolean enable = ( Boolean ) i_message_from_body[ 4U ]; 
 					CtrlEyeHeartBeat(enable);
 				}
+				else if( ( Int8U ) i_message_from_body[ 3U ] == E_PROTOCOLE_CMD_EYES_STATE )
+				{
+					CtrlEyeSendUartStateEyes();
+				}
 			}	
 			else if( ( Int8U ) i_message_from_body[ 2U ] == E_PROTOCOLE_WHO_LIGHT )
 			{

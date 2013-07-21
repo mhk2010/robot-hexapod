@@ -92,4 +92,9 @@ void DrvLedFlash ( Int8U led_name, Int8U nb_flash, Int16U time_on, Int16U time_o
 // Parameter: Int16U time_off: temps a l'etat OFF
 //************************************
 void DrvLedDirectFlash ( Int8U led_name, Int8U nb_flash, Int16U time_on, Int16U time_off ) ;
+
+
+// return the led state
+ELedState DrvLedGetState ( Int8U led_name );
+
 #endif /* DRV_LED_H_ */

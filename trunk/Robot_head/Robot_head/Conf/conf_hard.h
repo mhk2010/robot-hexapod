@@ -27,7 +27,6 @@
 //-----------------------------------------------------------------------------------------------//
 
 ////////////////////////////////////////////PUBLIC EVENT///////////////////////////////////////////
-#define		CONF_EVENT_TIMER_10MS		0U
 #define		CONF_EVENT_TIMER_100MS		1U
 #define		CONF_EVENT_TIMER_1S			2U
 #define		CONF_EVENT_UART_MSG_RCV		4U
@@ -91,6 +90,7 @@
 #define E_PROTOCOLE_CMD_EYES_OFF			4U
 #define E_PROTOCOLE_CMD_EYES_TOGGLE			5U
 #define E_PROTOCOLE_CMD_EYES_HEARBEAT		6U
+#define E_PROTOCOLE_CMD_EYES_STATE			7U
 
 //E_PROTOCOLE_WHO_US
 

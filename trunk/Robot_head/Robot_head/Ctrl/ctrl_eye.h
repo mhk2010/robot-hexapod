@@ -46,4 +46,10 @@ void CtrlEyeBlinkSpeed( Int8U nb_blink ,Int8U speed ) ;
 
 //on active ou non le hearbeat sur les leds
 void CtrlEyeHeartBeat ( Boolean enable );
+
+// return the led state
+void CtrlEyeGetState ( ELedState *left_eye_state, ELedState *right_eye_state);
+
+//permet d'envoyer sur l'uart 
+void CtrlEyeSendUartStateEyes( void ) ;
 #endif /* CTRL_EYE_H_ */

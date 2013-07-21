@@ -20,6 +20,8 @@
 /////////////////////////////////////////PUBLIC FUNCTIONS/////////////////////////////////////////
 //init
 void CtrlUltraSon( void ) ;
+//retourne la mesure 
+Int16U CtrlUltraSonReadMesure( void ) ;
 //permet d'envoyer sur l'uart un objet proche
 void CtrlUltraSendUartProximity( void ) ;
 

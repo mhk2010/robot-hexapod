@@ -9,6 +9,7 @@
 #include "ctrl_ultrason.h"
 
 #include "Drv/drv_led.h"
+#include "Drv/drv_uart.h"
 
 ////////////////////////////////////////PRIVATE FUNCTIONS/////////////////////////////////////////
 #define BLINK_ON_TIME 5U
@@ -27,17 +28,14 @@ void CtrlEyeDispatcher( Event_t event )
 {
 	if ( DrvEventTestEvent( event, CONF_EVENT_TIMER_1S ))
 	{
-		if(CtrlUltraSonReadMesure() < SECURITY_PERIMETER)
+		if(hearbeat_enable == TRUE)
 		{
-			CtrlEyeBlinkSpeed( 5 ,CtrlUltraSonReadMesure());
+			CtrlEyeHeartBeat(hearbeat_enable);
 		}
-		else
-		{
-			if(hearbeat_enable == TRUE)
-			{
-				CtrlEyeHeartBeat(hearbeat_enable);
-			}
-		}		
+	}
+	if ( DrvEventTestEvent( event, CONF_EVENT_US_ALARM_PROX ))
+	{
+		CtrlEyeBlinkSpeed( 5 ,CtrlUltraSonReadMesure());
 	}
 }			
 
@@ -111,7 +109,32 @@ void CtrlEyeBlinkSpeed( Int8U nb_blink ,Int8U speed )
 //on active ou non le hearbeat sur les leds
 void CtrlEyeHeartBeat ( Boolean enable )
 {
-	DrvLedDirectFlash(CONF_INDEX_EYE_LEFT, 2U,20,100);
-	DrvLedDirectFlash(CONF_INDEX_EYE_RIGHT, 2U,20,100);
+	DrvLedDirectFlash(CONF_INDEX_EYE_LEFT, 2 ,5,10);
+	DrvLedDirectFlash(CONF_INDEX_EYE_RIGHT, 2 ,5,10);
 	hearbeat_enable = enable;
+}
+
+// return the led state
+void CtrlEyeGetState ( ELedState *left_eye_state, ELedState *right_eye_state)
+{
+	*left_eye_state = DrvLedGetState(CONF_INDEX_EYE_LEFT);
+	*right_eye_state = DrvLedGetState(CONF_INDEX_EYE_RIGHT);
+}
+
+//permet d'envoyer sur l'uart 
+void CtrlEyeSendUartStateEyes( void ) 
+{
+	ELedState left_eye_state = STATE_LED_OFF, right_eye_state = STATE_LED_OFF;
+	CtrlEyeGetState ( &left_eye_state, &right_eye_state);
+	Char buffer[8U];
+	
+	buffer[0U] = '*';
+	buffer[1U] = E_PROTOCOLE_HEAD;
+	buffer[2U] = E_PROTOCOLE_WHO_EYES;
+	buffer[3U] = E_PROTOCOLE_CMD_EYES_STATE;
+	buffer[4U] = left_eye_state;
+	buffer[5U] = right_eye_state;
+	buffer[6U] = '#';
+	buffer[7U] = '#';
+	DrvUartDirectSendBytes(CONF_UART_0_INDEX,(Int8U*)buffer,8U);
 }
