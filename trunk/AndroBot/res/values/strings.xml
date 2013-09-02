@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndroBot</string>
+    
+    <string name="button_connect_name">Connect</string>
+    <string name="text_view_ip_name">IP Address</string>
+    <string name="edit_text_ip_name">78.233.202.101</string>
+    <string name="text_view_port_name">Port Number</string>
+    <string name="edit_text_port_name">2222</string>
+    <string name="title_activity_control">Control</string>
+    <string name="button_send_cmd">Send</string>
+    <string name="button_start">Start</string>
+    <string name="button_stop">Stop</string>
+    <string name="button_g">G</string>
+    <string name="button_d">D</string>
+    <string name="button_av">AV</string>
+    <string name="button_ar">AR</string>
+    <string name="button_s">S</string>
+    <string name="button_lights">Off</string>
+    <string name="button_scan">Scan</string>
+    <string name="text_view_lights">Lights :</string>
+    <string name="item_menu_assis">Assis</string>
+    <string name="item_menu_etoile">Etoile</string>
+    <string name="item_menu_stop">Stop</string>
+    
+
+</resources>

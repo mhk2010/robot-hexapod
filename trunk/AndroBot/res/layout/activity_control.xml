@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical" >
+
+    <com.mjpeg.MjpegView
+        android:id="@+id/cam_view"
+        android:layout_width="240dp"
+        android:layout_height="170dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp" />
+
+    <com.radar.RadarView
+        android:id="@+id/radar_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cam_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <com.robot.RobotView
+        android:id="@+id/robot_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radar_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <com.joystick.JoyStickView
+        android:id="@+id/joystick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/robot_view"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/ButtonScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/robot_view"
+        android:layout_toLeftOf="@+id/robot_view"
+        android:height="48dip"
+        android:text="@string/button_scan"
+        android:width="80dp" />
+
+    <SeekBar
+        android:id="@+id/seekBarVitesse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/joystick"
+        android:layout_alignRight="@+id/joystick"
+        android:layout_below="@+id/joystick"
+        android:layout_marginTop="10dp"
+        android:max="5"
+        android:progress="0" />
+
+    <Button
+        android:id="@+id/ButtonToggleLed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/robot_view"
+        android:layout_toRightOf="@+id/robot_view"
+        android:height="48dip"
+        android:text="@string/button_lights"
+        android:width="80dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/robot_view"
+        android:layout_alignRight="@+id/ButtonToggleLed"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_view_lights" />
+
+</RelativeLayout>
